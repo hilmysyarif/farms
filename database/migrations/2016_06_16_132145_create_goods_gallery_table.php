@@ -12,7 +12,11 @@ class CreateGoodsGalleryTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('goods_gallery', function(Blueprint $table) {
+            $table->increments('id');
+            $table->string('url');
+            $table->integer('goods_id'); //TODO: foreign key with goods.
+        });
     }
 
     /**
@@ -22,6 +26,6 @@ class CreateGoodsGalleryTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('goods_gallery');
     }
 }

@@ -12,7 +12,11 @@ class CreateGoodsAttrNameTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('goods_attr_name', function(Blueprint $table) {
+            $table->increments('id');
+            $table->string('name', 32);
+            $table->timestamps();
+        });
     }
 
     /**
@@ -22,6 +26,6 @@ class CreateGoodsAttrNameTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('goods_attr_name');
     }
 }

@@ -12,7 +12,12 @@ class CreateGoodsTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('goods', function(Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->smallInteger('cover_id'); //TODO: foreign key with goods_gallery.
+            $table->timestamps();
+        });
     }
 
     /**
@@ -22,6 +27,6 @@ class CreateGoodsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('goods');
     }
 }

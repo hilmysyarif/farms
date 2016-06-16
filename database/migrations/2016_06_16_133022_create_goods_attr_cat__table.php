@@ -12,7 +12,12 @@ class CreateGoodsAttrCatTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('goods_attr_cat', function(Blueprint $table) {
+            $table->increments('id');
+            $table->string('name', 64);
+            $table->integer('goods_attr_name_id'); //TODO: foreign key with goods_attr_name.
+            $table->timestamps();
+        });
     }
 
     /**
@@ -22,6 +27,6 @@ class CreateGoodsAttrCatTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('goods_attr_cat');
     }
 }
