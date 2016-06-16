@@ -1,3 +1,7 @@
+# Mac OS
+.DS_Store
+**/.DS_Store
+
 vendor/
 node_modules/
 
@@ -13,3 +17,10 @@ bootstrap/cache/
 
 # Rocketeer PHP task runner and deployment package. https://github.com/rocketeers/rocketeer
 .rocketeer/
+
+# PhpStorm
+.idea
+/public/storage
+Homestead.yaml
+Homestead.json
+
