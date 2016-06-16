@@ -1,5 +1,5 @@
 # shiyi
-Shop of stone crafts.
+Shop of stone crafts build with Laravel.
 
 # Laravel PHP Framework
 
