@@ -14,8 +14,8 @@ class CreateGoodsTable extends Migration
     {
         Schema::create('goods', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->smallInteger('cover_id'); //TODO: foreign key with goods_gallery.
+            $table->string('name')->unique();
+            $table->integer('cover_id')->unsigned(); //TODO: foreign key with goods_gallery.
             $table->timestamps();
         });
     }

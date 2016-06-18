@@ -14,7 +14,7 @@ class CreateGoodsAttrNameTable extends Migration
     {
         Schema::create('goods_attr_name', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 32);
+            $table->string('name', 32)->unique();
             $table->timestamps();
         });
     }

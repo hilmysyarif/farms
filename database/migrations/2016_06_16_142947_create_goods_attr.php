@@ -14,8 +14,8 @@ class CreateGoodsAttr extends Migration
     {
         Schema::create('goods_attr', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('goods_id'); // TODO: foreign key with goods.
-            $table->integer('goods_attr_name_id'); // TODO: foreign key with goods_atr_name.
+            $table->integer('goods_id')->unsigned(); // TODO: foreign key with goods.
+            $table->integer('goods_attr_name_id')->unsigned(); // TODO: foreign key with goods_atr_name.
             $table->string('value');
             $table->tinyInteger('type'); // 0: text, 1: color, 2: image
             $table->timestamps();
