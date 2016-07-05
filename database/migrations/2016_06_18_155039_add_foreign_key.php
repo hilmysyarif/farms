@@ -35,6 +35,7 @@ class AddForeignKey extends Migration
         Schema::table('goods_attr', function($table) {
             $table->foreign('goods_attr_name_id')->references('id')->on('goods_attr_name')->onDelete('cascade');
         });
+
     }
 
     /**

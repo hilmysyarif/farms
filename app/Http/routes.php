@@ -11,9 +11,27 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::get('/cat', 'CatsController@isCat');
-Route::get('/bcat', 'CatsController@restrict');
+Route::group(['middleware' => 'web'], function() {
+    Route::get('/', function () {
+        return view('welcome');
+    });
+
+    Route::group(['middleware' => 'auth.admin'], function() {
+        Route::get('/console', function() {
+            return 'You are authenticated!';
+        });
+    });
+    
+    Route::auth();
+
+    Route::get('/home', 'HomeController@index');
+
+//    Route::get('/console', ['middleware' => 'auth.admin', function() {
+//        return 'You are authenticated!';
+//    }]);
+
+    // Below are for test purpose before.
+    Route::get('/cat', 'CatsController@isCat');
+    Route::get('/bcat', 'CatsController@restrict');
+});
