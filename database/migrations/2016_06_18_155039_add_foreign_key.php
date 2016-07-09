@@ -26,13 +26,11 @@ class AddForeignKey extends Migration
 
         Schema::table('goods_comments', function($table) {
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-        });
-
-        Schema::table('goods_attr', function($table) {
             $table->foreign('goods_id')->references('id')->on('goods')->onDelete('cascade');
         });
 
         Schema::table('goods_attr', function($table) {
+            $table->foreign('goods_id')->references('id')->on('goods')->onDelete('cascade');
             $table->foreign('goods_attr_name_id')->references('id')->on('goods_attr_name')->onDelete('cascade');
         });
 
@@ -59,6 +57,7 @@ class AddForeignKey extends Migration
 
         Schema::table('goods_comments', function($table) {
             $table->dropForeign(['user_id']);
+            $table->dropForeign(['goods_id']);
         });
 
         Schema::table('goods_attr', function($table) {

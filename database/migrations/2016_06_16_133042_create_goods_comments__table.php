@@ -17,7 +17,10 @@ class CreateGoodsCommentsTable extends Migration
             $table->tinyInteger('stars');
             $table->longText('body');
             $table->integer('user_id')->unsigned(); // TODO: foreign key with users.
+            $table->integer('goods_id')->unsigned();
             $table->timestamps();
+
+            $table->index(['user_id', 'goods_id']);
         });
     }
 

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAddressesTable extends Migration
+class CreateGoodsCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,11 @@ class CreateAddressesTable extends Migration
      */
     public function up()
     {
-        Schema::create('addresses', function(Blueprint $table) {
+        Schema::create('goods_categories', function(Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
-            $table->integer('zone_id')->unsigned(); // Id of zone, this made up of province, city, district etc.
-            $table->integer('detail');
-            $table->boolean('default')->default(false);
+            $table->string('name')->unique();
+            $table->integer('parent_id')->unsigned();
+            $table->integer('sort_order')->unsigned();
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateAddressesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('addresses');
+        Schema::drop('goods_categories');
     }
 }

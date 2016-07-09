@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGoodsAttrCatTable extends Migration
+class CreateGoodsWithCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,11 @@ class CreateGoodsAttrCatTable extends Migration
      */
     public function up()
     {
-        Schema::create('goods_attr_cat', function(Blueprint $table) {
+        Schema::create('goods_with_categories', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 64)->unique();
-            $table->integer('goods_attr_name_id')->unsigned(); //TODO: foreign key with goods_attr_name.
-            $table->timestamps();
+            $table->integer('goods_id')->unsigned();
+            $table->integer('goods_category_id')->unsigned();
+            $table->index(['goods_id', 'goods_category_id']);
         });
     }
 
@@ -27,6 +27,6 @@ class CreateGoodsAttrCatTable extends Migration
      */
     public function down()
     {
-        Schema::drop('goods_attr_cat');
+        Schema::drop('goods_with_categories');
     }
 }

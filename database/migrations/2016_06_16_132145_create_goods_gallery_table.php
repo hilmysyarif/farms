@@ -14,7 +14,7 @@ class CreateGoodsGalleryTable extends Migration
     {
         Schema::create('goods_gallery', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('url');
+            $table->string('url')->unique();
             $table->integer('goods_id')->unsigned(); //TODO: foreign key with goods.
         });
     }
