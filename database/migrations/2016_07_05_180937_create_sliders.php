@@ -15,6 +15,7 @@ class CreateSliders extends Migration
         Schema::create('sliders', function(Blueprint $table) {
             $table->increments('id');
             $table->text('content');
+            $table->tinyInteger('sort_order');
             $table->timestamps();
         });
     }

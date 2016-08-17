@@ -1,0 +1,23 @@
+body {
+  font: $font-stack;
+  color: $color-text-main;
+  font-weight: 200;
+}
+
+.gap-top {
+  margin-top: $gap-normal;
+}
+
+.gap-bottom {
+  margin-bottom: $gap-normal;
+}
+
+
+
+/* CUSTOMIZE PAGINATION
+-------------------------------------------------- */
+.page {
+  .pagination {
+    margin-left: 75%;
+  }
+}

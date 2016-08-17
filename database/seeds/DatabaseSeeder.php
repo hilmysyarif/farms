@@ -12,5 +12,16 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UsersTableSeeder::class);
+//        $this->call(IBAboutTableSeeder::class);
+//        $this->call(IBContactTableSeeder::class);
+//        $this->call(IBJobsTableSeeder::class);
+//        $this->call(IBNewsTableSeeder::class);
+
+//        $this->call(IBProjectsTableSeeder::class);
+
+//        $this->call(IBPublicationsTableSeeder::class);
+//        $this->call(IBUserTableSeeder::class);
+
+        $this->call(IBSixProjectsSeeder::class);
     }
 }

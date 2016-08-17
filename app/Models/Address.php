@@ -30,7 +30,7 @@ class Address extends Model
      * @param Request $request
      * @return bool|int
      */
-    public static function update(Request $request) {
+    public static function updateOne(Request $request) {
         return Address::where('id', $request->user()->id)->update([
             'user_id' => $request->user()->id,
             'zone_id' => $request->zone_id,

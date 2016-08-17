@@ -1,0 +1,72 @@
+//@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+@import "variables";
+@import "common";
+
+/* Main
+---------------------------------------------- */
+
+
+.footer {
+  bottom: 0;
+  height: 60px;
+  width: 100%;
+  margin-top: $gap-normal;
+
+  .container {
+    border-top: 1px solid $color-link-light;
+  }
+
+  .text-footer {
+    margin: $gap-normal 0;
+  }
+}
+
+.label {
+  font-size: 100%;
+  font-weight: 100;
+}
+
+
+
+/* DETAIL
+-------------------------------------------------- */
+.detail {
+  .col-lg-6 {
+    text-align: center;
+
+    img {
+      margin: 0 auto;
+    }
+
+    .gallery {
+      padding-left: 0;
+      margin-top: $gap-normal;
+      display: inline-block;
+      > li {
+        display: inline-block;
+        a {
+          font-size: 48px;
+          vertical-align: middle;
+        }
+      }
+    }
+
+    .attribute {
+      .btn {
+        font-weight: 100;
+      }
+    }
+  }
+}
+
+/* CART
+-------------------------------------------------- */
+
+.cart {
+  table {
+    td {
+      vertical-align: middle;
+    }
+  }
+}

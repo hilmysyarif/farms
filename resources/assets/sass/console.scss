@@ -1,0 +1,28 @@
+@import "variables";
+@import "common";
+
+//----------MAIN----------
+.fa {
+  text-align: center;
+}
+
+
+.form-inline {
+  .dropdown {
+    display: inline-block;
+  }
+}
+
+
+.form-group {
+  .inline {
+    display: inline;
+  }
+
+  #output {
+    button {
+      right: 0%;
+      top: 0%;
+    }
+  }
+}

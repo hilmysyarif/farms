@@ -12,9 +12,6 @@ class AddForeignKey extends Migration
      */
     public function up()
     {
-        Schema::table('goods', function($table) {
-            $table->foreign('cover_id')->references('id')->on('goods_gallery')->onDelete('cascade');
-        });
 
         Schema::table('goods_gallery', function($table) {
             $table->foreign('goods_id')->references('id')->on('goods')->onDelete('cascade');
@@ -43,9 +40,6 @@ class AddForeignKey extends Migration
      */
     public function down()
     {
-        Schema::table('goods', function($table) {
-            $table->dropForeign(['cover_id']);
-        });
 
         Schema::table('goods_gallery', function($table) {
             $table->dropForeign(['goods_id']);
