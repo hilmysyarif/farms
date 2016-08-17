@@ -1,4 +1,4 @@
-require('laravel-elixir-vueify');
+// require('laravel-elixir-vueify');
 
 var elixir = require('laravel-elixir');
 /*
@@ -13,12 +13,14 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
-    mix.sass('front.scss');
-    mix.sass('console.scss');
+    mix.sass(['front.scss', 'console.scss'], 'public/css/app.css');
+
+    // mix.sass('front.scss');
+    // mix.sass('console.scss');
     
-    mix.browserify('front.js');
-    mix.browserify('front-list.js');
-    mix.browserify('console-main.js');
+    // mix.browserify('front.js');
+    // mix.browserify('front-list.js');
+    // mix.browserify('console-main.js');
 });
 
 // BrowserSync

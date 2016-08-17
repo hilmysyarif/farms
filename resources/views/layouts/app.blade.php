@@ -17,17 +17,73 @@
     <link href="{{ URL::asset('css/ie10-viewport-bug-workaround.css') }}" rel='stylesheet' type='text/css'>
 
     <!-- Custom styles for this template -->
-    <link href="{{ URL::asset('css/front.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('css/app.css') }}" rel="stylesheet">
     @yield('css')
 
 </head>
 <body id="app-layout">
 
-    <navigation></navigation>
+    <div id="navigation">
+        <nav class="navbar navbar-static-top navbar-july">
+            <div class="container">
+                <div class="navbar-header">
+
+                    <!-- Collapsed Hamburger -->
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
+                        <span class="sr-only">Toggle Navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <!-- Branding Image -->
+                    <a class="navbar-brand" href="/">
+                        July
+                    </a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="nav navbar-nav">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/list">Pepper</a></li>
+                        <li><a href="/list">Apple</a></li>
+                        <li><a href="/list">Walnut</a></li>
+                        <li><a href="/list">Persimmon</a></li>
+                    </ul>
+
+                    <!-- Right Side Of Navbar -->
+                    <ul class="nav navbar-nav navbar-right">
+                        <!-- Authentication Links -->
+                    @if (Auth::guest())
+                        <li><a href="/login">Login</a></li>
+                        <li><a href="/register">Register</a></li>
+                    @else
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
+
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                            </ul>
+                        </li>
+                    @endif
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <canvas id="color-line"></canvas>
+    </div>
 
     @yield('content')
 
-    <footersection></footersection>
+    <footer class="footer">
+        <div class="container">
+            <p class="text-footer">Bring you fresh life.</p>
+        </div>
+    </footer>
 
     <!-- JavaScripts -->
     {{--<script src="{{ elixir('js/app.js') }}"></script>--}}
@@ -36,6 +92,30 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="{{ URL::asset('js/ie10-viewport-bug-workaround.js') }}"></script>
     <!-- color line -->
+    <script>
+        function renderColorLine() {
+            var width = $(document.body).width();
+            var height = 2;
+
+            var cav = $('#color-line');
+            cav.attr('width', width);
+            cav.attr('height', height);
+
+            var aim = cav[0];
+
+            var ctx = aim.getContext('2d');
+            var grd = ctx.createLinearGradient(0, 0, width, 0);
+            grd.addColorStop(0, '#3023AE');
+            grd.addColorStop(0.5, '#BDE3F5');
+            grd.addColorStop(1, '#B4EC51');
+            ctx.fillStyle = grd;
+            ctx.fillRect(0, 0, width, height);
+        }
+
+        $(function() {
+            renderColorLine();
+        });
+    </script>
 
     @yield('js')
 </body>

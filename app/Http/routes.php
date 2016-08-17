@@ -48,10 +48,10 @@ Route::group(['middleware' => 'web'], function() {
 
     Route::get('/home', 'HomeController@index');
 
-    Route::get('/console', function() {
-        return view('console/index');
-    });
-//    Route::get('/console', 'Console\HomeController@index');
+//    Route::get('/console', function() {
+//        return view('console/index');
+//    });
+    Route::get('/console', 'Console\HomeController@index');
 
     // goods
     Route::get('/goods', 'Console\Goods\GoodsController@index');

@@ -27,7 +27,102 @@
   font-weight: 100;
 }
 
+/* NAVIGATION
+-------------------------------------------------- */
 
+.navbar {
+  margin: 0;
+}
+
+#color-line {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin-bottom: $gap-normal;
+}
+
+.navbar-july {
+  border: 0;
+}
+
+/* CAROUSEL
+-------------------------------------------------- */
+
+$height_carousel: 500px;
+
+/* Carousel base class */
+.carousel {
+  height: $height_carousel;
+  margin-bottom: 60px;
+
+  .item {
+    height: $height_carousel;
+    background-color: #FFFFFF;
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      height: $height_carousel;
+    }
+  }
+}
+
+/* Carousel base class */
+
+.carousel-indicators {
+  li {
+    border-color: $color-link;
+  }
+  .active {
+    background-color: $color-link;
+  }
+}
+
+/* Since positioning the image, we need to help out the caption */
+.carousel-caption {
+  z-index: $mini-z-index + 5;
+  color: $color-text-main;
+
+  p {
+    text-shadow: none;
+  }
+}
+
+.carousel-control {
+  .fa {
+    right: 50%;
+    top: 50%;
+    display: inline-block;
+    position: absolute;
+    z-index: $mini-z-index;
+    color: $color-text-main
+  }
+
+  &.left {
+    background-image: none;
+  }
+
+  &.right {
+    background-image: none;
+  }
+}
+
+/* RECOMMENDED
+-------------------------------------------------- */
+
+.col-lg-3 {
+  text-align: center;
+
+  a {
+    display: inline-block;
+
+    img:hover {
+      border: 1px solid $color-link-light;
+    }
+  }
+}
 
 /* DETAIL
 -------------------------------------------------- */

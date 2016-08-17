@@ -18,7 +18,7 @@
     <link href="{{ URL::asset('css/dashboard.css') }}" rel="stylesheet" type="text/css">
 
     <!-- Custom styles for this template -->
-    <link href="{{ elixir('css/app.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('css/app.css') }}" rel="stylesheet">
     @yield('css')
 </head>
 
