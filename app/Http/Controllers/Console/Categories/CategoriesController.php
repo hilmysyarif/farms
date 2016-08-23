@@ -31,15 +31,29 @@ class CategoriesController extends ConsoleController
 
     public function index() {
         $categories = $this->model->fetchBlock();
-//        return response()->json([
-//            'tabs' => $this->tabs,
-//            'active' => 0,
-//            'categories' => $categories
-//        ]);
 
         return display('console/categories_list', [
             'tabs' => $this->tabs,
             'active' => 0,
+            'categories' => $categories
+        ]);
+    }
+
+    public function subCatesList($pid) {
+        $categories = $this->model->fetchByParent($pid);
+
+        return display('console/categories_list', [
+            'tabs' => $this->tabs,
+            'active' => 0,
+            'categories' => $categories,
+            'id' => $pid
+        ]);
+    }
+
+    public function subCategories($pid) {
+        $categories = $this->model->fetchByParent($pid);
+
+        return response()->json([
             'categories' => $categories
         ]);
     }

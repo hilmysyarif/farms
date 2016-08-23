@@ -44,4 +44,61 @@
     </div>
 @endsection
 
+@section('js')
+    <script src="{{ URL::asset('js/vue.js') }}"></script>
+    <script src="{{ URL::asset('js/vue-resource.min.js') }}"></script>
+    <script>
+        var selects = new Vue({
+            el: '#selects',
+            data() {
+                return {
+                    selects: [
+                        {
+                            id: 1,
+                            name: '苹果',
+                            sort_order: 0
+                        },
+                        {
+                            id: 2,
+                            name: '红苹果',
+                            sort_order: 1
+                        }
+                    ],
+                    name: '{{ $select_name }}'
+                }
+            },
+            methods: {
+                loadSubs: function(parent_id, parent_name) {
+                    this.$http.get('/categories/subs/' + parent_id).then((response) => {
+                        var jsonData = JSON && JSON.parse(response.data);
+                        if (jsonData.categories.length != 0) {
+                            // it means that it has children.
+                            console.info('length is not zero');
+                            $('#selects #name').text('请继续选择');
+
+                            // update current selects for choosing.
+                            this.$set('selects', jsonData.categories);
+                        } else {
+                            // this is the final category
+                            var input = $(this.$el).children()[0];
+                            $(input).val(parent_id);
+
+                            $('#selects #name').text(parent_name);
+                        }
+                    }, (response) => {
+                        console.error(response);
+                    });
+                }
+            },
+            ready() {
+                this.$http.get('/categories/subs/0').then((response) => {
+                    var jsonData = JSON && JSON.parse(response.data);
+                    this.$set('selects', jsonData.categories)
+                }, (response) => {
+
+                });
+            }
+        });
+    </script>
+@endsection
 

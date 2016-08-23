@@ -12,9 +12,23 @@ class Category extends Model
             ->orderBy('sort_order','asc')
             ->skip($page * 10)
             ->take(10)
-            ->get();
-        foreach($list as $k => $v) {
-            $list[$k]->parent_name = $v->parent_id == 0 ? '无' : '有上级';
+            ->get()
+            ->toArray();
+
+        foreach($list as $k=>$v) {
+            $list[$k]['subcount'] = $this->scalarChildren($v['id']);
+        }
+        return $list;
+    }
+
+    public function fetchByParent($parent_id = 0) {
+        $list =  Category::where('parent_id', $parent_id)
+            ->orderBy('sort_order','asc')
+            ->get()
+            ->toArray();
+
+        foreach($list as $k=>$v) {
+            $list[$k]['subcount'] = $this->scalarChildren($v['id']);
         }
         return $list;
     }
@@ -37,5 +51,9 @@ class Category extends Model
 
     public function fetchOne(Int $id) {
         return Category::find($id);
+    }
+
+    private function scalarChildren($pid) {
+        return Category::where('parent_id', $pid)->count();
     }
 }

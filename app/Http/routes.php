@@ -58,6 +58,9 @@ Route::group(['middleware' => 'web'], function() {
     Route::get('/goods/add', 'Console\Goods\GoodsController@add');
 
     Route::get('/categories', 'Console\Categories\CategoriesController@index');
+    Route::get('/categories/subcateslist/{pid}', 'Console\Categories\CategoriesController@subCatesList');
+    
+    Route::get('/categories/subs/{pid}', 'Console\Categories\CategoriesController@subCategories');
     Route::get('/categories/add', 'Console\Categories\CategoriesController@add');
     Route::post('/categories/add', 'Console\Categories\CategoriesController@postAdd');
     Route::get('/categories/edit/{id}', 'Console\Categories\CategoriesController@edit');
