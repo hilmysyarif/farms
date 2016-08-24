@@ -23,8 +23,9 @@
 
             <div class="form-group">
                 <label for="category_id" class="col-md-2 control-label">@lang('categories.superior')</label>
-
-                @include('console.shared.form-select')
+                <div class="col-md-10">
+                    @include('console.shared.form-select')
+                </div>
             </div>
 
             <div class="form-group {{ $errors->has('sort_order') ? ' has-error' : '' }}">
@@ -70,10 +71,9 @@
             methods: {
                 loadSubs: function(parent_id, parent_name) {
                     this.$http.get('/categories/subs/' + parent_id).then((response) => {
-                        var jsonData = JSON && JSON.parse(response.data);
+                        var jsonData = response.data;
                         if (jsonData.categories.length != 0) {
                             // it means that it has children.
-                            console.info('length is not zero');
                             $('#selects #name').text('请继续选择');
 
                             // update current selects for choosing.
@@ -91,12 +91,8 @@
                 }
             },
             ready() {
-                this.$http.get('/categories/subs/0').then((response) => {
-                    var jsonData = JSON && JSON.parse(response.data);
-                    this.$set('selects', jsonData.categories)
-                }, (response) => {
-
-                });
+                var jsonData = JSON && JSON.parse('{!! $selects !!}');
+                this.$set('selects', jsonData);
             }
         });
     </script>

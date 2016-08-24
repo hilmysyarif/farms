@@ -18,7 +18,7 @@
     @foreach($categories as $v)
     <tr>
         <td>{{ $v['id'] }}</td>
-        <td class="cat_name"><a @if ($v['subcount'] > 0) href="{{ url('/categories/subcateslist/'.$v['id']) }}" @else href="javascript:;" @endif>{{ $v['name'] }}-{{ $v['subcount'] }}</a></td>
+        <td class="cat_name"><a @if ($v['subcount'] > 0) href="{{ url('/categories/subcateslist/'.$v['id']) }}" @else href="javascript:;" @endif>{{ $v['name'] }}</a></td>
         <td>{{ $v['sort_order'] }}</td>
         <td>
             <a class="btn btn-primary" href="{{ url('/categories/edit/'.$v['id']) }}"><i class="fa fa-edit">&nbsp;</i>@lang('common.edit')</a>

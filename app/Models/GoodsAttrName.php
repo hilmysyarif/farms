@@ -15,7 +15,7 @@ class GoodsAttrName extends Model
     }
 
     public function fetchBlock(Int $page = 0) {
-        return GoodsAttrName::orderBy('created_at', 'desc')->take(10)->get();
+        return GoodsAttrName::orderBy('created_at', 'desc')->skip($page * 10)->take(10)->get();
     }
 
     public function fetchOne(Int $id) {
@@ -30,5 +30,9 @@ class GoodsAttrName extends Model
         return GoodsAttrName::where('id', $id)->update([
             'name' => $name
         ]);
+    }
+
+    public function attributes() {
+        return GoodsAttrName::all()->toArray();
     }
 }

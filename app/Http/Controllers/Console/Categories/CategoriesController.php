@@ -64,7 +64,7 @@ class CategoriesController extends ConsoleController
         return display('console/categories_add', [
             'tabs' => $this->tabs,
             'active' => 1,
-            'selects' => $categories,
+            'selects' => json_encode($categories),
             'select_name' => 'parent_id'
         ]);
     }
