@@ -69,7 +69,7 @@
                 }
             },
             methods: {
-                loadSubs: function(parent_id, parent_name) {
+                loadSubs: function(parent_id, parent_name, index) {
                     this.$http.get('/categories/subs/' + parent_id).then((response) => {
                         var jsonData = response.data;
                         if (jsonData.categories.length != 0) {

@@ -78,6 +78,7 @@ Route::group(['middleware' => 'web'], function() {
 
     Route::get('/goods/attributes/categories', 'Console\Attributes\AttributesCategoriesController@index');
     Route::get('/goods/attributes/categories/add', 'Console\Attributes\AttributesCategoriesController@add');
+    Route::post('/goods/attributes/categories/add', 'Console\Attributes\AttributesCategoriesController@postAdd');
 
     // users
     Route::get('/users', 'Console\Users\UsersController@index');

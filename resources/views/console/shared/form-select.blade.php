@@ -8,7 +8,7 @@
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
             <li v-for="option in selects">
-                <a href="javascript:;" v-on:click="loadSubs(option.id, option.name)">@{{ option.name }}</a>
+                <a href="javascript:;" v-on:click="loadSubs(option.id, option.name, $index)">@{{ option.name }}</a>
             </li>
         </ul>
     </div>

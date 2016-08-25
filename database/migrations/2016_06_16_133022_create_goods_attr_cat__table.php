@@ -14,7 +14,7 @@ class CreateGoodsAttrCatTable extends Migration
     {
         Schema::create('goods_attr_cat', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 64)->unique();
+            $table->string('name', 64);
             $table->integer('goods_attr_name_id')->unsigned(); //TODO: foreign key with goods_attr_name.
             $table->timestamps();
         });

@@ -42,6 +42,9 @@ class AttributesCategoriesController extends ConsoleController
     }
 
     public function postAdd(Request $request) {
+        $attr_ids = $request->attr_ids;
+        $this->model->store($request->name, $attr_ids);
 
+        return redirect('/goods/attributes/categories');
     }
 }
