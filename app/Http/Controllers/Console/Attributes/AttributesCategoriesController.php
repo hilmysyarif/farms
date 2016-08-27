@@ -31,7 +31,8 @@ class AttributesCategoriesController extends ConsoleController
 
 
     public function index(){
-        return display('console/goods_attr_cates_list', ['tabs' => $this->tabs, 'active' => 0]);
+        $list = $this->model->fetchBlock();
+        return display('console/goods_attr_cates_list', ['tabs' => $this->tabs, 'active' => 0, 'list' => json_encode($list)]);
     }
 
 
@@ -46,5 +47,12 @@ class AttributesCategoriesController extends ConsoleController
         $this->model->store($request->name, $attr_ids);
 
         return redirect('/goods/attributes/categories');
+    }
+
+    public function list($name, GoodsAttrName $goodsAttrName) {
+        echo 'cat_id11:'.$name.'<br>';
+        $ids = $this->model->fetchAttrs($name);
+        $attrs = $goodsAttrName->fetchByIds($ids);
+        return display('console/goods_attr_cates_subattrs_list', ['tabs' => $this->tabs, 'active' => 0, 'list' => json_encode($attrs)]);
     }
 }

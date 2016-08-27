@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Console\Attributes;
 
 use App\Http\Controllers\Console\ConsoleController;
+use App\Models\GoodsAttrCat;
 use App\Models\GoodsAttrName;
 use Illuminate\Http\Request;
 
@@ -33,7 +34,7 @@ class AttributesNamesController extends ConsoleController
         $list = $this->model->fetchBlock();
         return display('console/goods_attributes_list', ['tabs' => $this->tabs, 'active' => 0, 'list' => $list]);
     }
-
+    
 
     public function add() {
         return display('console/goods_attributes_add', ['tabs' => $this->tabs, 'active' => 1]);

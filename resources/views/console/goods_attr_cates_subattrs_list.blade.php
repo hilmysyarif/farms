@@ -6,18 +6,17 @@
         <table class="table table-bordered table-responsive">
             <thead>
             <tr>
-                <th>@lang('common.natural_order')</th>
-                <th>分类名称</th>
+                <th>#</th>
+                <th>属性名称</th>
                 <th>操作</th>
             </tr>
             </thead>
             <tbody>
             <tr v-for="item in list">
-                <td>@{{ $index }}</td>
+                <td>@{{ item.id }}</td>
                 <td>@{{ item.name }}</td>
                 <td>
-                    <a class="btn btn-primary" href="/goods/attributes/list/@{{ item.name }}"><i class="fa fa-edit">&nbsp;</i>@lang('common.edit')</a>
-                    <a class="btn btn-danger"><i class="fa fa-remove">&nbsp;</i>@lang('common.delete')</a>
+                    <a class="btn btn-danger"><i class="fa fa-remove">&nbsp;</i>解除关联</a>
                 </td>
             </tr>
             </tbody>

@@ -35,4 +35,8 @@ class GoodsAttrName extends Model
     public function attributes() {
         return GoodsAttrName::all()->toArray();
     }
+
+    public function fetchByIds(Array $ids) {
+        return GoodsAttrName::whereIn('id', $ids)->get()->toArray();
+    }
 }

@@ -10,5 +10,6 @@ return [
     'sort' => '排序',
     'operation' => '操作',
     'nothing' => '无',
-    'please_choose' => '请选择'
+    'please_choose' => '请选择',
+    'natural_order' => '自然排序'
 ];

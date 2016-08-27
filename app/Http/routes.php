@@ -75,10 +75,12 @@ Route::group(['middleware' => 'web'], function() {
     Route::get('/goods/attributes/edit/{id}', 'Console\Attributes\AttributesNamesController@edit');
     Route::post('/goods/attributes/edit', 'Console\Attributes\AttributesNamesController@postEdit');
     Route::get('/goods/attributes/delete/{id}', 'Console\Attributes\AttributesNamesController@delete');
+    Route::get('/goods/attributes/list/{name}', 'Console\Attributes\AttributesCategoriesController@list');
 
     Route::get('/goods/attributes/categories', 'Console\Attributes\AttributesCategoriesController@index');
     Route::get('/goods/attributes/categories/add', 'Console\Attributes\AttributesCategoriesController@add');
     Route::post('/goods/attributes/categories/add', 'Console\Attributes\AttributesCategoriesController@postAdd');
+    Route::get('/goods/attributes/categories/delete/{id}', 'Console\Attributes\AttributesCategoriesController@delete');
 
     // users
     Route::get('/users', 'Console\Users\UsersController@index');
