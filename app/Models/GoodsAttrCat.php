@@ -30,7 +30,18 @@ class GoodsAttrCat extends Model
     }
 
     public function fetchAttrs($name) {
-        $cat_ids = GoodsAttrCat::where('name', $name)->pluck('goods_attr_name_id')->toArray();
-        return $cat_ids;
+        $sql = 'SELECT c.id as cid, c.goods_attr_name_id as id, n.name FROM shiyi.sy_goods_attr_cat AS c'.
+            ' LEFT JOIN shiyi.sy_goods_attr_name as n '.
+            ' ON c.goods_attr_name_id = n.id WHERE c.name = "'.$name.'"';
+        $list = DB::select($sql);
+        return $list;
+    }
+
+    public function remove($cid) {
+        return GoodsAttrCat::destroy($cid);
+    }
+
+    public function row($cid) {
+        return GoodsAttrCat::where('id', $cid)->first();
     }
 }

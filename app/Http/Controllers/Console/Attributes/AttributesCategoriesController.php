@@ -49,10 +49,15 @@ class AttributesCategoriesController extends ConsoleController
         return redirect('/goods/attributes/categories');
     }
 
-    public function list($name, GoodsAttrName $goodsAttrName) {
-        echo 'cat_id11:'.$name.'<br>';
-        $ids = $this->model->fetchAttrs($name);
-        $attrs = $goodsAttrName->fetchByIds($ids);
+    public function list($name) {
+        $attrs = $this->model->fetchAttrs($name);
         return display('console/goods_attr_cates_subattrs_list', ['tabs' => $this->tabs, 'active' => 0, 'list' => json_encode($attrs)]);
+    }
+
+    public function revoke($cid) {
+        $row = $this->model->row($cid);
+        $name = $row->name;
+        $this->model->remove($cid);
+        return redirect('/goods/attributes/list/'.$name);
     }
 }

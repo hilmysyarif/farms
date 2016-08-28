@@ -80,7 +80,7 @@ Route::group(['middleware' => 'web'], function() {
     Route::get('/goods/attributes/categories', 'Console\Attributes\AttributesCategoriesController@index');
     Route::get('/goods/attributes/categories/add', 'Console\Attributes\AttributesCategoriesController@add');
     Route::post('/goods/attributes/categories/add', 'Console\Attributes\AttributesCategoriesController@postAdd');
-    Route::get('/goods/attributes/categories/delete/{id}', 'Console\Attributes\AttributesCategoriesController@delete');
+    Route::get('/goods/attributes/categories/revoke/{id}', 'Console\Attributes\AttributesCategoriesController@revoke');
 
     // users
     Route::get('/users', 'Console\Users\UsersController@index');

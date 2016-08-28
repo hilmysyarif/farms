@@ -16,7 +16,7 @@
                 <td>@{{ item.id }}</td>
                 <td>@{{ item.name }}</td>
                 <td>
-                    <a class="btn btn-danger"><i class="fa fa-remove">&nbsp;</i>解除关联</a>
+                    <a class="btn btn-danger" href="/goods/attributes/categories/revoke/@{{ item.cid }}"><i class="fa fa-remove">&nbsp;</i>解除关联</a>
                 </td>
             </tr>
             </tbody>
