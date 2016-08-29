@@ -1,0 +1,14 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: rex
+ * Date: 29/8/2016
+ * Time: 20:08
+ */
+return [
+    'name' => '商品名称',
+    'cover' => '封面图',
+    'category' => '所属分类',
+    'attributes' => '属性',
+    'galleries' => '相册'
+];

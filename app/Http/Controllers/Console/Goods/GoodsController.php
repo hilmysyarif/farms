@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Console\Goods;
 
 use App\Http\Controllers\Console\ConsoleController;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -28,7 +29,13 @@ class GoodsController extends ConsoleController
         return display('console/goods_list', ['tabs' => $this->tabs, 'active' => 0]);
     }
 
-    public function add() {
-        return display('console/goods_add', ['tabs' => $this->tabs, 'active' => 1]);
+    public function add(Category $category) {
+        $categories = $category->fetchBlock();
+        return display('console/goods_add', [
+            'tabs' => $this->tabs,
+            'active' => 1,
+            'selects' => json_encode($categories),
+            'select_name' => 'category_id'
+        ]);
     }
 }

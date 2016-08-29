@@ -4,7 +4,7 @@
 
     <form class="form-horizontal" action="{{ url('/goods/add') }}" method="post">
         <div class="form-group">
-            <label for="name" class="col-md-2 control-label">Name</label>
+            <label for="name" class="col-md-2 control-label">@lang('goods.name')</label>
             <div class="col-md-10">
                 <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" />
                 @if ($errors->has('name'))
@@ -17,7 +17,7 @@
         <!-- COVER
         ===========================================-->
         <div class="form-group">
-            <label for="cover_url" class="col-md-2 control-label">Cover</label>
+            <label for="cover_url" class="col-md-2 control-label">@lang('goods.cover')</label>
             <div class="col-md-10">
                 <input id="cover_url" type="hidden" class="form-control" name="cover_url" value="{{ old('cover_url') }}" />
                 <button class="btn btn-default" type="button" id="ckfinder-cover">
@@ -37,33 +37,16 @@
         <!-- CATEGORY
         ===========================================-->
         <div class="form-group">
-            <label for="category_id" class="col-md-2 control-label">Category</label>
+            <label for="category_id" class="col-md-2 control-label">@lang('goods.category')</label>
             <input type="hidden" name="category_id">
             <div class="col-md-10">
-                <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        Dropdown
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                    </ul>
-                </div>
-                @if ($errors->has('category_id'))
-                    <span class="help-block">
-                            <strong>{{ $errors->first('category_id') }}</strong>
-                        </span>
-                @endif
+                @include('console.shared.form-select')
             </div>
         </div>
         <!-- ATTRIBUTES
         ===========================================-->
         <div class="form-group">
-            <label for="category_id" class="col-md-2 control-label">Attributes</label>
+            <label for="category_id" class="col-md-2 control-label">@lang('goods.attributes')</label>
             <div class="col-md-10">
                 <div class="form-inline">
                     <div class="input-group">
@@ -179,5 +162,48 @@
                 }
             } );
         };
+    </script>
+
+    <script src="{{ URL::asset('js/vue.js') }}"></script>
+    <script src="{{ URL::asset('js/vue-resource.min.js') }}"></script>
+    <script>
+        var selects = new Vue({
+            el: '#selects',
+            data() {
+                return {
+                    selects: [
+                    ],
+                    name: '{{ $select_name }}'
+                }
+            },
+            methods: {
+                loadSubs: function(parent_id, parent_name, index) {
+                    this.$http.get('/categories/subs/' + parent_id).then((response) => {
+                    var data = response.data;
+                    var dataJson = JSON && JSON.parse(data);
+
+                    if (dataJson.categories.length != 0) {
+                        // it means that it has children.
+                        $('#selects #name').text('请继续选择');
+
+                        // update current selects for choosing.
+                        this.$set('selects', dataJson.categories);
+                    } else {
+                        // this is the final category
+                        var input = $(this.$el).children()[0];
+                        $(input).val(parent_id);
+
+                        $('#selects #name').text(parent_name);
+                    }
+                }, (response) => {
+                        console.error(response);
+                    });
+                }
+            },
+            ready() {
+                var jsonData = JSON && JSON.parse('{!! $selects !!}');
+                this.$set('selects', jsonData);
+            }
+        });
     </script>
 @endsection
