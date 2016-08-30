@@ -56,7 +56,12 @@ Route::group(['middleware' => 'web'], function() {
     // goods
     Route::get('/goods', 'Console\Goods\GoodsController@index');
     Route::get('/goods/add', 'Console\Goods\GoodsController@add');
+    Route::post('/goods/add', 'Console\Goods\GoodsController@postAdd');
+    Route::get('/goods/categories/associate', 'Console\Goods\GoodsController@associateCategories');
+    Route::get('/goods/attributes/associate', 'Console\Goods\GoodsController@associateAttributes');
+    Route::get('/goods/galleries/associate', 'Console\Goods\GoodsController@associateGalleries');
 
+    // categories
     Route::get('/categories', 'Console\Categories\CategoriesController@index');
     Route::get('/categories/subcateslist/{pid}', 'Console\Categories\CategoriesController@subCatesList');
     

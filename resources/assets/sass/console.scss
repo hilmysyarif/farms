@@ -78,3 +78,12 @@
 #subcats {
   display: none;
 }
+
+
+//-----------CATEGORIES-----------
+
+#attributes {
+  input[type="color"] {
+    min-width: $width-min;
+  }
+}

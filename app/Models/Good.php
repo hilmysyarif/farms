@@ -55,4 +55,13 @@ class Good extends Model
     public function remove(Int $id) {
         return Good::destroy($id);
     }
+
+
+    /**
+     * @param $page
+     * @return mixed
+     */
+    public function fetchBlock($page = 0) {
+        return Good::skip($page * 10)->take(10)->get()->toArray();
+    }
 }

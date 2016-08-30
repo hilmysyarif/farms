@@ -9,6 +9,9 @@ body {
 .gap-bottom {
   margin-bottom: 20px; }
 
+.gap-right {
+  margin-right: 20px; }
+
 .hide {
   display: none; }
 
@@ -134,6 +137,9 @@ body {
 .gap-bottom {
   margin-bottom: 20px; }
 
+.gap-right {
+  margin-right: 20px; }
+
 .hide {
   display: none; }
 
@@ -184,5 +190,8 @@ body {
 
 #subcats {
   display: none; }
+
+#attributes input[type="color"] {
+  min-width: 50px; }
 
 /*# sourceMappingURL=app.css.map */

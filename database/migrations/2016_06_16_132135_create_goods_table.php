@@ -16,6 +16,7 @@ class CreateGoodsTable extends Migration
             $table->increments('id');
             $table->string('name')->unique();
             $table->string('cover_url');
+            $table->integer('sort');
             $table->timestamps();
         });
     }
