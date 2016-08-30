@@ -12,15 +12,15 @@ class CreateGoodsWithCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('goods_with_categories', function(Blueprint $table) {
+        Schema::create('category_good', function(Blueprint $table) {
             $table->increments('id');
-            $table->integer('goods_id')->unsigned();
+            $table->integer('good_id')->unsigned();
             $table->integer('category_id')->unsigned();
-            $table->index(['goods_id', 'category_id']);
+            $table->index(['good_id', 'category_id']);
         });
 
-        Schema::table('goods_with_categories', function($table) {
-            $table->foreign('goods_id')->references('id')->on('goods')->onDelete('cascade');
+        Schema::table('category_good', function($table) {
+            $table->foreign('good_id')->references('id')->on('goods')->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }
@@ -32,10 +32,10 @@ class CreateGoodsWithCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::table('goods_with_categories', function($table) {
-            $table->dropForeign(['goods_id']);
+        Schema::table('category_good', function($table) {
+            $table->dropForeign(['good_id']);
             $table->dropForeign(['category_id']);
         });
-        Schema::drop('goods_with_categories');
+        Schema::drop('category_good');
     }
 }

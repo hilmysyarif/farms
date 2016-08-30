@@ -64,4 +64,8 @@ class Good extends Model
     public function fetchBlock($page = 0) {
         return Good::skip($page * 10)->take(10)->get()->toArray();
     }
+
+    public function categories() {
+        return $this->belongsToMany('App\Models\Category');
+    }
 }

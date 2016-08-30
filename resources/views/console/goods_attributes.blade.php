@@ -4,6 +4,7 @@
 
     <form class="form-horizontal" action="{{ url('/goods/attributes/associate') }}" method="post">
 
+        {{ csrf_field() }}
         <!-- ATTRIBUTES
         ===========================================-->
         <div class="form-group">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Console\Goods;
 use App\Http\Controllers\Console\ConsoleController;
 use App\Models\Category;
 use App\Models\Good;
+use App\Models\GoodsCats;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -52,10 +53,27 @@ class GoodsController extends ConsoleController
         return redirect('/goods');
     }
 
-    public function associateCategories() {
+    public function associateCategories($goods_id, Category $category) {
+        // row info
+        $goods = \App\Models\Good::find($goods_id);
+        $choosedCats = [];
+        foreach($goods->categories as $cat) {
+            $choosedCats[] = $cat->name;
+        }
+
+        $categories = $category->fetchBlock();
+
         $this->tabs[1]['url'] = 'javascript:;';
         $this->tabs[1]['name'] = '关联分类';
-        return display('console/goods_categories', ['tabs' => $this->tabs, 'active' => 1]);
+        return display('console/goods_categories', [
+            'tabs' => $this->tabs,
+            'active' => 1,
+            'selects' => json_encode($categories),
+            'select_name' => 'category_id',
+            'goods_id' => $goods_id,
+            'choosedCats' => $choosedCats,
+            'row' => $goods
+        ]);
     }
 
     public function associateAttributes() {
@@ -68,5 +86,18 @@ class GoodsController extends ConsoleController
         $this->tabs[1]['url'] = 'javascript:;';
         $this->tabs[1]['name'] = '关联相册';
         return display('console/goods_galleries', ['tabs' => $this->tabs, 'active' => 1]);
+    }
+
+    public function asCat(Request $request, GoodsCats $goodsCats) {
+        $goodsCats->store($request->goods_id, $request->category_id);
+        return redirect('/goods');
+    }
+
+    public function asAttr() {
+
+    }
+
+    public function asGall() {
+
     }
 }

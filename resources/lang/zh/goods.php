@@ -10,5 +10,8 @@ return [
     'cover' => '封面图',
     'category' => '所属分类',
     'attributes' => '属性',
-    'galleries' => '相册'
+    'galleries' => '相册',
+    'associate_categories' => '分类',
+    'associate_attributes' => '属性',
+    'associate_galleries' => '相册'
 ];
