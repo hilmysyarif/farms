@@ -15,12 +15,17 @@ class CreateGoodsAttr extends Migration
         Schema::create('goods_attr', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('goods_id')->unsigned(); // TODO: foreign key with goods.
-            $table->integer('goods_attr_name_id')->unsigned(); // TODO: foreign key with goods_atr_name.
+            $table->integer('attr_id')->unsigned(); // TODO: foreign key with goods_atr_name.
             $table->string('value');
             $table->tinyInteger('type'); // 0: text, 1: color, 2: image
             $table->double('price', 15, 2);
             $table->tinyInteger('sale'); // 0: Off sale. 1: On sale
             $table->timestamps();
+        });
+
+        Schema::table('goods_attr', function($table) {
+            $table->foreign('goods_id')->references('id')->on('goods')->onDelete('cascade');
+            $table->foreign('attr_id')->references('id')->on('attr')->onDelete('cascade');
         });
     }
 
@@ -31,6 +36,11 @@ class CreateGoodsAttr extends Migration
      */
     public function down()
     {
+        Schema::table('goods_attr', function($table) {
+            $table->dropForeign(['goods_id']);
+            $table->dropForeign(['attr_id']);
+        });
+
         Schema::drop('goods_attr');
     }
 }

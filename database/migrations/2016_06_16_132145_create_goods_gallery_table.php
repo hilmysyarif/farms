@@ -17,6 +17,10 @@ class CreateGoodsGalleryTable extends Migration
             $table->string('url')->unique();
             $table->integer('goods_id')->unsigned(); //TODO: foreign key with goods.
         });
+
+        Schema::table('goods_gallery', function($table) {
+            $table->foreign('goods_id')->references('id')->on('goods')->onDelete('cascade');
+        });
     }
 
     /**
@@ -26,6 +30,10 @@ class CreateGoodsGalleryTable extends Migration
      */
     public function down()
     {
+        Schema::table('goods_gallery', function($table) {
+            $table->dropForeign(['goods_id']);
+        });
+        
         Schema::drop('goods_gallery');
     }
 }

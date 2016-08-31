@@ -20,6 +20,12 @@ class CreateAddressesTable extends Migration
             $table->boolean('default')->default(false);
             $table->timestamps();
         });
+
+        Schema::table('addresses', function($table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelte('cascade');
+            $table->foreign('zone_id')->references('id')->on('zone')->onDelte('cascade');
+        });
+
     }
 
     /**
@@ -29,6 +35,12 @@ class CreateAddressesTable extends Migration
      */
     public function down()
     {
+
+        Schema::table('addresses', function($table) {
+            $table->dropForeign(['user_id']);
+            $table->dropForeign(['zone_id']);
+        });
+
         Schema::drop('addresses');
     }
 }

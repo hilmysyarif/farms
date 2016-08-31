@@ -6,20 +6,11 @@
 
 @section('form')
     <div class="col-lg-12">
-        <form class="form-horizontal" method="post" action="{{ url('/goods/attributes/categories/add') }}">
+        <form class="form-horizontal" method="post" action="{{ url('/atrcat/attributes/associate') }}">
 
             {{ csrf_field() }}
-            <div class="form-group">
-                <label for="name" class="col-md-2 control-label">分类名称</label>
-                <div class="col-md-10">
-                    <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" />
-                    @if ($errors->has('name'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('name') }}</strong>
-                        </span>
-                    @endif
-                </div>
-            </div>
+
+            <input type="hidden" name="cid" value="{{ $cid }}">
 
             <div class="form-group">
                 <label for="category_id" class="col-md-2 control-label">包含属性</label>
@@ -63,7 +54,9 @@
             data() {
                 return {
                     selects: testJSON,
-                    name: '{{ $select_name }}'
+                    name: '{{ $select_name }}',
+                    notice: '请选择',
+                    value: ''
                 }
             },
             methods: {

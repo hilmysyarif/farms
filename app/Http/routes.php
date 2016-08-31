@@ -77,20 +77,21 @@ Route::group(['middleware' => 'web'], function() {
     Route::post('/categories/edit', 'Console\Categories\CategoriesController@postEdit');
     Route::get('/categories/delete/{id}', 'Console\Categories\CategoriesController@delete');
 
-    Route::get('/goods/attributes', 'Console\Attributes\AttributesNamesController@index');
-    Route::get('/goods/attributes/add', 'Console\Attributes\AttributesNamesController@add');
-    Route::post('/goods/attributes/add', 'Console\Attributes\AttributesNamesController@postAdd');
+    Route::get('/attr', 'Console\Attributes\AttrController@index');
+    Route::get('/attr/add', 'Console\Attributes\AttrController@add');
+    Route::post('/attr/add', 'Console\Attributes\AttrController@postAdd');
+    Route::get('/attr/edit/{id}', 'Console\Attributes\AttrController@edit');
+    Route::post('/attr/edit', 'Console\Attributes\AttrController@postEdit');
 
-    Route::post('/goods/attributes/add', 'Console\Attributes\AttributesNamesController@postAdd');
-    Route::get('/goods/attributes/edit/{id}', 'Console\Attributes\AttributesNamesController@edit');
-    Route::post('/goods/attributes/edit', 'Console\Attributes\AttributesNamesController@postEdit');
-    Route::get('/goods/attributes/delete/{id}', 'Console\Attributes\AttributesNamesController@delete');
-    Route::get('/goods/attributes/list/{name}', 'Console\Attributes\AttributesCategoriesController@list');
+    Route::get('/attr/delete/{id}', 'Console\Attributes\AttrController@delete');
 
-    Route::get('/goods/attributes/categories', 'Console\Attributes\AttributesCategoriesController@index');
-    Route::get('/goods/attributes/categories/add', 'Console\Attributes\AttributesCategoriesController@add');
-    Route::post('/goods/attributes/categories/add', 'Console\Attributes\AttributesCategoriesController@postAdd');
-    Route::get('/goods/attributes/categories/revoke/{id}', 'Console\Attributes\AttributesCategoriesController@revoke');
+
+    Route::get('/atrcat', 'Console\Attributes\AtrcatController@index');
+    Route::get('/atrcat/add', 'Console\Attributes\AtrcatController@add');
+    Route::post('/atrcat/add', 'Console\Attributes\AtrcatController@postAdd');
+    Route::get('/atrcat/revoke/{cid}/{attr_id}', 'Console\Attributes\AtrcatController@revoke');
+    Route::get('/atrcat/delete/{id}', 'Console\Attributes\AtrcatController@delete');
+    Route::get('/atrcat/sublist/{id}', 'Console\Attributes\AtrcatController@sublist');
 
     // users
     Route::get('/users', 'Console\Users\UsersController@index');
@@ -106,4 +107,8 @@ Route::group(['middleware' => 'web'], function() {
     // articles
     Route::get('/articles', 'Console\Articles\ArticlesController@index');
     Route::get('/articles/add', 'Console\Articles\ArticlesController@add');
+
+    // atrcat
+    Route::get('/atrcat/attributes/associate/{cid}', 'Console\Attributes\AtrcatController@asAttr');
+    Route::post('/atrcat/attributes/associate', 'Console\Attributes\AtrcatController@postAsAttr');
 });

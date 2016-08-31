@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ForeignKeyForAdmins extends Migration
+class CreateAtrcatTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,8 +12,10 @@ class ForeignKeyForAdmins extends Migration
      */
     public function up()
     {
-        Schema::table('admins', function($table) {
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+        Schema::create('atrcat', function(Blueprint $table) {
+            $table->increments('id');
+            $table->string('name', 64)->unique();
+            $table->timestamps();
         });
     }
 
@@ -24,8 +26,6 @@ class ForeignKeyForAdmins extends Migration
      */
     public function down()
     {
-        Schema::table('admins', function($table) {
-            $table->dropForeign(['user_id']);
-        });
+        Schema::drop('atrcat');
     }
 }

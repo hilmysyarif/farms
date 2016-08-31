@@ -19,6 +19,11 @@ class CreateCartTable extends Migration
             $table->tinyInteger('number');
             $table->timestamps();
         });
+
+        Schema::table('cart', function($table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('goods_attr_id')->references('id')->on('goods_attr')->onDelete('cascade');
+        });
     }
 
     /**
@@ -28,6 +33,11 @@ class CreateCartTable extends Migration
      */
     public function down()
     {
+        Schema::table('cart', function($table) {
+            $table->dropForeign(['user_id']);
+            $table->dropForeign(['goods_attr_id']);
+        });
+
         Schema::drop('cart');
     }
 }

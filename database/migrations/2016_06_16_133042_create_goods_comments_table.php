@@ -22,6 +22,11 @@ class CreateGoodsCommentsTable extends Migration
 
             $table->index(['user_id', 'goods_id']);
         });
+
+        Schema::table('goods_comments', function($table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('goods_id')->references('id')->on('goods')->onDelete('cascade');
+        });
     }
 
     /**
@@ -31,6 +36,11 @@ class CreateGoodsCommentsTable extends Migration
      */
     public function down()
     {
+        Schema::table('goods_comments', function($table) {
+            $table->dropForeign(['user_id']);
+            $table->dropForeign(['goods_id']);
+        });
+        
         Schema::drop('goods_comments');
     }
 }

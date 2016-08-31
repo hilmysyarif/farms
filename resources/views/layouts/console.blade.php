@@ -67,8 +67,8 @@
                 <li>
                     <ul id="goods-manager" @if($current_nav == 'goods') class="nav collapse in" @else class="collapse nav" @endif>
                         <li @if($uri == '/goods')class="active"@endif><a href="{{ url('/goods') }}">商品列表</a></li>
-                        <li @if($uri == '/goods/attributes')class="active"@endif><a href="{{ url('/goods/attributes') }}">商品属性</a></li>
-                        <li @if($uri == '/goods/attributes/categories')class="active"@endif><a href="{{ url('/goods/attributes/categories') }}">商品属性分类</a></li>
+                        <li @if($uri == '/attr')class="active"@endif><a href="{{ url('/attr') }}">商品属性</a></li>
+                        <li @if($uri == '/atrcat')class="active"@endif><a href="{{ url('/atrcat') }}">商品属性分类</a></li>
                     </ul>
                 </li>
 

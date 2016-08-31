@@ -18,6 +18,10 @@ class CreateAdminTable extends Migration
             $table->text('permission');
             $table->timestamps();
         });
+
+        Schema::table('admins', function($table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+        });
     }
 
     /**
@@ -27,6 +31,10 @@ class CreateAdminTable extends Migration
      */
     public function down()
     {
+        Schema::table('admins', function($table) {
+            $table->dropForeign(['user_id']);
+        });
+
         Schema::drop('admins');
     }
 }

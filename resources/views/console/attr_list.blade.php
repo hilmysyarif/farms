@@ -16,8 +16,8 @@
                 <td>{{ $v->id }}</td>
                 <td>{{ $v->name }}</td>
                 <td>
-                    <a class="btn btn-primary" href="{{ url('/goods/attributes/edit/'.$v->id) }}"><i class="fa fa-edit">&nbsp;</i>@lang('common.edit')</a>
-                    <a class="btn btn-danger" href="{{ url('/goods/attributes/delete/'.$v->id) }}"><i class="fa fa-remove">&nbsp;</i>@lang('common.delete')</a>
+                    <a class="btn btn-primary" href="{{ url('/attr/edit/'.$v->id) }}"><i class="fa fa-edit">&nbsp;</i>@lang('common.edit')</a>
+                    <a class="btn btn-danger" href="{{ url('/attr/delete/'.$v->id) }}"><i class="fa fa-remove">&nbsp;</i>@lang('common.delete')</a>
                 </td>
             </tr>
         @endforeach
