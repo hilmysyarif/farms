@@ -43,31 +43,33 @@
                     return {
                         selects: [
                         ],
-                        name: '{{ $select_name }}'
+                        name: 'category_id',
+                        notice: '@lang('common.please_choose')',
+                        value: 0
                     }
                 },
                 methods: {
                     loadSubs: function(parent_id, parent_name, index) {
                         this.$http.get('/categories/subs/' + parent_id).then((response) => {
-                            var data = response.data;
-                        var dataJson = JSON && JSON.parse(data);
+                                var data = response.data;
+                                var dataJson = JSON && JSON.parse(data);
 
-                        if (dataJson.categories.length != 0) {
-                            // it means that it has children.
-                            $('#selects #name').text('请继续选择');
+                                if (dataJson.categories.length != 0) {
+                                    // it means that it has children.
+                                    $('#selects #name').text('请继续选择');
 
-                            // update current selects for choosing.
-                            this.$set('selects', dataJson.categories);
-                        } else {
-                            // this is the final category
-                            var input = $(this.$el).children()[0];
-                            $(input).val(parent_id);
+                                    // update current selects for choosing.
+                                    this.$set('selects', dataJson.categories);
+                                } else {
+                                    // this is the final category
+                                    var input = $(this.$el).children()[0];
+                                    $(input).val(parent_id);
 
-                            $('#selects #name').text(parent_name);
-                        }
-                    }, (response) => {
-                            console.error(response);
-                        });
+                                    $('#selects #name').text(parent_name);
+                                }
+                            }, (response) => {
+                                console.error(response);
+                            });
                     }
                 },
                 ready() {

@@ -65,13 +65,16 @@
                             sort_order: 1
                         }
                     ],
-                    name: '{{ $select_name }}'
+                    notice: '@lang('common.please_choose')',
+                    name: 'parent_id',
+                    value: '0'
                 }
             },
             methods: {
                 loadSubs: function(parent_id, parent_name, index) {
                     this.$http.get('/categories/subs/' + parent_id).then((response) => {
-                        var jsonData = response.data;
+                        var jsonData = JSON && JSON.parse(response.data);
+
                         if (jsonData.categories.length != 0) {
                             // it means that it has children.
                             $('#selects #name').text('请继续选择');

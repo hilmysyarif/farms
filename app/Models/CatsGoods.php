@@ -4,13 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class GoodsCats extends Model
+class CatsGoods extends Model
 {
-    protected $table = 'goods_with_categories';
+    protected $table = 'category_good';
     public $timestamps = false;
 
-    public function store(Int $goods_id, Int $category_id) {
-        $this->goods_id = $goods_id;
+    public function store(Int $good_id, Int $category_id) {
+        $this->good_id = $good_id;
         $this->category_id = $category_id;
         return $this->save();
     }

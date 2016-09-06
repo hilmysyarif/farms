@@ -45,7 +45,6 @@ class Good extends Model
         ]);
     }
 
-
     /**
      * Remove one good.
      *
@@ -65,7 +64,13 @@ class Good extends Model
         return Good::skip($page * 10)->take(10)->get()->toArray();
     }
 
+
     public function categories() {
         return $this->belongsToMany('App\Models\Category');
+    }
+
+
+    public function fetchOne($good_id) {
+        return Good::find($good_id)->toArray();
     }
 }

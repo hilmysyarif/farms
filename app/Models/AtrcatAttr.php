@@ -25,4 +25,8 @@ class AtrcatAttr extends Model
                 ->where('attr_id', $attr_id)
                 ->delete();
     }
+
+    public function associatedAttrs($atrcat_id) {
+        return AtrcatAttr::where('atrcat_id', $atrcat_id)->pluck('attr_id')->toArray();
+    }
 }

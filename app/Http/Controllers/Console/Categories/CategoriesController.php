@@ -64,8 +64,7 @@ class CategoriesController extends ConsoleController
         return display('console/categories_add', [
             'tabs' => $this->tabs,
             'active' => 1,
-            'selects' => json_encode($categories),
-            'select_name' => 'parent_id'
+            'selects' => json_encode($categories)
         ]);
     }
 
@@ -91,8 +90,15 @@ class CategoriesController extends ConsoleController
 
     public function edit($id) {
         $row = $this->model->fetchOne($id);
-        $row->option_id = $row->parent_id;
-        $row->option_name = '测试';
+
+        if ($row->parent_id == 0) {
+            $row->option_id = 0;
+            $row->option_name = '无';    
+        } else {
+            $parentRow = $this->model->fetchOne($row->parent_id);
+            $row->option_id = $parentRow->id;
+            $row->option_name = $parentRow->name;
+        }
 
         $categories = $this->model->fetchBlock();
         return display(

@@ -83,11 +83,25 @@ class AtrcatController extends ConsoleController
     public function revoke($cid, $attr_id, AtrcatAttr $atrcatAttr) {
 
         $atrcatAttr->remove($cid, $attr_id);
-        return redirect('/attr/sublist/'.$cid);
+        return redirect('/atrcat/sublist/'.$cid);
     }
 
-    public function asAttr($cid, Attr $attr) {
+    public function asAttr($cid, Attr $attr, AtrcatAttr $atrcatAttr) {
+        // get attributes which has already been associated.
+        $associated = $atrcatAttr->associatedAttrs($cid);
+
+        // the attributes which admins created
         $selects = $attr->attributes();
+
+        // exclude the attributes which has already been associated from those which admins created
+        $newSelects = [];
+        foreach ($selects as $k => $v) {
+            if (in_array($v['id'], $associated)) {
+
+            } else {
+                $newSelects[] = $v;
+            }
+        }
 
         $this->tabs[1]['url'] = 'javascript:;';
         $this->tabs[1]['name'] = '关联属性';
@@ -97,7 +111,7 @@ class AtrcatController extends ConsoleController
             'active' => 1,
             'select_name' => 'attr_id',
             'cid' => $cid,
-            'selects' => json_encode($selects)
+            'selects' => json_encode($newSelects)
         ]);
     }
 

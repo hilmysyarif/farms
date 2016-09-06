@@ -8,7 +8,7 @@
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
             <li><a href="javascript:;" onclick="choose(this, 0)">@lang('common.nothing')</a></li>
             @foreach($selects as $v)
-                <li><a href="javascript:;" onclick="choose(this, {{ $v->id }})">{{ $v->name }}</a></li>
+                <li><a href="javascript:;" onclick="choose(this, {{ $v['id'] }})">{{ $v['name'] }}</a></li>
             @endforeach
         </ul>
     </div>

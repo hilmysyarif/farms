@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Console\Goods;
 
 use App\Http\Controllers\Console\ConsoleController;
 use App\Models\Category;
+use App\Models\CatsGoods;
 use App\Models\Good;
-use App\Models\GoodsCats;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -29,8 +29,6 @@ class GoodsController extends ConsoleController
 
     public function index(Good $goods) {
         $list = $goods->fetchBlock();
-//        var_dump($list);
-//        exit();
         return display('console/goods_list', [
             'tabs' => $this->tabs,
             'active' => 0,
@@ -53,7 +51,35 @@ class GoodsController extends ConsoleController
         return redirect('/goods');
     }
 
+    public function edit($goods_id, Category $category, Good $good) {
+        // get information of current goods.
+        $row = $good->fetchOne($goods_id);
+
+        $categories = $category->fetchBlock();
+        return display('console/goods_edit', [
+            'tabs' => $this->tabs,
+            'active' => 1,
+            'selects' => json_encode($categories),
+            'select_name' => 'category_id',
+            'row' => $row,
+            'goods_id' => $goods_id
+        ]);
+    }
+
+    public function postEdit(Request $request, Good $good) {
+        $good_id = $request->goods_id;
+        $data = [
+            'name' => $request->name,
+            'cover_url' => $request->cover_url,
+            'sort' => $request->sort
+        ];
+
+        $good->updateOne($good_id, $data);
+        return redirect('/goods');
+    }
+
     public function associateCategories($goods_id, Category $category) {
+
         // row info
         $goods = \App\Models\Good::find($goods_id);
         $choosedCats = [];
@@ -69,7 +95,6 @@ class GoodsController extends ConsoleController
             'tabs' => $this->tabs,
             'active' => 1,
             'selects' => json_encode($categories),
-            'select_name' => 'category_id',
             'goods_id' => $goods_id,
             'choosedCats' => $choosedCats,
             'row' => $goods
@@ -88,8 +113,8 @@ class GoodsController extends ConsoleController
         return display('console/goods_galleries', ['tabs' => $this->tabs, 'active' => 1]);
     }
 
-    public function asCat(Request $request, GoodsCats $goodsCats) {
-        $goodsCats->store($request->goods_id, $request->category_id);
+    public function asCat(Request $request, CatsGoods $catsGoods) {
+        $catsGoods->store($request->goods_id, $request->category_id);
         return redirect('/goods');
     }
 
