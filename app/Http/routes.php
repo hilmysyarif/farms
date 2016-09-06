@@ -113,4 +113,6 @@ Route::group(['middleware' => 'web'], function() {
     // atrcat
     Route::get('/atrcat/attributes/associate/{cid}', 'Console\Attributes\AtrcatController@asAttr');
     Route::post('/atrcat/attributes/associate', 'Console\Attributes\AtrcatController@postAsAttr');
+
+    Route::get('/api/attrsByAtrcat/{cid}', 'Api\Goods\GoodsController@attrsByAtrcat');
 });

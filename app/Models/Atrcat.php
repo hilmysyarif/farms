@@ -22,17 +22,29 @@ class Atrcat extends Model
         return $list;
     }
 
+    public function fetchAll() {
+        $list = $this->get()->toArray();
+        return $list;
+    }
+
     public function attrs() {
         return $this->belongsToMany('App\Models\Attr');
     }
 
+    /**
+     * fetch attributes via atrcat_id.
+     * @param $id
+     * @return array
+     */
     public function fetchAttrs($id) {
         $row = $this->find($id);
         $list = [];
         foreach ($row->attrs as $attr) {
             $list[] = [
                 'id' => $attr->id,
-                'name' => $attr->name
+                'name' => $attr->name,
+                'type' => $attr->type,
+                'suffix' => $attr->suffix
             ];
         }
         return $list;

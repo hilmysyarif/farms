@@ -13,25 +13,22 @@
                 <div class="form-inline">
                     <div class="input-group gap-right" v-for="attr in attributes">
                         <div class="input-group-addon">@{{ attr.name }}</div>
-                        <input name="goods_attr_value[]" class="form-control" type="@{{ attr.type }}">
+                        <input type="hidden" name="attrids[]" value="@{{ attr.id }}">
+                        <input name="attr_id_@{{ attr.id }}[]" class="form-control" type="@{{ attr.type }}">
                         <div class="input-group-addon" v-show="attr.suffix">@{{ attr.suffix }}</div>
                     </div>
                 </div>
 
 
-                <div class="gap-top">
-                    <div class="col-lg-4">
-                        <div class="list-group">
-                            <a href="#" class="list-group-item active">
-                                Cras justo odio
+                <div class="form-inline gap-top">
+                    <div class="col-md-4">
+                        <div class="list-group atrcats">
+                            <a href="javascript:;" v-on:click="loadAttrs(atrcat.id)" v-for="atrcat in atrcats" class="list-group-item">
+                                @{{ atrcat.name }}
                             </a>
-                            <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-                            <a href="#" class="list-group-item">Morbi leo risus</a>
-                            <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-                            <a href="#" class="list-group-item">Vestibulum at eros</a>
                         </div>
                     </div>
-                    <div class="col-lg-8">
+                    <div class="col-md-8">
                         <div class="list-group">
                             <a href="#" class="list-group-item active">
                                 Cras justo odio
@@ -60,19 +57,37 @@
             data() {
                 return {
                     attributes: [
-                        {
-                            name: '质量',
-                            type: 'number',
-                            suffix: 'g'
-                        },
-                        {
-                            name: '颜色',
-                            type: 'color',
-                            suffix: ''
-                        }
+                    ],
+                    atrcats: [
                     ]
                 }
+            },
+            ready() {
+                var atrcats = '{!! $atrcats !!}';
+                var jsonData = JSON && JSON.parse(atrcats);
+                this.$set('atrcats', jsonData);
+            },
+            methods: {
+                loadAttrs: function(id) {
+                    this.$http.get('/api/attrsByAtrcat/' + id).then(
+                            (successResponse) => {
+                        var data = successResponse.data;
+                        var dataJson = JSON && JSON.parse(data);
+                        if (dataJson.length > 0) {
+                            this.$set('attributes', dataJson);
+                        }
+                    },(errorResponse) => {
+                        console.log(errorResponse);
+                    });
+                }
             }
+        });
+
+        $(function() {
+            $('.atrcats a').click(function() {
+                $('.atrcats a').removeClass('active');
+                $(this).addClass('active');
+            });
         });
     </script>
 @endsection
