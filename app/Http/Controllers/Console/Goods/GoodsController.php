@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Console\Goods;
 
 use App\Http\Controllers\Console\ConsoleController;
 use App\Models\Atrcat;
+use App\Models\Attr;
 use App\Models\Category;
 use App\Models\CatsGoods;
 use App\Models\Good;
@@ -102,18 +103,22 @@ class GoodsController extends ConsoleController
         ]);
     }
 
-    public function associateAttributes(Atrcat $atrcat) {
+    public function associateAttributes(Atrcat $atrcat, Attr $attr) {
         // get atrcats
         $atrcats = $atrcat->fetchAll();
         $jsonAtrcats = json_encode($atrcats);
 
+        // get attrs
+        $attrs = $attr->fetchAll();
+        $jsonAttrs = json_encode($attrs);
 
         $this->tabs[1]['url'] = 'javascript:;';
         $this->tabs[1]['name'] = '关联属性';
         return display('console/goods_attributes', [
             'tabs' => $this->tabs,
             'active' => 1,
-            'atrcats' => $jsonAtrcats
+            'atrcats' => $jsonAtrcats,
+            'attrs' => $jsonAttrs
         ]);
     }
 

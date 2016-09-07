@@ -19,6 +19,10 @@ class Attr extends Model
         return Attr::orderBy('created_at', 'desc')->skip($page * 10)->take(10)->get();
     }
 
+    public function fetchAll() {
+        return $this->get()->toArray();
+    }
+
     public function fetchOne(Int $id) {
         return Attr::find($id);
     }
