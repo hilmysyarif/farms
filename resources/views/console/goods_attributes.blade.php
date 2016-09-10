@@ -5,6 +5,7 @@
     <form class="form-horizontal" action="{{ url('/goods/attributes/associate') }}" method="post">
 
         {{ csrf_field() }}
+        <input type="hidden" name="goods_id" value="{{ $goods_id }}">
         <!-- ATTRIBUTES
         ===========================================-->
         <div class="form-group">
@@ -14,7 +15,7 @@
                     <div class="input-group gap-right" v-for="attr in attributes">
                         <div class="input-group-addon">@{{ attr.name }}</div>
                         <input type="hidden" name="attrids[]" value="@{{ attr.id }}">
-                        <input name="attr_id_@{{ attr.id }}[]" class="form-control" type="@{{ attr.type }}">
+                        <input name="attr_id_@{{ attr.id }}" class="form-control" type="@{{ attr.type }}">
                         <div class="input-group-addon" v-show="attr.suffix">@{{ attr.suffix }}</div>
                     </div>
                 </div>
@@ -77,6 +78,14 @@
                 for (var i = 0; i < jsonData.length; i++)
                     jsonData[i].active = false;
                 this.$set('attrs', jsonData);
+
+                // attributes
+                var attributes = '{!! $associatedAttrs !!}';
+                jsonData = JSON && JSON.parse(attributes);
+                console.log(jsonData);
+                if (jsonData.length > 0) {
+                    this.$set('attributes', jsonData);
+                }
             },
             methods: {
                 loadAttrs: function(id) {

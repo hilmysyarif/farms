@@ -13,5 +13,7 @@ return [
     'galleries' => '相册',
     'associate_categories' => '分类',
     'associate_attributes' => '属性',
-    'associate_galleries' => '相册'
+    'associate_galleries' => '相册',
+    'price' => '价格',
+    'sale' => '在售'
 ];

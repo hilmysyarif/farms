@@ -17,7 +17,6 @@ class CreateGoodsAttr extends Migration
             $table->integer('goods_id')->unsigned(); // TODO: foreign key with goods.
             $table->integer('attr_id')->unsigned(); // TODO: foreign key with goods_atr_name.
             $table->string('value');
-            $table->tinyInteger('type'); // 0: text, 1: color, 2: image
             $table->double('price', 15, 2);
             $table->tinyInteger('sale'); // 0: Off sale. 1: On sale
             $table->timestamps();

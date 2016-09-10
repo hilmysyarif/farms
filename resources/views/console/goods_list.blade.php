@@ -51,6 +51,8 @@
                 <a class="btn btn-primary" href="/goods/categories/associate/@{{ lst.id }}"><i class="fa fa-code-fork">&nbsp;</i>@lang('goods.associate_categories')</a>
                 <a class="btn btn-primary" href="/goods/attributes/associate/@{{ lst.id }}"><i class="fa fa-cubes">&nbsp;</i>@lang('goods.associate_attributes')</a>
                 <a class="btn btn-primary" href="/goods/galleries/associate/@{{ lst.id }}"><i class="fa fa-picture-o">&nbsp;</i>@lang('goods.associate_galleries')</a>
+
+                <a class="btn btn-primary" href="/goods/price/@{{ lst.id }}"><i class="fa fa-rmb">&nbsp;</i>@lang('goods.price')</a>
             </td>
         </tr>
         </tbody>

@@ -8,6 +8,7 @@ use App\Models\Attr;
 use App\Models\Category;
 use App\Models\CatsGoods;
 use App\Models\Good;
+use App\Models\GoodsAttr;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -83,7 +84,7 @@ class GoodsController extends ConsoleController
     public function associateCategories($goods_id, Category $category) {
 
         // row info
-        $goods = \App\Models\Good::find($goods_id);
+        $goods = Good::find($goods_id);
         $choosedCats = [];
         foreach($goods->categories as $cat) {
             $choosedCats[] = $cat->name;
@@ -103,7 +104,7 @@ class GoodsController extends ConsoleController
         ]);
     }
 
-    public function associateAttributes(Atrcat $atrcat, Attr $attr) {
+    public function associateAttributes($goods_id, Atrcat $atrcat, Attr $attr, GoodsAttr $goodsAttr) {
         // get atrcats
         $atrcats = $atrcat->fetchAll();
         $jsonAtrcats = json_encode($atrcats);
@@ -112,13 +113,20 @@ class GoodsController extends ConsoleController
         $attrs = $attr->fetchAll();
         $jsonAttrs = json_encode($attrs);
 
+        // get associated attrs
+        $associatedAttrs = $goodsAttr->fetchAll($goods_id);
+        var_dump($associatedAttrs);
+        exit();
+
         $this->tabs[1]['url'] = 'javascript:;';
         $this->tabs[1]['name'] = '关联属性';
         return display('console/goods_attributes', [
             'tabs' => $this->tabs,
             'active' => 1,
             'atrcats' => $jsonAtrcats,
-            'attrs' => $jsonAttrs
+            'attrs' => $jsonAttrs,
+            'goods_id' => $goods_id,
+            'associatedAttrs' => json_encode($associatedAttrs)
         ]);
     }
 
@@ -133,8 +141,25 @@ class GoodsController extends ConsoleController
         return redirect('/goods');
     }
 
-    public function asAttr() {
+    public function asAttr(Request $request, GoodsAttr $goodsAttr) {
+        $goods_id = $request->goods_id;
+        $attrids = $request->attrids;
 
+        $data = [];
+        foreach ($attrids as $v) {
+            $currentAttrInput = 'attr_id_'.$v;
+            $data[] = [
+                'goods_id' => $goods_id,
+                'attr_id' => $v,
+                'value' => $request->$currentAttrInput,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ];
+        }
+
+        $goodsAttr->storeBatch($data);
+
+        return redirect('/goods');
     }
 
     public function asGall() {
