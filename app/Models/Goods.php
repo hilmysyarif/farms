@@ -75,23 +75,39 @@ class Goods extends Model
 
     public function fetchOneWithAttr($good_id) {
         $row = Goods::find($good_id);
-        $list = [];
+        $attrList = [];
         foreach ($row->attrs as $attr) {
-            $list[] = [
+            $attrList[] = [
                 'attr_id' => $attr->id,
                 'attr_name' => $attr->name,
                 'attr_suffix' => $attr->suffix,
                 'attr_type' => $attr->type
             ];
-            var_dump($list);
         }
 
         // attrs should be attached into attrgoods via attr_id.
+        $attrGoodsList = [];
+        foreach ($row->attrgoods as $attrgoods) {
 
-//        $attrGoods = $row->attrgoods;
-//        foreach ($row->attrgoods as $k => $attrgoods) {
-//            if ($attrgoods->attr_id == $list[$k]['attr_id'])
-//        }
+            $currentRow = [];
+            foreach ($attrList as $alist) {
+                if ($alist['attr_id'] == $attrgoods->attr_id) {
+                    $currentRow = $alist;
+                }
+            }
+
+            $attrGoodsList[] = [
+                'id' => $attrgoods->id,
+                'goods_id' => $attrgoods->id,
+                'attr_id' => $attrgoods->attr_id,
+                'attr_name' => $currentRow['attr_name'],
+                'value' => $attrgoods->value,
+                'type' => $currentRow['attr_type'],
+                'suffix' => $currentRow['attr_suffix']
+
+            ];
+        }
+        return $attrGoodsList;
     }
 
     public function attrs() {

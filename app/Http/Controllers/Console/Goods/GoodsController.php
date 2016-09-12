@@ -104,7 +104,29 @@ class GoodsController extends ConsoleController
         ]);
     }
 
-    public function associateAttributes($goods_id, Atrcat $atrcat, Attr $attr, AttrGoods $goodsAttr, Goods $good) {
+    public function associateAttributes($goods_id, Goods $good) {
+
+        $this->tabs = [
+            [
+                'url' => url('/goods/attributes/associate/'.$goods_id),
+                'name' => '已关联属性'
+            ],
+            [
+                'url' => url('/goods/attrgoodsadd/'.$goods_id),
+                'name' => '关联属性'
+            ],
+        ];
+        $list = $good->fetchOneWithAttr($goods_id);
+
+        return display('console/goods_attributes_list', [
+            'tabs' => $this->tabs,
+            'active' => 0,
+            'goods_id' => $goods_id,
+            'list' => json_encode($list)
+        ]);
+    }
+
+    public function attrGoodsAdd($goods_id, Atrcat $atrcat, Attr $attr, AttrGoods $goodsAttr, Goods $good) {
         // get atrcats
         $atrcats = $atrcat->fetchAll();
         $jsonAtrcats = json_encode($atrcats);
@@ -115,22 +137,18 @@ class GoodsController extends ConsoleController
 
         // get associated attrs
         $associatedAttrs = $goodsAttr->fetchAll($goods_id);
-        if (count($associatedAttrs) == 0) {
-            $this->tabs[1]['url'] = 'javascript:;';
-            $this->tabs[1]['name'] = '关联属性';
-            return display('console/goods_attributes', [
-                'tabs' => $this->tabs,
-                'active' => 1,
-                'atrcats' => $jsonAtrcats,
-                'attrs' => $jsonAttrs,
-                'goods_id' => $goods_id,
-                'associatedAttrs' => json_encode($associatedAttrs)
-            ]);
-        } else {
-            $good->fetchOneWithAttr($goods_id);
-        }
-        var_dump($associatedAttrs);
-        exit();
+        
+
+        $this->tabs[1]['url'] = 'javascript:;';
+        $this->tabs[1]['name'] = '关联属性';
+        return display('console/goods_attributes', [
+            'tabs' => $this->tabs,
+            'active' => 1,
+            'atrcats' => $jsonAtrcats,
+            'attrs' => $jsonAttrs,
+            'goods_id' => $goods_id,
+            'associatedAttrs' => json_encode($associatedAttrs)
+        ]);
     }
 
     public function associateGalleries() {

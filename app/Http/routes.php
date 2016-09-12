@@ -67,6 +67,7 @@ Route::group(['middleware' => 'web'], function() {
     Route::post('/goods/categories/associate', 'Console\Goods\GoodsController@asCat');
     Route::post('/goods/attributes/associate', 'Console\Goods\GoodsController@asAttr');
     Route::post('/goods/galleries/associate', 'Console\Goods\GoodsController@asGall');
+    Route::get('/goods/attrgoodsadd/{goods_id}', 'Console\Goods\GoodsController@attrGoodsAdd');
 
     // categories
     Route::get('/categories', 'Console\Categories\CategoriesController@index');
