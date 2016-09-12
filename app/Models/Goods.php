@@ -4,9 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Good extends Model
+class Goods extends Model
 {
-
     /**
      * Add a new good.
      *
@@ -28,7 +27,7 @@ class Good extends Model
      * @return mixed
      */
     public function updateOne(Int $goods_id, Array $data) {
-        return Good::where('id', $goods_id)->update($data);
+        return Goods::where('id', $goods_id)->update($data);
     }
 
 
@@ -40,7 +39,7 @@ class Good extends Model
      * @return mixed
      */
     public function updateCover(Int $goods_id, String $cover_url) {
-        return Good::where('id', $goods_id)->update([
+        return Goods::where('id', $goods_id)->update([
             'cover_url' => $cover_url
         ]);
     }
@@ -52,7 +51,7 @@ class Good extends Model
      * @return int
      */
     public function remove(Int $id) {
-        return Good::destroy($id);
+        return Goods::destroy($id);
     }
 
 
@@ -61,7 +60,7 @@ class Good extends Model
      * @return mixed
      */
     public function fetchBlock($page = 0) {
-        return Good::skip($page * 10)->take(10)->get()->toArray();
+        return Goods::skip($page * 10)->take(10)->get()->toArray();
     }
 
 
@@ -71,6 +70,35 @@ class Good extends Model
 
 
     public function fetchOne($good_id) {
-        return Good::find($good_id)->toArray();
+        return Goods::find($good_id)->toArray();
+    }
+
+    public function fetchOneWithAttr($good_id) {
+        $row = Goods::find($good_id);
+        $list = [];
+        foreach ($row->attrs as $attr) {
+            $list[] = [
+                'attr_id' => $attr->id,
+                'attr_name' => $attr->name,
+                'attr_suffix' => $attr->suffix,
+                'attr_type' => $attr->type
+            ];
+            var_dump($list);
+        }
+
+        // attrs should be attached into attrgoods via attr_id.
+
+//        $attrGoods = $row->attrgoods;
+//        foreach ($row->attrgoods as $k => $attrgoods) {
+//            if ($attrgoods->attr_id == $list[$k]['attr_id'])
+//        }
+    }
+
+    public function attrs() {
+        return $this->belongsToMany('App\Models\Attr');
+    }
+
+    public function attrgoods() {
+        return $this->hasMany('App\Models\AttrGoods');
     }
 }

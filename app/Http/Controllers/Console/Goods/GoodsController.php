@@ -7,8 +7,8 @@ use App\Models\Atrcat;
 use App\Models\Attr;
 use App\Models\Category;
 use App\Models\CatsGoods;
-use App\Models\Good;
-use App\Models\GoodsAttr;
+use App\Models\Goods;
+use App\Models\AttrGoods;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -30,7 +30,7 @@ class GoodsController extends ConsoleController
         ];
     }
 
-    public function index(Good $goods) {
+    public function index(Goods $goods) {
         $list = $goods->fetchBlock();
         return display('console/goods_list', [
             'tabs' => $this->tabs,
@@ -49,12 +49,12 @@ class GoodsController extends ConsoleController
         ]);
     }
 
-    public function postAdd(Request $request, Good $goods) {
+    public function postAdd(Request $request, Goods $goods) {
         $goods->store($request->name, $request->cover_url);
         return redirect('/goods');
     }
 
-    public function edit($goods_id, Category $category, Good $good) {
+    public function edit($goods_id, Category $category, Goods $good) {
         // get information of current goods.
         $row = $good->fetchOne($goods_id);
 
@@ -69,7 +69,7 @@ class GoodsController extends ConsoleController
         ]);
     }
 
-    public function postEdit(Request $request, Good $good) {
+    public function postEdit(Request $request, Goods $good) {
         $good_id = $request->goods_id;
         $data = [
             'name' => $request->name,
@@ -84,7 +84,7 @@ class GoodsController extends ConsoleController
     public function associateCategories($goods_id, Category $category) {
 
         // row info
-        $goods = Good::find($goods_id);
+        $goods = Goods::find($goods_id);
         $choosedCats = [];
         foreach($goods->categories as $cat) {
             $choosedCats[] = $cat->name;
@@ -104,7 +104,7 @@ class GoodsController extends ConsoleController
         ]);
     }
 
-    public function associateAttributes($goods_id, Atrcat $atrcat, Attr $attr, GoodsAttr $goodsAttr) {
+    public function associateAttributes($goods_id, Atrcat $atrcat, Attr $attr, AttrGoods $goodsAttr, Goods $good) {
         // get atrcats
         $atrcats = $atrcat->fetchAll();
         $jsonAtrcats = json_encode($atrcats);
@@ -115,19 +115,22 @@ class GoodsController extends ConsoleController
 
         // get associated attrs
         $associatedAttrs = $goodsAttr->fetchAll($goods_id);
+        if (count($associatedAttrs) == 0) {
+            $this->tabs[1]['url'] = 'javascript:;';
+            $this->tabs[1]['name'] = '关联属性';
+            return display('console/goods_attributes', [
+                'tabs' => $this->tabs,
+                'active' => 1,
+                'atrcats' => $jsonAtrcats,
+                'attrs' => $jsonAttrs,
+                'goods_id' => $goods_id,
+                'associatedAttrs' => json_encode($associatedAttrs)
+            ]);
+        } else {
+            $good->fetchOneWithAttr($goods_id);
+        }
         var_dump($associatedAttrs);
         exit();
-
-        $this->tabs[1]['url'] = 'javascript:;';
-        $this->tabs[1]['name'] = '关联属性';
-        return display('console/goods_attributes', [
-            'tabs' => $this->tabs,
-            'active' => 1,
-            'atrcats' => $jsonAtrcats,
-            'attrs' => $jsonAttrs,
-            'goods_id' => $goods_id,
-            'associatedAttrs' => json_encode($associatedAttrs)
-        ]);
     }
 
     public function associateGalleries() {
@@ -141,7 +144,7 @@ class GoodsController extends ConsoleController
         return redirect('/goods');
     }
 
-    public function asAttr(Request $request, GoodsAttr $goodsAttr) {
+    public function asAttr(Request $request, AttrGoods $goodsAttr) {
         $goods_id = $request->goods_id;
         $attrids = $request->attrids;
 
