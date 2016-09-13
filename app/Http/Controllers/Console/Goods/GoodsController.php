@@ -105,7 +105,6 @@ class GoodsController extends ConsoleController
     }
 
     public function associateAttributes($goods_id, Goods $good) {
-
         $this->tabs = [
             [
                 'url' => url('/goods/attributes/associate/'.$goods_id),
@@ -126,7 +125,7 @@ class GoodsController extends ConsoleController
         ]);
     }
 
-    public function attrGoodsAdd($goods_id, Atrcat $atrcat, Attr $attr, AttrGoods $goodsAttr, Goods $good) {
+    public function attrGoodsAdd($goods_id, Atrcat $atrcat, Attr $attr) {
         // get atrcats
         $atrcats = $atrcat->fetchAll();
         $jsonAtrcats = json_encode($atrcats);
@@ -136,12 +135,12 @@ class GoodsController extends ConsoleController
         $jsonAttrs = json_encode($attrs);
 
         // get associated attrs
-        $associatedAttrs = $goodsAttr->fetchAll($goods_id);
+        $associatedAttrs = [];
         
 
         $this->tabs[1]['url'] = 'javascript:;';
         $this->tabs[1]['name'] = '关联属性';
-        return display('console/goods_attributes', [
+        return display('console/goods_attributes_add', [
             'tabs' => $this->tabs,
             'active' => 1,
             'atrcats' => $jsonAtrcats,
@@ -151,18 +150,8 @@ class GoodsController extends ConsoleController
         ]);
     }
 
-    public function associateGalleries() {
-        $this->tabs[1]['url'] = 'javascript:;';
-        $this->tabs[1]['name'] = '关联相册';
-        return display('console/goods_galleries', ['tabs' => $this->tabs, 'active' => 1]);
-    }
 
-    public function asCat(Request $request, CatsGoods $catsGoods) {
-        $catsGoods->store($request->goods_id, $request->category_id);
-        return redirect('/goods');
-    }
-
-    public function asAttr(Request $request, AttrGoods $goodsAttr) {
+    public function postAttrGoodsAdd(Request $request, AttrGoods $goodsAttr) {
         $goods_id = $request->goods_id;
         $attrids = $request->attrids;
 
@@ -180,10 +169,48 @@ class GoodsController extends ConsoleController
 
         $goodsAttr->storeBatch($data);
 
+        return redirect('/goods/attributes/associate/'.$goods_id);
+    }
+    
+    public function associateGalleries() {
+        $this->tabs[1]['url'] = 'javascript:;';
+        $this->tabs[1]['name'] = '关联相册';
+        return display('console/goods_galleries', ['tabs' => $this->tabs, 'active' => 1]);
+    }
+
+    public function asCat(Request $request, CatsGoods $catsGoods) {
+        $catsGoods->store($request->goods_id, $request->category_id);
         return redirect('/goods');
     }
 
     public function asGall() {
 
+    }
+
+
+    public function attrGoodsEdit($id, $goods_id, AttrGoods $attrGoods) {
+        $row = $attrGoods->fetchOne($id);
+        return display('console/goods_attributes_edit', [
+            'tabs' => $this->tabs,
+            'active' => 1,
+            'row' => $row,
+            'id' => $id,
+            'goods_id' => $goods_id
+        ]);
+    }
+
+    public function postAttrGoodsEdit(Request $request, AttrGoods $attrGoods) {
+        $id = $request->id;
+        $value = $request->value;
+        $goods_id = $request->goods_id;
+
+        $attrGoods->updateOne($id, ['value' => $value]);
+
+        return redirect('/goods/attributes/associate/'.$goods_id);
+    }
+
+    public function attrGoodsDelete($id, $goods_id, AttrGoods $attrGoods) {
+        $attrGoods->remove($id);
+        return redirect('/goods/attributes/associate/'.$goods_id);
     }
 }

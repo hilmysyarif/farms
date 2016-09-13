@@ -14,13 +14,6 @@ class AttrGoods extends Model
     }
 
     public function fetchAll($goods_id) {
-//        $res = AttrGoods::where('goods_id', $goods_id)
-//            ->select('goods_id', 'attr_id', 'value')
-//            ->get()->toArray();
-//        foreach ($res as $k => $v) {
-//            $res[$k]['id'] = $v['attr_id'];
-//        }
-
         $res = AttrGoods::where('goods_id', $goods_id)
             ->select('goods_id', 'attr_id', 'value')
             ->get();
@@ -35,7 +28,26 @@ class AttrGoods extends Model
         return $res;
     }
 
+    public function fetchOne($id) {
+        $row = $this->find($id);
+        $res = [
+            'name' => $row->attr->name,
+            'type' => $row->attr->type,
+            'suffix' => $row->attr->suffix,
+            'value' => $row->value
+        ];
+        return $res;
+    }
+
     public function attr() {
         return $this->belongsTo('App\Models\Attr');
+    }
+
+    public function updateOne($id, Array $data) {
+        return AttrGoods::where('id', $id)->update($data);
+    }
+
+    public function remove($id) {
+        return AttrGoods::destroy($id);
     }
 }

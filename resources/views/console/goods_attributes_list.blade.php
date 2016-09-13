@@ -20,8 +20,8 @@
             <td>@{{ lst.suffix }}</td>
             <td>@{{ lst.value }}</td>
             <td>
-                <a class="btn btn-primary" href="/goods/attrgoods/edit/@{{ lst.id }}"><i class="fa fa-edit">&nbsp;</i>@lang('common.edit')</a>
-                <a class="btn btn-danger" href="/goods/attrgoods/delete/@{{ lst.id }}"><i class="fa fa-remove">&nbsp;</i>@lang('common.delete')</a>
+                <a class="btn btn-primary" href="/goods/attrgoods/edit/@{{ lst.id }}/{{ $goods_id }}"><i class="fa fa-edit">&nbsp;</i>@lang('common.edit')</a>
+                <a class="btn btn-danger" href="/goods/attrgoods/delete/@{{ lst.id }}/{{ $goods_id }}"><i class="fa fa-remove">&nbsp;</i>@lang('common.delete')</a>
             </td>
         </tr>
         </tbody>
