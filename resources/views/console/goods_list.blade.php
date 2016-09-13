@@ -46,7 +46,7 @@
             <td>@{{ lst.sort }}</td>
             <td>
                 <a class="btn btn-primary" href="/goods/edit/@{{ lst.id }}"><i class="fa fa-edit">&nbsp;</i>@lang('common.edit')</a>
-                
+
                 <a class="btn btn-primary" href="/goods/categories/associate/@{{ lst.id }}"><i class="fa fa-code-fork">&nbsp;</i>@lang('goods.associate_categories')</a>
                 <a class="btn btn-primary" href="/goods/attributes/associate/@{{ lst.id }}"><i class="fa fa-cubes">&nbsp;</i>@lang('goods.associate_attributes')</a>
                 <a class="btn btn-primary" href="/goods/galleries/associate/@{{ lst.id }}"><i class="fa fa-picture-o">&nbsp;</i>@lang('goods.associate_galleries')</a>

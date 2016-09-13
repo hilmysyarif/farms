@@ -5,6 +5,8 @@
     <form class="form-horizontal" action="{{ url('/goods/galleries/associate') }}" method="post">
         {{ csrf_field() }}
 
+        <div id="hiddenInputs"></div>
+
         <!-- GALLERY
         ===========================================-->
         <div class="form-group">
@@ -39,6 +41,7 @@
                         var output = document.getElementById( 'gallery-output' );
                         var files = evt.data.files;
                         var chosenFiles = '';
+                        var hiddenInputs = '';
 
                         files.forEach( function( file, i ) {
                             var tmp = '<p>' +
@@ -46,8 +49,11 @@
                                     '<button type="button" class="btn btn-default btn-xs"><i class="fa fa-close">&nbsp;</i></button>' +
                                     '</p>';
                             chosenFiles += tmp;
+
+                            hiddenInputs += '<input type="hidden" name="imgs[]" value="' + file.getUrl() + '">';
                         });
                         output.innerHTML = chosenFiles;
+                        $('#hiddenInputs').html(hiddenInputs);
                     } );
 
                     finder.on( 'file:choose:resizedImage', function( evt ) {
