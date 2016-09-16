@@ -7,6 +7,7 @@ use App\Models\Atrcat;
 use App\Models\Attr;
 use App\Models\Category;
 use App\Models\CatsGoods;
+use App\Models\GalleryGoods;
 use App\Models\Goods;
 use App\Models\AttrGoods;
 use Illuminate\Http\Request;
@@ -171,11 +172,32 @@ class GoodsController extends ConsoleController
 
         return redirect('/goods/attributes/associate/'.$goods_id);
     }
-    
-    public function associateGalleries() {
-        $this->tabs[1]['url'] = 'javascript:;';
-        $this->tabs[1]['name'] = '关联相册';
-        return display('console/goods_galleries', ['tabs' => $this->tabs, 'active' => 1]);
+
+    /**
+     * fetch gallery list.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function associateGalleries($goods_id, Goods $goods) {
+        $this->tabs = [
+            0 => [
+                'url' => url('/goods/galleries/associate/'.$goods_id),
+                'name' => '相册列表'
+            ],
+            1 => [
+                'url' => url('/goods/goodsGalleryAdd/'.$goods_id),
+                'name' => '添加照片'
+            ]
+        ];
+
+        $galleries = $goods->galleriesList($goods_id)->toArray();
+
+        return display('console/goods_galleries_list', [
+            'tabs' => $this->tabs,
+            'active' => 0,
+            'goods_id' => $goods_id,
+            'list' => json_encode($galleries)
+        ]);
     }
 
     public function asCat(Request $request, CatsGoods $catsGoods) {
@@ -183,8 +205,19 @@ class GoodsController extends ConsoleController
         return redirect('/goods');
     }
 
-    public function asGall() {
+    public function asGall(Request $request, GalleryGoods $galleryGoods) {
+        $goods_id = $request->goods_id;
+        $imgs = $request->imgs;
+        $data = [];
+        foreach ($imgs as $img) {
+            $data[] = [
+                'goods_id' => $goods_id,
+                'url' => $img
+            ];
+        }
+        $galleryGoods->storeBatch($data);
 
+        return redirect(url('/goods/galleries/associate/'.$goods_id));
     }
 
 
@@ -212,5 +245,66 @@ class GoodsController extends ConsoleController
     public function attrGoodsDelete($id, $goods_id, AttrGoods $attrGoods) {
         $attrGoods->remove($id);
         return redirect('/goods/attributes/associate/'.$goods_id);
+    }
+
+    /**
+     * prepare adding galleries.
+     *
+     * @param $goods_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function galleriesAdd($goods_id) {
+        $this->tabs = [
+            0 => [
+                'url' => url('/goods/galleries/associate/'.$goods_id),
+                'name' => '相册列表'
+            ],
+            1 => [
+                'url' => url('/goods/goodsGalleryAdd/'.$goods_id),
+                'name' => '添加照片'
+            ]
+        ];
+        return display('console/goods_galleries_add', [
+            'tabs' => $this->tabs,
+            'active' => 1,
+            'goods_id' => $goods_id
+        ]);
+    }
+
+
+    public function galleryEdit($id, $goods_id, GalleryGoods $galleryGoods) {
+
+        $row = $galleryGoods->fetchOne($id);
+        $this->tabs = [
+            0 => [
+                'url' => url('/goods/galleries/associate/'.$goods_id),
+                'name' => '相册列表'
+            ],
+            1 => [
+                'url' => url('/goods/goodsGalleryAdd/'.$goods_id),
+                'name' => '添加照片'
+            ]
+        ];
+        return display('console/goods_gallery_edit', [
+            'tabs' => $this->tabs,
+            'active' => 1,
+            'goods_id' => $goods_id,
+            'id' => $id,
+            'row' => $row
+        ]);
+    }
+
+    public function postGalleryEdit(Request $request, GalleryGoods $galleryGoods) {
+        $id = $request->id;
+        $goods_id = $request->goods_id;
+        $url = $request->img;
+        $galleryGoods->updateOne($id, $url);
+
+        return redirect(url('/goods/galleries/associate/'.$goods_id));
+    }
+
+    public function galleryDelete($id, $goods_id, GalleryGoods $galleryGoods) {
+        $galleryGoods->remove($id);
+        return redirect(url('/goods/galleries/associate/'.$goods_id));
     }
 }

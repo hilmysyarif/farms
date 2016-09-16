@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGoodsGalleryTable extends Migration
+class CreateGalleryGoodsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,13 @@ class CreateGoodsGalleryTable extends Migration
      */
     public function up()
     {
-        Schema::create('goods_gallery', function(Blueprint $table) {
+        Schema::create('gallery_goods', function(Blueprint $table) {
             $table->increments('id');
             $table->string('url')->unique();
             $table->integer('goods_id')->unsigned(); //TODO: foreign key with goods.
         });
 
-        Schema::table('goods_gallery', function($table) {
+        Schema::table('gallery_goods', function($table) {
             $table->foreign('goods_id')->references('id')->on('goods')->onDelete('cascade');
         });
     }
@@ -30,10 +30,10 @@ class CreateGoodsGalleryTable extends Migration
      */
     public function down()
     {
-        Schema::table('goods_gallery', function($table) {
+        Schema::table('gallery_goods', function($table) {
             $table->dropForeign(['goods_id']);
         });
         
-        Schema::drop('goods_gallery');
+        Schema::drop('gallery_goods');
     }
 }

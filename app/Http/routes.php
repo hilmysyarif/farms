@@ -62,11 +62,17 @@ Route::group(['middleware' => 'web'], function() {
 
     Route::get('/goods/categories/associate/{goods_id}', 'Console\Goods\GoodsController@associateCategories');
     Route::get('/goods/attributes/associate/{goods_id}', 'Console\Goods\GoodsController@associateAttributes');
+
     Route::get('/goods/galleries/associate/{goods_id}', 'Console\Goods\GoodsController@associateGalleries');
+    Route::get('/goods/goodsGalleryAdd/{goods_id}', 'Console\Goods\GoodsController@galleriesAdd');
+    Route::post('/goods/goodsGalleryAdd', 'Console\Goods\GoodsController@postGalleriesAdd');
 
     Route::post('/goods/categories/associate', 'Console\Goods\GoodsController@asCat');;
 
     Route::post('/goods/galleries/associate', 'Console\Goods\GoodsController@asGall');
+    Route::get('/goods/galleries/edit/{id}/{goods_id}', 'Console\Goods\GoodsController@galleryEdit');
+    Route::post('/goods/galleries/edit', 'Console\Goods\GoodsController@postGalleryEdit');
+    Route::get('/goods/galleries/delete/{id}/{goods_id}', 'Console\Goods\GoodsController@galleryDelete');
 
     Route::get('/goods/attrgoodsadd/{goods_id}', 'Console\Goods\GoodsController@attrGoodsAdd');
     Route::post('/goods/attrgoodsadd/', 'Console\Goods\GoodsController@postAttrGoodsAdd');

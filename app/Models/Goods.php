@@ -63,9 +63,9 @@ class Goods extends Model
         return Goods::skip($page * 10)->take(10)->get()->toArray();
     }
 
-
-    public function categories() {
-        return $this->belongsToMany('App\Models\Category');
+    public function galleriesList($goods_id) {
+        $row = Goods::find($goods_id);
+        return $row->galleries;
     }
 
 
@@ -116,5 +116,13 @@ class Goods extends Model
 
     public function attrgoods() {
         return $this->hasMany('App\Models\AttrGoods');
+    }
+    
+    public function galleries() {
+        return $this->hasMany('App\Models\GalleryGoods');
+    }
+
+    public function categories() {
+        return $this->belongsToMany('App\Models\Category');
     }
 }

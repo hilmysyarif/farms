@@ -4,7 +4,7 @@
 
     <form class="form-horizontal" action="{{ url('/goods/galleries/associate') }}" method="post">
         {{ csrf_field() }}
-
+        <input type="hidden" name="goods_id" value="{{ $goods_id }}">
         <div id="hiddenInputs"></div>
 
         <!-- GALLERY
