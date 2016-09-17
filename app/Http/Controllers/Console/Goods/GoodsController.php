@@ -236,8 +236,10 @@ class GoodsController extends ConsoleController
         $id = $request->id;
         $value = $request->value;
         $goods_id = $request->goods_id;
+        $price = $request->price;
+        $sale = $request->sale == 'on' ? 1 : 0;
 
-        $attrGoods->updateOne($id, ['value' => $value]);
+        $attrGoods->updateOne($id, ['value' => $value, 'price' => $price, 'sale' => $sale]);
 
         return redirect('/goods/attributes/associate/'.$goods_id);
     }

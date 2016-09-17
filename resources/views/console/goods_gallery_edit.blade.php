@@ -55,15 +55,6 @@
                         var chosenFiles = tmp;
 
                         var hiddenInputs = '<input type="hidden" name="img" value="' + file.getUrl() + '">';
-//                        files.forEach( function( file, i ) {
-//                            var tmp = '<p>' +
-//                                    '<img width="15%" class="img-thumbnail img-responsive inline" src="' + APP_URL + '/' + file.getUrl() + '">&nbsp;' +
-//                                    '<button type="button" class="btn btn-default btn-xs"><i class="fa fa-close">&nbsp;</i></button>' +
-//                                    '</p>';
-//                            chosenFiles += tmp;
-//
-//                            hiddenInputs += '<input type="hidden" name="imgs[]" value="' + file.getUrl() + '">';
-//                        });
                         output.innerHTML = chosenFiles;
                         $('#hiddenInputs').html(hiddenInputs);
                     } );

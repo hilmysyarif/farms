@@ -34,7 +34,9 @@ class AttrGoods extends Model
             'name' => $row->attr->name,
             'type' => $row->attr->type,
             'suffix' => $row->attr->suffix,
-            'value' => $row->value
+            'value' => $row->value,
+            'price' => $row->price,
+            'sale' => $row->sale
         ];
         return $res;
     }

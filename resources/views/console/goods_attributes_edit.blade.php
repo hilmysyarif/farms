@@ -21,6 +21,31 @@
                 </div>
             </div>
         </div>
+        <div class="form-group">
+            <label for="category_id" class="col-md-2 control-label">@lang('goods.price')</label>
+            <div class="col-md-10">
+                <div class="form-inline">
+                    <div class="input-group gap-right">
+                        <input class="form-control" type="number" name="price" value="{{ $row['price'] }}">
+                        <div class="input-group-addon">$</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="category_id" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <div class="checkbox">
+                    <label>
+                        @if ($row['sale'] == 1)
+                            <input type="checkbox" name="sale" checked>@lang('goods.sale')
+                        @else
+                            <input type="checkbox" name="sale">@lang('goods.sale')
+                        @endif
+                    </label>
+                </div>
+            </div>
+        </div>
 
         @include('console.shared.form-button')
     </form>
