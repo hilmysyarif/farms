@@ -60,6 +60,8 @@ Route::group(['middleware' => 'web'], function() {
     Route::get('/goods/edit/{good_id}', 'Console\Goods\GoodsController@edit');
     Route::post('/goods/edit', 'Console\Goods\GoodsController@postEdit');
 
+    Route::get('/goods/delete/{id}', 'Console\Goods\GoodsController@delete');
+
     Route::get('/goods/categories/associate/{goods_id}', 'Console\Goods\GoodsController@associateCategories');
     Route::get('/goods/attributes/associate/{goods_id}', 'Console\Goods\GoodsController@associateAttributes');
 

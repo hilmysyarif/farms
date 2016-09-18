@@ -15,14 +15,14 @@ class CreateCartTable extends Migration
         Schema::create('cart', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->integer('goods_attr_id')->unsigned();
+            $table->integer('attr_goods_id')->unsigned();
             $table->tinyInteger('number');
             $table->timestamps();
         });
 
         Schema::table('cart', function($table) {
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('goods_attr_id')->references('id')->on('goods_attr')->onDelete('cascade');
+            $table->foreign('attr_goods_id')->references('id')->on('attr_goods')->onDelete('cascade');
         });
     }
 
@@ -35,7 +35,7 @@ class CreateCartTable extends Migration
     {
         Schema::table('cart', function($table) {
             $table->dropForeign(['user_id']);
-            $table->dropForeign(['goods_attr_id']);
+            $table->dropForeign(['attr_goods_id']);
         });
 
         Schema::drop('cart');

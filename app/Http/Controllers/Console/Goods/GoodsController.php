@@ -83,7 +83,6 @@ class GoodsController extends ConsoleController
     }
 
     public function associateCategories($goods_id, Category $category) {
-
         // row info
         $goods = Goods::find($goods_id);
         $choosedCats = [];
@@ -308,5 +307,10 @@ class GoodsController extends ConsoleController
     public function galleryDelete($id, $goods_id, GalleryGoods $galleryGoods) {
         $galleryGoods->remove($id);
         return redirect(url('/goods/galleries/associate/'.$goods_id));
+    }
+
+    public function delete($id, Goods $goods) {
+        $goods->remove($id);
+        return redirect(url('/goods'));
     }
 }

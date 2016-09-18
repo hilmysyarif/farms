@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGoodsAttr extends Migration
+class CreateAttrGoods extends Migration
 {
     /**
      * Run the migrations.
