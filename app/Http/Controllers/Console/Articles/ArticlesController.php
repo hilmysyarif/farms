@@ -70,4 +70,58 @@ class ArticlesController extends ConsoleController
 
         return redirect(url('/articles'));
     }
+
+    public function edit($id, Article $article, Category $category) {
+        $row = $article->fetchOne($id);
+        $this->tabs = [
+            [
+                'url' => url('/articles'),
+                'name' => '文章列表'
+            ],
+            [
+                'url' => url('/articles/edit/'.$id),
+                'name' => '编辑文章'
+            ],
+        ];
+        $categories = $category->fetchBlock();
+        $options = [
+            [
+                'id' => 0,
+                'name' => '草稿'
+            ],
+            [
+                'id' => 1,
+                'name' => '发布'
+            ]
+        ];
+
+        return display('console/articles_edit', [
+            'tabs' => $this->tabs,
+            'active' => 1,
+            'selects' => json_encode($categories),
+            'options' => json_encode($options),
+            'row' => $row,
+            'id' => $id
+        ]);
+    }
+
+    public function postEdit(Request $request, Article $article) {
+        $id = $request->id;
+        $data = [
+            'title' => $request->title,
+            'author' => $request->author,
+            'category_id' => $request->category_id,
+            'status' => $request->status,
+            'content' => $request->body
+        ];
+
+        $article->updateOne($id, $data);
+
+        return redirect(url('/articles'));
+    }
+
+    public function delete($id, Article $article) {
+        $article->remove($id);
+        return redirect(url('articles'));
+    }
 }

@@ -126,6 +126,9 @@ Route::group(['middleware' => 'web'], function() {
     Route::get('/articles', 'Console\Articles\ArticlesController@index');
     Route::get('/articles/add', 'Console\Articles\ArticlesController@add');
     Route::post('/articles/add', 'Console\Articles\ArticlesController@postAdd');
+    Route::get('/articles/edit/{id}', 'Console\Articles\ArticlesController@edit');
+    Route::post('/articles/edit', 'Console\Articles\ArticlesController@postEdit');
+    Route::get('/articles/delete/{id}', 'Console\Articles\ArticlesController@delete');
 
 
     // atrcat

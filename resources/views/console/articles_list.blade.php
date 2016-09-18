@@ -23,8 +23,8 @@
                 <td>{{ $lst['author'] }}</td>
                 <td>{{ $lst['category_name'] }}</td>
                 <td>
-                    <a class="btn btn-primary"><i class="fa fa-edit">&nbsp;</i>@lang('common.edit')</a>
-                    <a class="btn btn-danger"><i class="fa fa-remove">&nbsp;</i>@lang('common.delete')</a>
+                    <a class="btn btn-primary" href="{{ url('/articles/edit/'.$lst['id']) }}"><i class="fa fa-edit">&nbsp;</i>@lang('common.edit')</a>
+                    <a class="btn btn-danger" href="{{ url('/articles/delete/'.$lst['id']) }}"><i class="fa fa-remove">&nbsp;</i>@lang('common.delete')</a>
                 </td>
             </tr>
         @endforeach

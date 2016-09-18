@@ -23,8 +23,23 @@ class Article extends Model
         }
         return $list->toArray();
     }
+
     
     public function category() {
         return $this->belongsTo('App\Models\Category');
+    }
+
+    public function fetchOne($id) {
+        $row = Article::find($id);
+        $row->category_name = $row->category->name;
+        return $row->toArray();
+    }
+
+    public function updateOne($id, $data) {
+        return Article::where('id', $id)->update($data);
+    }
+
+    public function remove($id) {
+        return Article::destroy($id);
     }
 }
