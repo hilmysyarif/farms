@@ -125,6 +125,8 @@ Route::group(['middleware' => 'web'], function() {
     // articles
     Route::get('/articles', 'Console\Articles\ArticlesController@index');
     Route::get('/articles/add', 'Console\Articles\ArticlesController@add');
+    Route::post('/articles/add', 'Console\Articles\ArticlesController@postAdd');
+
 
     // atrcat
     Route::get('/atrcat/attributes/associate/{cid}', 'Console\Attributes\AtrcatController@asAttr');

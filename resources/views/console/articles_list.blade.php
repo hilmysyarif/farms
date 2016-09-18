@@ -15,56 +15,19 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>1</td>
-            <td>Red jk</td>
-            <td>$54.20</td>
-            <td>1</td>
-            <td>
-                <a class="btn btn-primary"><i class="fa fa-edit">&nbsp;</i>Edit</a>
-                <a class="btn btn-danger"><i class="fa fa-remove">&nbsp;</i>Remove</a>
-            </td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Yellow jk</td>
-            <td>$54.20</td>
-            <td>1</td>
-            <td>
-                <a class="btn btn-primary"><i class="fa fa-edit">&nbsp;</i>Edit</a>
-                <a class="btn btn-danger"><i class="fa fa-remove">&nbsp;</i>Remove</a>
-            </td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>Round walnut</td>
-            <td>$54.20</td>
-            <td>1</td>
-            <td>
-                <a class="btn btn-primary"><i class="fa fa-edit">&nbsp;</i>Edit</a>
-                <a class="btn btn-danger"><i class="fa fa-remove">&nbsp;</i>Remove</a>
-            </td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>Clear pepper</td>
-            <td>$54.20</td>
-            <td>1</td>
-            <td>
-                <a class="btn btn-primary"><i class="fa fa-edit">&nbsp;</i>Edit</a>
-                <a class="btn btn-danger"><i class="fa fa-remove">&nbsp;</i>Remove</a>
-            </td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td>Round persimmon</td>
-            <td>$54.20</td>
-            <td>1</td>
-            <td>
-                <a class="btn btn-primary"><i class="fa fa-edit">&nbsp;</i>Edit</a>
-                <a class="btn btn-danger"><i class="fa fa-remove">&nbsp;</i>Remove</a>
-            </td>
-        </tr>
+
+        @foreach($list as $lst)
+            <tr>
+                <td>{{ $lst['id'] }}</td>
+                <td>{{ $lst['title'] }}</td>
+                <td>{{ $lst['author'] }}</td>
+                <td>{{ $lst['category_name'] }}</td>
+                <td>
+                    <a class="btn btn-primary"><i class="fa fa-edit">&nbsp;</i>@lang('common.edit')</a>
+                    <a class="btn btn-danger"><i class="fa fa-remove">&nbsp;</i>@lang('common.delete')</a>
+                </td>
+            </tr>
+        @endforeach
         </tbody>
     </table>
 

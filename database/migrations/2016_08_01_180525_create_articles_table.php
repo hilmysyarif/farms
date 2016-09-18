@@ -18,6 +18,7 @@ class CreateArticlesTable extends Migration
             $table->string('author', 64);
             $table->text('content');
             $table->integer('category_id')->unsigned();
+            $table->tinyInteger('status')->unsigned();
             $table->timestamps();
         });
 
