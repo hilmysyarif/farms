@@ -161,6 +161,11 @@ return [
          */
         App\Providers\TestForGuardProvider::class,
 
+        /*
+         * Generator Providers...
+         */
+        // TODO: It seems that register generator providers here will not work properly.
+//        RTKit\Generator\Controller::class,
     ],
 
     /*
