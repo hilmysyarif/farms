@@ -121,6 +121,10 @@ Route::group(['middleware' => 'web'], function() {
     // sliders
     Route::get('/sliders', 'Console\Settings\SlidersController@index');
     Route::get('/sliders/add', 'Console\Settings\SlidersController@add');
+    Route::post('/sliders/add', 'Console\Settings\SlidersController@postAdd');
+    Route::get('/slider/edit/{id}', 'Console\Settings\SlidersController@edit');
+    Route::post('/slider/edit', 'Console\Settings\SlidersController@postEdit');
+    Route::get('/slider/delete/{id}', 'Console\Settings\SlidersController@delete');
 
     // articles
     Route::get('/articles', 'Console\Articles\ArticlesController@index');

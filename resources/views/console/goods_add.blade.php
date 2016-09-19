@@ -23,7 +23,7 @@
             <label for="cover_url" class="col-md-2 control-label">@lang('goods.cover')</label>
             <div class="col-md-10">
                 <input id="cover_url" type="hidden" class="form-control" name="cover_url" value="{{ old('cover_url') }}" />
-                <button class="btn btn-default" type="button" id="ckfinder-cover">
+                <button class="btn btn-default" id="ckfinder-cover">
                     <i class="fa fa-btn fa-picture-o">&nbsp;</i>选择封面
                 </button>
                 <div id="cover-output" class="row gap-top">
@@ -68,15 +68,7 @@
                     finder.on( 'files:choose', function( evt ) {
                         var output = document.getElementById( 'cover-output' );
                         var files = evt.data.files;
-//                        var chosenFiles = '';
 
-//                        files.forEach( function( file, i ) {
-//                            var tmp = '<p>' +
-//                                    '<img width="15%" class="img-thumbnail img-responsive inline" src="' + APP_URL + '/' + file.getUrl() + '">&nbsp;' +
-//                                    '<button type="button" class="btn btn-default btn-xs"><i class="fa fa-close">&nbsp;</i></button>' +
-//                                    '</p>';
-//                            chosenFiles += tmp;
-//                        });
                         var chosenFiles = '<p>' +
                                     '<img width="15%" class="img-thumbnail img-responsive inline" src="' + APP_URL + '/' + files.first().getUrl() + '">&nbsp;' +
                                     '</p>';

@@ -12,5 +12,7 @@ return [
     'nothing' => '无',
     'please_choose' => '请选择',
     'natural_order' => '自然排序',
-    'type' => '类型'
+    'type' => '类型',
+    'description' => '描述',
+    'url' => '地址'
 ];

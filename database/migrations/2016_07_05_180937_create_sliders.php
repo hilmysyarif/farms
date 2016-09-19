@@ -14,7 +14,10 @@ class CreateSliders extends Migration
     {
         Schema::create('sliders', function(Blueprint $table) {
             $table->increments('id');
-            $table->text('content');
+            $table->string('name', 128);
+            $table->string('description', 255);
+            $table->string('url', 255);
+            $table->string('img', 255);
             $table->tinyInteger('sort_order');
             $table->timestamps();
         });
