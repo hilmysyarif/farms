@@ -12,7 +12,7 @@ class GenerateController extends Command
      *
      * @var string
      */
-    protected $signature = 'generate:controller';
+    protected $signature = 'generate:controller {controllerName} {--parent=}';
 
     /**
      * The console command description.
@@ -44,6 +44,9 @@ class GenerateController extends Command
      */
     public function handle()
     {
-        $this->genController->test();
+        $controllerName = $this->argument('controllerName');
+        $parentClassName = $this->option('parent');
+        $this->genController->generate($controllerName, $parentClassName);
+        $this->info($controllerName.' has been genereated successfully');
     }
 }
