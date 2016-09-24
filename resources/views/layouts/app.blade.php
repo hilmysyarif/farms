@@ -46,6 +46,9 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         <li><a href="/">Home</a></li>
+                        @foreach ($navs as $nav)
+                            <li><a href="/list">{{ $nav['name'] }}</a></li>
+                        @endforeach
                         <li><a href="/list">Pepper</a></li>
                         <li><a href="/list">Apple</a></li>
                         <li><a href="/list">Walnut</a></li>

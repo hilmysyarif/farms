@@ -13,9 +13,11 @@
 
 
 Route::group(['middleware' => 'web'], function() {
-    Route::get('/', function () {
-        return view('front/welcome');
-    });
+//    Route::get('/', function () {
+//        return view('front/welcome');
+//    });
+
+    Route::get('/', 'Front\IndexController@index');
 
     Route::get('/list', function() {
         return view('front/list');

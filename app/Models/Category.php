@@ -33,6 +33,14 @@ class Category extends Model
         return $list;
     }
 
+    public function tops() {
+        $list =  Category::where('parent_id', 0)
+            ->orderBy('sort_order','asc')
+            ->get()
+            ->toArray();
+        return $list;
+    }
+
     public function updateOne(Array $data, Int $id) {
         return Category::where('id', $id)->update($data);
     }
