@@ -1,5 +1,5 @@
-# shiyi
-Shop of stone crafts build with Laravel.
+
+A shop based on Laravel 5.2.
 
 # Laravel PHP Framework
 
