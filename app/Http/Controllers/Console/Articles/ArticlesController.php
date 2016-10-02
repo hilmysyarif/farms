@@ -64,7 +64,8 @@ class ArticlesController extends ConsoleController
             'author' => $request->author,
             'category_id' => $request->category_id,
             'status' => $request->status,
-            'content' => $request->body
+            'content' => $request->body,
+            'icon' => $request->icon
         ];
         $article->store($data);
 
@@ -112,7 +113,8 @@ class ArticlesController extends ConsoleController
             'author' => $request->author,
             'category_id' => $request->category_id,
             'status' => $request->status,
-            'content' => $request->body
+            'content' => $request->body,
+            'icon' => $request->icon
         ];
 
         $article->updateOne($id, $data);

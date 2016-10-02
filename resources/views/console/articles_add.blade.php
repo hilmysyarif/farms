@@ -38,6 +38,27 @@
                 </div>
             </div>
 
+
+            <div class="form-group">
+                <label for="name" class="col-md-2 control-label">@lang('articles.icon')</label>
+                <div class="col-md-10">
+                    <input id="img" type="hidden" name="icon" value="{{ old('icon') }}" />
+                    <button type="button" class="btn btn-default" id="ckfinder-icon">
+                        <i class="fa fa-image">&nbsp;</i>
+                        选择图片
+                    </button>
+                    <div id="cover-output" class="row gap-top">
+                    </div>
+                    @if ($errors->has('icon'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('icon') }}</strong>
+                        </span>
+                    @endif
+                </div>
+            </div>
+
+
+
             <div class="form-group">
                 <label for="category_id" class="col-md-2 control-label">所属分类</label>
 
@@ -163,5 +184,38 @@
                 this.$set('selects', jsonData);
             }
         });
+    </script>
+
+    <script>
+        var APP_URL = '{{ env('APP_URL') }}';
+        var button_icon = document.getElementById( 'ckfinder-icon' );
+
+        button_icon.onclick = function() {
+            CKFinder.modal( {
+                chooseFiles: true,
+                width: 800,
+                height: 600,
+                onInit: function( finder ) {
+                    finder.on( 'files:choose', function( evt ) {
+                        var output = document.getElementById( 'cover-output' );
+                        var files = evt.data.files;
+
+                        var chosenFiles = '<p>' +
+                                '<img width="15%" class="img-thumbnail img-responsive inline" src="' + APP_URL + '/' + files.first().getUrl() + '">&nbsp;' +
+                                '</p>';
+                        output.innerHTML = chosenFiles;
+
+                        // update hidden filed of cover_url
+                        var imgUrl = files.first().getUrl();
+                        $('#img').val(imgUrl);
+                    } );
+
+                    finder.on( 'file:choose:resizedImage', function( evt ) {
+                        var output = document.getElementById( 'cover-output' );
+                        output.innerHTML += 'Selected resized image: ' + evt.data.file.get( 'name' ) + '<br>url: ' + evt.data.resizedUrl;
+                    } );
+                }
+            } );
+        };
     </script>
 @endsection

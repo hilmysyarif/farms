@@ -7,11 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
     public function store($data) {
-        $this->title = $data['title'];
-        $this->author = $data['author'];
-        $this->category_id = $data['category_id'];
-        $this->status = $data['status'];
-        $this->content = $data['content'];
+        
+        foreach ($data as $k => $v) {
+            $this->$k = $v;
+        }
 
         return $this->save();
     }
@@ -41,5 +40,9 @@ class Article extends Model
 
     public function remove($id) {
         return Article::destroy($id);
+    }
+
+    public function topArticles() {
+        return $this->orderBy('id', 'desc')->skip(0)->take(4)->get();
     }
 }

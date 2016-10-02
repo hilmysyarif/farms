@@ -49,10 +49,6 @@
                         @foreach ($navs as $nav)
                             <li><a href="/list">{{ $nav['name'] }}</a></li>
                         @endforeach
-                        <li><a href="/list">Pepper</a></li>
-                        <li><a href="/list">Apple</a></li>
-                        <li><a href="/list">Walnut</a></li>
-                        <li><a href="/list">Persimmon</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
