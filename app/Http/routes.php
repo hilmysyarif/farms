@@ -19,9 +19,7 @@ Route::group(['middleware' => 'web'], function() {
 
     Route::get('/', 'Front\IndexController@index');
 
-    Route::get('/list', function() {
-        return view('front/list');
-    });
+    Route::get('/list', 'Front\ListController@index');
 
     Route::get('/detail', function() {
         return view('front/detail');
