@@ -5,11 +5,9 @@ namespace App\Http\Controllers\Front;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 
-class ListController extends FrontController {
-
+class GoodsController extends FrontController{
+    
     public function index() {
-        return view('front/list', [
-            'navs' => $this->navs
-        ]);
+        return view('front/detail', ['navs' => $this->navs]);
     }
 }

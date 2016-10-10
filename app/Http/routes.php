@@ -21,18 +21,12 @@ Route::group(['middleware' => 'web'], function() {
 
     Route::get('/list', 'Front\ListController@index');
 
-    Route::get('/detail', function() {
-        return view('front/detail');
-    });
+    Route::get('/detail', 'Front\GoodsController@index');
 
-    Route::get('/cart', function() {
-        return view('front/cart');
-    });
+    Route::get('/cart', 'Front\CartController@index');
 
-    Route::post('/order', 'Order\OrderController@index');
-    Route::get('/order', function() {
-        return view('front/order');
-    });
+    Route::post('/order', 'Front\OrderController@index');
+    Route::get('/order', 'Front\OrderController@index');
 
     Route::get('/test', function() {
         return response()->json(['name' => 'rex', 'id' => '1', 'description' => 'good student']);

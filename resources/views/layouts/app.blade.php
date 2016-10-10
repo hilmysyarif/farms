@@ -13,11 +13,55 @@
 
     <!-- Styles -->
     <link href="{{ URL::asset('css/bootstrap.min.css') }}" rel='stylesheet' type='text/css'>
+    <link href="{{ URL::asset('css/bootstrap-submenu.min.css') }}" rel='stylesheet' type='text/css'>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link href="{{ URL::asset('css/ie10-viewport-bug-workaround.css') }}" rel='stylesheet' type='text/css'>
 
     <!-- Custom styles for this template -->
     <link href="{{ URL::asset('css/app.css') }}" rel="stylesheet">
+    <style type="text/css">
+        /*.dropdown-submenu {*/
+            /*position: relative;*/
+        /*}*/
+        /*.dropdown-submenu > .dropdown-menu {*/
+            /*top: 0;*/
+            /*left: 100%;*/
+            /*margin-top: -6px;*/
+            /*margin-left: -1px;*/
+            /*-webkit-border-radius: 0 6px 6px 6px;*/
+            /*-moz-border-radius: 0 6px 6px;*/
+            /*border-radius: 0 6px 6px 6px;*/
+        /*}*/
+        .dropdown-submenu:hover > .dropdown-menu {
+            display: block;
+        }
+        .dropdown-submenu > a:after {
+            /*display: block;*/
+            /*content: " ";*/
+            /*float: right;*/
+            /*width: 0;*/
+            /*height: 0;*/
+            /*border-color: transparent;*/
+            /*border-style: solid;*/
+            /*border-width: 5px 0 5px 5px;*/
+            /*border-left-color: #ccc;*/
+            /*margin-top: 5px;*/
+            /*margin-right: -10px;*/
+        }
+        .dropdown-submenu:hover > a:after {
+            /*border-left-color: #fff;*/
+        }
+        .dropdown-submenu.pull-left {
+            /*float: none;*/
+        }
+        .dropdown-submenu.pull-left > .dropdown-menu {
+            /*left: -100%;*/
+            /*margin-left: 10px;*/
+            /*-webkit-border-radius: 6px 0 6px 6px;*/
+            /*-moz-border-radius: 6px 0 6px 6px;*/
+            /*border-radius: 6px 0 6px 6px;*/
+        }
+    </style>
     @yield('css')
 
 </head>
@@ -49,6 +93,35 @@
                         @foreach ($navs as $nav)
                             <li><a href="/list">{{ $nav['name'] }}</a></li>
                         @endforeach
+                        <li class="dropdown">
+                            <a data-toggle="dropdown" href="javascript:;">
+                                下拉多级菜单 <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="javascript:;">一级菜单</a></li>
+                                <li><a href="javascript:;">一级菜单</a></li>
+                                <li class="divider"></li>
+                                <li class="dropdown-submenu">
+                                    <a tabindex="-1" href="javascript:;">一级菜单</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a tabindex="-1" href="javascript:;">二级菜单</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li class="dropdown-submenu">
+                                            <a href="javascript:;">二级菜单</a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="javascript:;">三级菜单</a></li>
+                                                <li class="dropdown-submenu">
+                                                    <a href="javascript:;">三级菜单</a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="javascript:;">四级菜单</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -88,10 +161,17 @@
     {{--<script src="{{ elixir('js/app.js') }}"></script>--}}
     <script src="{{ URL::asset('js/jquery.min.js') }}"></script>
     <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ URL::asset('js/bootstrap-submenu.min.js') }}"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="{{ URL::asset('js/ie10-viewport-bug-workaround.js') }}"></script>
     <!-- color line -->
     <script>
+
+        // For v2 [data-toggle="dropdown"] is required for [data-submenu].
+        // For v2 .dropdown-submenu > [data-toggle="dropdown"] is forbidden.
+        $('[data-submenu]').submenupicker();
+
+
         function renderColorLine() {
             var width = $(document.body).width();
             var height = 2;
@@ -114,6 +194,12 @@
         $(function() {
             renderColorLine();
         });
+
+
+        // hover event of dropdown-submenu.
+//        $('.dropdown-submenu > a').hover(function() {
+//            console.log('You hover on '+$(this).text());
+//        });
     </script>
 
     @yield('js')
