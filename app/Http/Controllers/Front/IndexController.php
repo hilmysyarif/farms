@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-class IndexController extends FrontController
-{
+class IndexController extends FrontController {
+
     public function index(Slider $slider, Article $article) {
         $sliders = $slider->fetchAll();
 
@@ -17,7 +17,7 @@ class IndexController extends FrontController
         $articles = $article->topArticles();
 
         return view('front/welcome', [
-            'navs' => $this->navs,
+            'navHtml' => $this->navHtml,
             'sliders' => $sliders,
             'articles' => $articles
         ]);

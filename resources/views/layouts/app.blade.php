@@ -35,32 +35,32 @@
         .dropdown-submenu:hover > .dropdown-menu {
             display: block;
         }
-        .dropdown-submenu > a:after {
-            /*display: block;*/
-            /*content: " ";*/
-            /*float: right;*/
-            /*width: 0;*/
-            /*height: 0;*/
-            /*border-color: transparent;*/
-            /*border-style: solid;*/
-            /*border-width: 5px 0 5px 5px;*/
-            /*border-left-color: #ccc;*/
-            /*margin-top: 5px;*/
-            /*margin-right: -10px;*/
-        }
-        .dropdown-submenu:hover > a:after {
-            /*border-left-color: #fff;*/
-        }
-        .dropdown-submenu.pull-left {
-            /*float: none;*/
-        }
-        .dropdown-submenu.pull-left > .dropdown-menu {
-            /*left: -100%;*/
-            /*margin-left: 10px;*/
-            /*-webkit-border-radius: 6px 0 6px 6px;*/
-            /*-moz-border-radius: 6px 0 6px 6px;*/
-            /*border-radius: 6px 0 6px 6px;*/
-        }
+        /*.dropdown-submenu > a:after {*/
+            /*!*display: block;*!*/
+            /*!*content: " ";*!*/
+            /*!*float: right;*!*/
+            /*!*width: 0;*!*/
+            /*!*height: 0;*!*/
+            /*!*border-color: transparent;*!*/
+            /*!*border-style: solid;*!*/
+            /*!*border-width: 5px 0 5px 5px;*!*/
+            /*!*border-left-color: #ccc;*!*/
+            /*!*margin-top: 5px;*!*/
+            /*!*margin-right: -10px;*!*/
+        /*}*/
+        /*.dropdown-submenu:hover > a:after {*/
+            /*!*border-left-color: #fff;*!*/
+        /*}*/
+        /*.dropdown-submenu.pull-left {*/
+            /*!*float: none;*!*/
+        /*}*/
+        /*.dropdown-submenu.pull-left > .dropdown-menu {*/
+            /*!*left: -100%;*!*/
+            /*!*margin-left: 10px;*!*/
+            /*!*-webkit-border-radius: 6px 0 6px 6px;*!*/
+            /*!*-moz-border-radius: 6px 0 6px 6px;*!*/
+            /*!*border-radius: 6px 0 6px 6px;*!*/
+        /*}*/
     </style>
     @yield('css')
 
@@ -90,38 +90,49 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         <li><a href="/">Home</a></li>
-                        @foreach ($navs as $nav)
-                            <li><a href="/list">{{ $nav['name'] }}</a></li>
-                        @endforeach
+
+                        {!! $navHtml !!}
+
                         <li class="dropdown">
-                            <a data-toggle="dropdown" href="javascript:;">
-                                下拉多级菜单 <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="javascript:;">一级菜单</a></li>
-                                <li><a href="javascript:;">一级菜单</a></li>
-                                <li class="divider"></li>
+                            <a data-toggle="dropdown" href="#">123<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                                 <li class="dropdown-submenu">
-                                    <a tabindex="-1" href="javascript:;">一级菜单</a>
+                                    <a tabindex="-1" href="#">apples</a>
                                     <ul class="dropdown-menu">
-                                        <li><a tabindex="-1" href="javascript:;">二级菜单</a></li>
-                                        <li role="separator" class="divider"></li>
+                                        <li><a href="#">apple1</a></li>
                                         <li class="dropdown-submenu">
-                                            <a href="javascript:;">二级菜单</a>
+                                            <a tabindex="-1" href="#">apple2</a>
                                             <ul class="dropdown-menu">
-                                                <li><a href="javascript:;">三级菜单</a></li>
-                                                <li class="dropdown-submenu">
-                                                    <a href="javascript:;">三级菜单</a>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a href="javascript:;">四级菜单</a></li>
-                                                    </ul>
-                                                </li>
+                                                <li><a href="#">apple21</a></li>
+                                                <li><a href="#">apple22</a></li>
                                             </ul>
                                         </li>
                                     </ul>
                                 </li>
                             </ul>
                         </li>
+
+                        <!--Used for horizontal navs-->
+                        {{--<li class="dropdown-submenu">--}}
+                            {{--<a tabindex="-1" href="javascript:;">一级菜单</a>--}}
+                            {{--<ul class="dropdown-menu">--}}
+                                {{--<li><a href="javascript:;">二级菜单</a></li>--}}
+                                {{--<li><a tabindex="-1" href="javascript:;">二级菜单</a></li>--}}
+                                {{--<li role="separator" class="divider"></li>--}}
+                                {{--<li class="dropdown-submenu">--}}
+                                    {{--<a href="javascript:;">二级菜单</a>--}}
+                                    {{--<ul class="dropdown-menu">--}}
+                                        {{--<li><a href="javascript:;">三级菜单</a></li>--}}
+                                        {{--<li class="dropdown-submenu">--}}
+                                            {{--<a href="javascript:;">三级菜单</a>--}}
+                                            {{--<ul class="dropdown-menu">--}}
+                                                {{--<li><a href="javascript:;">四级菜单</a></li>--}}
+                                            {{--</ul>--}}
+                                        {{--</li>--}}
+                                    {{--</ul>--}}
+                                {{--</li>--}}
+                            {{--</ul>--}}
+                        {{--</li>--}}
                     </ul>
 
                     <!-- Right Side Of Navbar -->

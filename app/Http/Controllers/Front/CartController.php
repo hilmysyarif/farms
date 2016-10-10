@@ -10,6 +10,6 @@ use App\Http\Controllers\Controller;
 class CartController extends FrontController {
 
     public function index() {
-        return view('front/cart', ['navs' => $this->navs]);
+        return view('front/cart', ['navHtml' => $this->navHtml]);
     }
 }

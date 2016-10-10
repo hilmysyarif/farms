@@ -8,6 +8,6 @@ use App\Http\Requests;
 class GoodsController extends FrontController{
     
     public function index() {
-        return view('front/detail', ['navs' => $this->navs]);
+        return view('front/detail', ['navHtml' => $this->navHtml]);
     }
 }

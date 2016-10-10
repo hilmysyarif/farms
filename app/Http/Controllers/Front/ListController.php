@@ -8,8 +8,6 @@ use App\Http\Requests;
 class ListController extends FrontController {
 
     public function index() {
-        return view('front/list', [
-            'navs' => $this->navs
-        ]);
+        return view('front/list', ['navHtml' => $this->navHtml]);
     }
 }
