@@ -1,37 +1,40 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container detail">
+    <div class="container detail gap-top">
         <ol class="breadcrumb">
             <li><a href="#">Home</a></li>
             <li><a href="#">Library</a></li>
             <li class="active">Data</li>
         </ol>
         <div class="col-lg-6">
-            <img class="img-responsive" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="300" height="300">
+            <img class="img-responsive" src="{{ $row->cover_url }}" alt="Generic placeholder image" width="300" height="300">
             <ul class="gallery">
                 <li><a href="#" class="fa fa-chevron-left"></a> </li>
-                <li><img class="img-thumbnail img-responsive" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="100" height="100"></li>
-                <li><img class="img-thumbnail img-responsive" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="100" height="100"></li>
-                <li><img class="img-thumbnail img-responsive" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="100" height="100"></li>
-                <li><img class="img-thumbnail img-responsive" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="100" height="100"></li>
+                @foreach($row->galleries as $gallery)
+                    <li>
+                        <img class="img-thumbnail img-responsive" src="{{ $gallery->url }}" alt="Generic placeholder image" width="100" height="100">
+                    </li>
+                @endforeach
                 <li><a href="#" class="fa fa-chevron-right"></a> </li>
             </ul>
         </div><!-- /.col-lg-6 -->
         <div class="col-lg-6">
-            <h1>July in 2016</h1>
+            <h1>{{ $row->name }}</h1>
             <form action="/cart" method="get">
                 <table class="table">
-                    <tr>
-                        <td>Mass</td>
-                        <td>
-                            <div class="attribute">
-                                <button type="button" class="btn btn-default">250G</button>
-                                <button type="button" class="btn btn-default">500G</button>
-                                <button type="button" class="btn btn-primary">1000G</button>
-                            </div>
-                        </td>
-                    </tr>
+                    @foreach($row->attrgoods as $attrgood)
+                        <tr>
+                            <td>{{ $attrgood->attr->name }}</td>
+                            <td>
+                                <div class="attribute">
+                                    <button type="button" class="btn btn-default">{{ $attrgood->value }}</button>
+                                    <button type="button" class="btn btn-default">500G</button>
+                                    <button type="button" class="btn btn-primary">1000G</button>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
                     <tr>
                         <td>Price</td>
                         <td>$43.25</td>

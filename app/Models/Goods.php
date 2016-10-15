@@ -56,6 +56,16 @@ class Goods extends Model
 
 
     /**
+     * @param array $ids
+     * @param int $page
+     * @param int $size
+     * @return mixed
+     */
+    public function fetchByIds(Array $ids, $page = 0, $size = 10) {
+        return $this->whereIn('id', $ids)->skip($page * $size)->take($size)->get()->toArray();
+    }
+
+    /**
      * @param $page
      * @return mixed
      */
@@ -124,5 +134,10 @@ class Goods extends Model
 
     public function categories() {
         return $this->belongsToMany('App\Models\Category');
+    }
+
+    public function detail($id) {
+        $info = $this->find($id);
+        return $info;
     }
 }

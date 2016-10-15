@@ -14,4 +14,8 @@ class CatsGoods extends Model
         $this->category_id = $category_id;
         return $this->save();
     }
+
+    public function goodsIds(Int $category_id) {
+        return $this->where('category_id', $category_id)->pluck('goods_id')->toArray();
+    }
 }

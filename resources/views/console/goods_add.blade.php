@@ -38,12 +38,24 @@
         </div><!--COVER-->
 
         <div class="form-group">
-            <label for="name" class="col-md-2 control-label">@lang('common.sort')</label>
+            <label for="sort" class="col-md-2 control-label">@lang('common.sort')</label>
             <div class="col-md-10">
                 <input id="sort" type="number" class="form-control" name="sort" value="{{ old('sort') }}" />
                 @if ($errors->has('sort'))
                     <span class="help-block">
                     <strong>{{ $errors->first('sort') }}</strong>
+                </span>
+                @endif
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="detail_article" class="col-md-2 control-label">详情文章</label>
+            <div class="col-md-10">
+                <input id="sort" type="number" class="form-control" name="detail_article" value="{{ old('detail_article') }}" />
+                @if ($errors->has('detail_article'))
+                    <span class="help-block">
+                    <strong>{{ $errors->first('detail_article') }}</strong>
                 </span>
                 @endif
             </div>
