@@ -52,6 +52,13 @@
             </div>
         </div>
 
+        <div class="form-group">
+            <label for="detail_article" class="col-md-2 control-label">详情文章</label>
+            <div class="col-md-10">
+                @include('console.shared.form-select')
+            </div>
+        </div>
+
         @include('console.shared.form-button')
     </form>
 @endsection
@@ -88,6 +95,33 @@
                 }
             } );
         };
+    </script>
+    <script src="{{ URL::asset('js/vue.js') }}"></script>
+    <script src="{{ URL::asset('js/vue-resource.min.js') }}"></script>
+    <script>
+        var selects = new Vue({
+            el: '#selects',
+            data: function () {
+                return {
+                    selects: [
+                    ],
+                    notice: '{{ $notice }}',
+                    name: 'article_id',
+                    value: '{{ $row['article_id'] }}'
+                }
+            },
+            methods: {
+                loadSubs: function (parent_id, parent_name, index) {
+                    var input = $(this.$el).children()[0];
+                    $(input).val(parent_id);
+                    $('#selects #name').text(parent_name);
+                }
+            },
+            ready: function () {
+                var jsonData = JSON && JSON.parse('{!! $selects !!}');
+                this.$set('selects', jsonData);
+            }
+        });
     </script>
 
 @endsection

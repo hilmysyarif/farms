@@ -23,7 +23,7 @@
             <label for="cover_url" class="col-md-2 control-label">@lang('goods.cover')</label>
             <div class="col-md-10">
                 <input id="cover_url" type="hidden" class="form-control" name="cover_url" value="{{ old('cover_url') }}" />
-                <button class="btn btn-default" id="ckfinder-cover">
+                <button class="btn btn-default" id="ckfinder-cover" type="button">
                     <i class="fa fa-btn fa-picture-o">&nbsp;</i>选择封面
                 </button>
                 <div id="cover-output" class="row gap-top">
@@ -52,12 +52,7 @@
         <div class="form-group">
             <label for="detail_article" class="col-md-2 control-label">详情文章</label>
             <div class="col-md-10">
-                <input id="sort" type="number" class="form-control" name="detail_article" value="{{ old('detail_article') }}" />
-                @if ($errors->has('detail_article'))
-                    <span class="help-block">
-                    <strong>{{ $errors->first('detail_article') }}</strong>
-                </span>
-                @endif
+                @include('console.shared.form-select')
             </div>
         </div>
 
@@ -98,6 +93,33 @@
                 }
             } );
         };
+    </script>
+    <script src="{{ URL::asset('js/vue.js') }}"></script>
+    <script src="{{ URL::asset('js/vue-resource.min.js') }}"></script>
+    <script>
+        var selects = new Vue({
+            el: '#selects',
+            data: function () {
+                return {
+                    selects: [
+                    ],
+                    notice: '@lang('common.please_choose')',
+                    name: 'article_id',
+                    value: '0'
+                }
+            },
+            methods: {
+                loadSubs: function (parent_id, parent_name, index) {
+                    var input = $(this.$el).children()[0];
+                    $(input).val(parent_id);
+                    $('#selects #name').text(parent_name);
+                }
+            },
+            ready: function () {
+                var jsonData = JSON && JSON.parse('{!! $selects !!}');
+                this.$set('selects', jsonData);
+            }
+        });
     </script>
 
 @endsection

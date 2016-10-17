@@ -13,9 +13,10 @@ class Goods extends Model
      * @param String $cover_url
      * @return bool
      */
-    public function store(String $name, String $cover_url) {
-        $this->name = $name;
-        $this->cover_url = $cover_url;
+    public function store(Array $data) {
+        foreach ($data as $k => $v) {
+            $this->$k = $v;
+        }
         return $this->save();
     }
 
@@ -136,8 +137,41 @@ class Goods extends Model
         return $this->belongsToMany('App\Models\Category');
     }
 
+    public function articlesGoods() {
+        return $this->hasOne('App\Models\ArticlesGoods');
+    }
+
+    public function article() {
+        return $this->belongsTo('App\Models\Article');
+    }
+
     public function detail($id) {
         $info = $this->find($id);
+        $attrs = [];
+        foreach ($info->attrgoods as $atrg) {
+            if (!in_array($atrg->attr_id, $attrs)) {
+                $attrs[] = [
+                    'attr_id' => $atrg->attr_id,
+                    'name' => $atrg->attr->name,
+                    'type' => $atrg->attr->type,
+                    'suffix' => $atrg->attr->suffix
+                ];
+            }
+        }
+
+        foreach ($attrs as $k => $attr) {
+            $values = [];
+            foreach ($info->attrgoods as $atrg) {
+                if ($atrg->attr_id == $attr['attr_id']) {
+                    $values[] = [
+                        'id' => $atrg->id,
+                        'value' => $atrg->value
+                    ];
+                }
+            }
+            $attrs[$k]['values'] = $values;
+        }
+        $info->ats = $attrs;
         return $info;
     }
 }

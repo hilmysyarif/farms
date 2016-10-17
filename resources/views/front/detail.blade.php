@@ -23,14 +23,19 @@
             <h1>{{ $row->name }}</h1>
             <form action="/cart" method="get">
                 <table class="table">
-                    @foreach($row->attrgoods as $attrgood)
+                    @foreach($row->ats as $attr)
                         <tr>
-                            <td>{{ $attrgood->attr->name }}</td>
+                            <td>{{ $attr['name'] }}</td>
                             <td>
                                 <div class="attribute">
-                                    <button type="button" class="btn btn-default">{{ $attrgood->value }}</button>
-                                    <button type="button" class="btn btn-default">500G</button>
-                                    <button type="button" class="btn btn-primary">1000G</button>
+                                    @foreach($attr['values'] as $val)
+                                        @if($attr['type'] == 'color')
+                                            <button type="button" class="btn btn-default" style="background-color: {{ $val['value'] }}">123 {{ $attr['suffix'] }}</button>
+                                        @elseif($attr['type'] == 'text' || $attr['type'] == 'number')
+                                            <button type="button" class="btn btn-default">{{ $val['value'] }} {{ $attr['suffix'] }}</button>
+                                        @endif
+                                    @endforeach
+
                                 </div>
                             </td>
                         </tr>

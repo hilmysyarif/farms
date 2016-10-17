@@ -7,11 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
     public function store($data) {
-        
         foreach ($data as $k => $v) {
             $this->$k = $v;
         }
-
         return $this->save();
     }
 
@@ -44,5 +42,14 @@ class Article extends Model
 
     public function topArticles() {
         return $this->orderBy('id', 'desc')->skip(0)->take(4)->get();
+    }
+
+    public function goodsArticles() {
+        $settedIds = Goods::where('article_id', '<>', 0)->pluck('article_id');
+        $list = $this->select('id', 'title as name')
+            ->whereNotIn('id', $settedIds)
+            ->where('status', 1)
+            ->get();
+        return $list;
     }
 }

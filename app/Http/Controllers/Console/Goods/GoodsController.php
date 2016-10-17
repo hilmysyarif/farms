@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Console\Goods;
 
 use App\Http\Controllers\Console\ConsoleController;
+use App\Models\Article;
 use App\Models\Atrcat;
 use App\Models\Attr;
 use App\Models\Category;
@@ -40,33 +41,58 @@ class GoodsController extends ConsoleController
         ]);
     }
 
-    public function add(Category $category) {
-        $categories = $category->fetchBlock();
+    public function add(Article $article) {
+        // Get articles for user to choose to set as detail article.
+        $articles = $article->goodsArticles();
+        $jsonArticles = json_encode($articles);
+
+//        $categories = $category->fetchBlock();
         return display('console/goods_add', [
             'tabs' => $this->tabs,
             'active' => 1,
-            'selects' => json_encode($categories),
-            'select_name' => 'category_id'
+            'selects' => $jsonArticles,
+//            'select_name' => 'category_id'
         ]);
     }
 
     public function postAdd(Request $request, Goods $goods) {
-        $goods->store($request->name, $request->cover_url);
+        $data = [
+            'name' => $request->name,
+            'cover_url' => $request->cover_url,
+            'sort' => $request->sort,
+            'article_id' => $request->article_id
+        ];
+        $goods->store($data);
         return redirect('/goods');
     }
 
-    public function edit($goods_id, Category $category, Goods $good) {
+    public function edit($goods_id, Goods $good, Article $article) {
         // get information of current goods.
         $row = $good->fetchOne($goods_id);
 
-        $categories = $category->fetchBlock();
+        $articles = $article->goodsArticles();
+
+        $notice = '请选择';
+        if ($row['article_id']) {
+            $info = new \stdClass();
+            $info->id = $row['article_id'];
+
+            $articleInfo = $article->fetchOne($row['article_id']);
+            $info->name = $articleInfo['title'];
+            $notice = $articleInfo['title'];
+
+            $articles[] = $info;
+        }
+
+        $jsonArticles = json_encode($articles);
+
         return display('console/goods_edit', [
             'tabs' => $this->tabs,
             'active' => 1,
-            'selects' => json_encode($categories),
-            'select_name' => 'category_id',
+            'selects' => $jsonArticles,
             'row' => $row,
-            'goods_id' => $goods_id
+            'goods_id' => $goods_id,
+            'notice' => $notice
         ]);
     }
 
@@ -75,7 +101,8 @@ class GoodsController extends ConsoleController
         $data = [
             'name' => $request->name,
             'cover_url' => $request->cover_url,
-            'sort' => $request->sort
+            'sort' => $request->sort,
+            'article_id' => $request->article_id
         ];
 
         $good->updateOne($good_id, $data);
