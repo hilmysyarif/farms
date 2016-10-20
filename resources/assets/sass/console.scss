@@ -1,0 +1,93 @@
+@import "variables";
+@import "common";
+
+//----------MAIN----------
+.fa {
+  text-align: center;
+}
+
+
+.form-inline {
+  .dropdown {
+    display: inline-block;
+  }
+}
+
+
+.form-group {
+  .inline {
+    display: inline;
+  }
+
+  #output {
+    button {
+      right: 0%;
+      top: 0%;
+    }
+  }
+}
+
+//-----------MENU-----------
+.sidebar {
+  ul {
+    padding: 0;
+  }
+}
+
+.nav-sidebar {
+  margin-bottom: 0;
+  li {
+    position: relative;
+    list-style: outside none none;
+    display: block;
+
+    a {
+      padding: 10px 20px;
+      display: block;
+      position: relative;
+
+      &:focus, &:hover {
+        text-decoration: none;
+      }
+    }
+
+    ul {
+      a {
+        text-indent: 2em;
+      }
+    }
+  }
+  .active {
+    a {
+      background-color: #428bca;
+      color: #fff;
+    }
+    a:hover {
+      background-color: #428bca;
+      color: #fff;
+    }
+    a:focus {
+      background-color: #428bca;
+      color: #fff;
+    }
+  }
+}
+
+//-----------CATEGORIES-----------
+
+#subcats {
+  display: none;
+}
+
+
+//-----------CATEGORIES-----------
+
+#attributes {
+  input[type="color"] {
+    min-width: $width-min;
+  }
+}
+
+
+//------------ITEM-GROUPS--------------
+.item-group { margin-top:10px; }

@@ -1,0 +1,30 @@
+body {
+  font: Lato, sans-serif;
+  color: #000000;
+  font-weight: 200; }
+
+.gap-top {
+  margin-top: 20px; }
+
+.gap-bottom {
+  margin-bottom: 20px; }
+
+/* CUSTOMIZE PAGINATION
+-------------------------------------------------- */
+.page .pagination {
+  margin-left: 75%; }
+
+.fa {
+  text-align: center; }
+
+.form-inline .dropdown {
+  display: inline-block; }
+
+.form-group .inline {
+  display: inline; }
+
+.form-group #output button {
+  right: 0%;
+  top: 0%; }
+
+/*# sourceMappingURL=console.css.map */

@@ -1,0 +1,202 @@
+body {
+  font: Lato, sans-serif;
+  color: #000000;
+  font-weight: 200; }
+
+.gap-top {
+  margin-top: 20px; }
+
+.gap-bottom {
+  margin-bottom: 20px; }
+
+.gap-right {
+  margin-right: 20px; }
+
+.hide {
+  display: none; }
+
+/* CUSTOMIZE PAGINATION
+-------------------------------------------------- */
+.page .pagination {
+  margin-left: 75%; }
+
+/* Main
+---------------------------------------------- */
+.footer {
+  bottom: 0;
+  height: 60px;
+  width: 100%;
+  margin-top: 20px; }
+  .footer .container {
+    border-top: 1px solid #BDD7F5; }
+  .footer .text-footer {
+    margin: 20px 0; }
+
+.label {
+  font-size: 100%;
+  font-weight: 100; }
+
+/* NAVIGATION
+-------------------------------------------------- */
+.navbar {
+  margin: 0; }
+
+.color-line {
+  height: 2px;
+  /* Safari 5.1-6.0 */
+  /* Opera 11.1-12.0 */
+  /* Firefox 3.6 -15 */
+  background: linear-gradient(to right, #3023AE, #BDE3F5, #B4EC51);
+  /* Standard syntax */ }
+
+.navbar-july {
+  border: 0; }
+
+/* CAROUSEL
+-------------------------------------------------- */
+/* Carousel base class */
+.carousel {
+  height: 500px;
+  margin-bottom: 60px; }
+  .carousel .item {
+    height: 500px;
+    background-color: #FFFFFF; }
+    .carousel .item img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      height: 500px; }
+
+/* Carousel base class */
+.carousel-indicators li {
+  border-color: #4A90E2; }
+
+.carousel-indicators .active {
+  background-color: #4A90E2; }
+
+/* Since positioning the image, we need to help out the caption */
+.carousel-caption {
+  z-index: 10;
+  color: #000000; }
+  .carousel-caption p {
+    text-shadow: none; }
+
+.carousel-control .fa {
+  right: 50%;
+  top: 50%;
+  display: inline-block;
+  position: absolute;
+  z-index: 5;
+  color: #000000; }
+
+.carousel-control.left {
+  background-image: none; }
+
+.carousel-control.right {
+  background-image: none; }
+
+/* RECOMMENDED
+-------------------------------------------------- */
+.col-lg-3 {
+  text-align: center; }
+  .col-lg-3 a {
+    display: inline-block; }
+    .col-lg-3 a img:hover {
+      border: 1px solid #BDD7F5; }
+
+/* DETAIL
+-------------------------------------------------- */
+.detail .col-lg-6 {
+  text-align: center; }
+  .detail .col-lg-6 img {
+    margin: 0 auto; }
+  .detail .col-lg-6 .gallery {
+    padding-left: 0;
+    margin-top: 20px;
+    display: inline-block; }
+    .detail .col-lg-6 .gallery > li {
+      display: inline-block; }
+      .detail .col-lg-6 .gallery > li a {
+        font-size: 48px;
+        vertical-align: middle; }
+  .detail .col-lg-6 .attribute .btn {
+    font-weight: 100; }
+
+/* CART
+-------------------------------------------------- */
+.cart table td {
+  vertical-align: middle; }
+
+body {
+  font: Lato, sans-serif;
+  color: #000000;
+  font-weight: 200; }
+
+.gap-top {
+  margin-top: 20px; }
+
+.gap-bottom {
+  margin-bottom: 20px; }
+
+.gap-right {
+  margin-right: 20px; }
+
+.hide {
+  display: none; }
+
+/* CUSTOMIZE PAGINATION
+-------------------------------------------------- */
+.page .pagination {
+  margin-left: 75%; }
+
+.fa {
+  text-align: center; }
+
+.form-inline .dropdown {
+  display: inline-block; }
+
+.form-group .inline {
+  display: inline; }
+
+.form-group #output button {
+  right: 0%;
+  top: 0%; }
+
+.sidebar ul {
+  padding: 0; }
+
+.nav-sidebar {
+  margin-bottom: 0; }
+  .nav-sidebar li {
+    position: relative;
+    list-style: outside none none;
+    display: block; }
+    .nav-sidebar li a {
+      padding: 10px 20px;
+      display: block;
+      position: relative; }
+      .nav-sidebar li a:focus, .nav-sidebar li a:hover {
+        text-decoration: none; }
+    .nav-sidebar li ul a {
+      text-indent: 2em; }
+  .nav-sidebar .active a {
+    background-color: #428bca;
+    color: #fff; }
+  .nav-sidebar .active a:hover {
+    background-color: #428bca;
+    color: #fff; }
+  .nav-sidebar .active a:focus {
+    background-color: #428bca;
+    color: #fff; }
+
+#subcats {
+  display: none; }
+
+#attributes input[type="color"] {
+  min-width: 50px; }
+
+.item-group {
+  margin-top: 10px; }
+
+/*# sourceMappingURL=app.css.map */

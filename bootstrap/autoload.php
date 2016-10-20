@@ -32,3 +32,15 @@ $compiledPath = __DIR__.'/cache/compiled.php';
 if (file_exists($compiledPath)) {
     require $compiledPath;
 }
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Include custom helper file
+|--------------------------------------------------------------------------
+|
+| Include custom helper file to help accelerate development.
+|
+*/
+require __DIR__.'/../app/Libraries/helper.php';
