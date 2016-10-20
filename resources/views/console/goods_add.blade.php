@@ -56,6 +56,13 @@
             </div>
         </div>
 
+        <div class="form-group">
+            <label for="category_id" class="col-md-2 control-label">包装信息</label>
+            <div class="col-md-10">
+                @include('console.shared.form-items')
+            </div>
+        </div>
+
         @include('console.shared.form-button')
     </form>
 @endsection
@@ -120,6 +127,7 @@
                 this.$set('selects', jsonData);
             }
         });
+
     </script>
 
 @endsection

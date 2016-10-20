@@ -56,27 +56,32 @@
             </form>
         </div><!-- /.col-lg-6 -->
         <div class="col-lg-12 gap-top">
-            <ul class="nav nav-tabs">
-                <li role="presentation"><a href="#">Description</a></li>
-                <li role="presentation" class="active"><a href="#">Package</a></li>
+            <!--Nav tabs-->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="#description" aria-controls="description" role="tab" data-toggle="tab">{{ trans('goods.introduction') }}</a>
+                </li>
+                <li role="presentation">
+                    <a href="#package" aria-controls="package" role="tab" data-toggle="tab">{{ trans('goods.itemsList') }}</a>
+                </li>
             </ul>
+            <!--container-fluid gap-top -->
+            <div class="tab-content gap-top">
+                <div role="tabpanel" class="tab-pane fade in active" id="description">
+                    {!! $row->article->content !!}
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="package">
+                    <table class="table table-responsive table-bordered">
+                        @foreach ($itemsList as $item)
+                            <tr>
+                                <td>{{ $item['item'] }}</td>
+                                <td>{{ $item['quantity'] }}</td>
+                            </tr>
+                        @endforeach
+                    </table>
+                </div>
+            </div>
         </div><!-- /.col-lg-6 -->
-        <div class="col-lg-12 gap-top">
-            <table class="table table-responsive table-bordered">
-                <tr>
-                    <td>Color</td>
-                    <td>light blue</td>
-                </tr>
-                <tr>
-                    <td>Weight</td>
-                    <td>1000g</td>
-                </tr>
-                <tr>
-                    <td>Producing area</td>
-                    <td>Xi'an</td>
-                </tr>
-            </table>
-        </div>
     </div>
 
 @endsection

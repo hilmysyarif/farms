@@ -34,10 +34,12 @@
   margin: 0;
 }
 
-#color-line {
-  display: block;
-  width: 100%;
-  height: 100%;
+.color-line {
+  height: 2px;
+  background: -webkit-linear-gradient(left, #3023AE, #BDE3F5, #B4EC51); /* Safari 5.1-6.0 */
+  background: -o-linear-gradient(right,  #3023AE, #BDE3F5, #B4EC51); /* Opera 11.1-12.0 */
+  background: -moz-linear-gradient(right,  #3023AE, #BDE3F5, #B4EC51); /* Firefox 3.6 -15 */
+  background: linear-gradient(to right,  #3023AE, #BDE3F5, #B4EC51); /* Standard syntax */
 }
 
 .navbar-july {

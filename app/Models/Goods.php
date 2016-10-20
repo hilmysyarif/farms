@@ -71,7 +71,9 @@ class Goods extends Model
      * @return mixed
      */
     public function fetchBlock($page = 0) {
-        return Goods::skip($page * 10)->take(10)->get()->toArray();
+        return $this->select('id', 'name', 'cover_url', 'sort', 'article_id', 'created_at', 'updated_at')
+            ->skip($page * 10)->take(10)->get()->toArray();;
+//        return Goods::skip($page * 10)->take(10)->get()->toArray();
     }
 
     public function galleriesList($goods_id) {

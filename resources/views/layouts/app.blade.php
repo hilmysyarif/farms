@@ -121,7 +121,7 @@
             </div>
         </nav>
 
-        <canvas id="color-line"></canvas>
+        <div class="container-fluid color-line"></div>
     </div>
 
     @yield('content')
@@ -136,7 +136,7 @@
     {{--<script src="{{ elixir('js/app.js') }}"></script>--}}
     <script src="{{ URL::asset('js/jquery.min.js') }}"></script>
     <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
-    <script src="{{ URL::asset('js/bootstrap-submenu.min.js') }}"></script>
+{{--    <script src="{{ URL::asset('js/bootstrap-submenu.min.js') }}"></script>--}}
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="{{ URL::asset('js/ie10-viewport-bug-workaround.js') }}"></script>
     <!-- color line -->
@@ -144,37 +144,8 @@
 
         // For v2 [data-toggle="dropdown"] is required for [data-submenu].
         // For v2 .dropdown-submenu > [data-toggle="dropdown"] is forbidden.
-        $('[data-submenu]').submenupicker();
+//        $('[data-submenu]').submenupicker();
 
-
-        function renderColorLine() {
-            var width = $(document.body).width();
-            var height = 2;
-
-            var cav = $('#color-line');
-            cav.attr('width', width);
-            cav.attr('height', height);
-
-            var aim = cav[0];
-
-            var ctx = aim.getContext('2d');
-            var grd = ctx.createLinearGradient(0, 0, width, 0);
-            grd.addColorStop(0, '#3023AE');
-            grd.addColorStop(0.5, '#BDE3F5');
-            grd.addColorStop(1, '#B4EC51');
-            ctx.fillStyle = grd;
-            ctx.fillRect(0, 0, width, height);
-        }
-
-        $(function() {
-            renderColorLine();
-        });
-
-
-        // hover event of dropdown-submenu.
-//        $('.dropdown-submenu > a').hover(function() {
-//            console.log('You hover on '+$(this).text());
-//        });
     </script>
 
     @yield('js')

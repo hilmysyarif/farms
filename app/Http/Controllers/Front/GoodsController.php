@@ -10,12 +10,14 @@ class GoodsController extends FrontController{
     
     public function index($id, Goods $goods) {
 
-
         $row = $goods->detail($id);
+        $itemsList = unserialize($row->package);
+        !$itemsList && $itemsList = [];
 
         return view('front/detail', [
             'navHtml' => $this->navHtml,
-            'row' => $row
+            'row' => $row,
+            'itemsList' => $itemsList
         ]);
     }
 }

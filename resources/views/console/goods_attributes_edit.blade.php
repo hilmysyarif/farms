@@ -32,6 +32,7 @@
                 </div>
             </div>
         </div>
+
         <div class="form-group">
             <label for="category_id" class="col-md-2 control-label"></label>
             <div class="col-md-10">
@@ -50,3 +51,4 @@
         @include('console.shared.form-button')
     </form>
 @endsection
+

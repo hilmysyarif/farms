@@ -55,12 +55,29 @@ class GoodsController extends ConsoleController
         ]);
     }
 
+
+    private function orgPackage($request) {
+        $items = $request->item;
+        $quantities = $request->quantity;
+        $package = [];
+
+        foreach ($items as $k => $v) {
+            $package[] = [
+                'item' => $v,
+                'quantity' => $quantities[$k]
+            ];
+        }
+        $package = serialize($package);
+        return $package;
+    }
+
     public function postAdd(Request $request, Goods $goods) {
         $data = [
             'name' => $request->name,
             'cover_url' => $request->cover_url,
             'sort' => $request->sort,
-            'article_id' => $request->article_id
+            'article_id' => $request->article_id,
+            'package' => $this->orgPackage($request)
         ];
         $goods->store($data);
         return redirect('/goods');
@@ -86,23 +103,29 @@ class GoodsController extends ConsoleController
 
         $jsonArticles = json_encode($articles);
 
+        $items = unserialize($row['package']);
+
         return display('console/goods_edit', [
             'tabs' => $this->tabs,
             'active' => 1,
             'selects' => $jsonArticles,
             'row' => $row,
             'goods_id' => $goods_id,
-            'notice' => $notice
+            'notice' => $notice,
+            'items' => $items
         ]);
     }
 
     public function postEdit(Request $request, Goods $good) {
+
+        $package = $this->orgPackage($request);
         $good_id = $request->goods_id;
         $data = [
             'name' => $request->name,
             'cover_url' => $request->cover_url,
             'sort' => $request->sort,
-            'article_id' => $request->article_id
+            'article_id' => $request->article_id,
+            'package' => $package
         ];
 
         $good->updateOne($good_id, $data);
@@ -249,6 +272,7 @@ class GoodsController extends ConsoleController
 
     public function attrGoodsEdit($id, $goods_id, AttrGoods $attrGoods) {
         $row = $attrGoods->fetchOne($id);
+
         return display('console/goods_attributes_edit', [
             'tabs' => $this->tabs,
             'active' => 1,

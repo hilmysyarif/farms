@@ -156,6 +156,18 @@
 <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="{{ URL::asset('js/ie10-viewport-bug-workaround.js') }}"></script>
+<script>
+    $(function() {
+        $('.add-item').click(function() {
+            var itemGroup = $('.item-group').first().clone();
+            $(this).parent().next().append(itemGroup);
+        });
+
+        $('.items').on('click', '.item-group button', function() {
+            $(this).parent().remove();
+        });
+    });
+</script>
 @yield('js')
 </body>
 </html>
