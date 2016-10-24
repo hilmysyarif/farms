@@ -14,26 +14,6 @@ class FrontController extends Controller {
     public function __construct(Category $category) {
         $cats = $category->orgCats();
         $this->buildNavs($cats);
-
-//        <li class="dropdown">
-//            <a data-toggle="dropdown" href="#">123<span class="caret"></span></a>
-//            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-//                <li class="dropdown-submenu">
-//                    <a tabindex="-1" href="#">apples</a>
-//                    <ul class="dropdown-menu">
-//                        <li><a href="#">apple1</a></li>
-//                        <li class="dropdown-submenu">
-//                            <a tabindex="-1" href="#">apple2</a>
-//                            <ul class="dropdown-menu">
-//                                <li><a href="#">apple21</a></li>
-//                                <li><a href="#">apple22</a></li>
-//                            </ul>
-//                        </li>
-//                    </ul>
-//                </li>
-//            </ul>
-//        </li>
-
     }
 
     private function buildNavs($cats) {

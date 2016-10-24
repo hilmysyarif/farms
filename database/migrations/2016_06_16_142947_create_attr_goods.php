@@ -17,7 +17,7 @@ class CreateAttrGoods extends Migration
             $table->integer('goods_id')->unsigned(); // TODO: foreign key with goods.
             $table->integer('attr_id')->unsigned(); // TODO: foreign key with goods_atr_name.
             $table->string('value');
-            $table->double('price', 15, 2);
+            $table->double('price', 15, 2)->comment('extra price for this attribute, can be negative, depend on base-price');
             $table->tinyInteger('sale')->default(0); // 0: Off sale. 1: On sale
             $table->timestamps();
         });
