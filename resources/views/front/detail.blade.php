@@ -30,7 +30,7 @@
                                 <label
                                         v-for="val in atr.values"
                                         v-on:click="cprice(tindex, $index, val.price)"
-                                        class="btn btn-default active" style="background-color: @{{ val.value }}">
+                                        class="btn btn-default" style="background-color: @{{ val.value }}">
                                     <input type="radio" name="attr_id[]" id="option@{{ $index }}" autocomplete="off" checked>&nbsp;&nbsp;&nbsp;&nbsp;
                                 </label>
                             </div>
@@ -123,7 +123,9 @@
     <script src="{{ URL::asset('js/vue.min.js') }}"></script>
     <script>
         var row = {!! json_encode($row) !!};
+        var ats = {!! json_encode($row->ats) !!};
         var default_price = row.default_price;
+        var hold = [];
         var attrs = new Vue({
             el: '#ats',
             data: function() {
@@ -133,12 +135,38 @@
             },
             methods: {
                 cprice: function (rindex, cindex, price) {
-                    console.log(rindex + ',' + cindex + ',' + price);
-                    // TODO: You need remember value of sub-attributes here.
                     row.default_price = default_price;
-                    row.default_price += price;
+                    // Store price for each attribute.
+                    hold[rindex] = price;
+
+                    var tmpPrice = computeResultByHold();
+
+                    row.default_price += tmpPrice;
                 }
             }
         });
+
+        $(function() {
+            // Choose first value of every attribute when initiate page.
+            $('.btn-group').each(function (index, item) {
+                $(item).children().first().click();
+            });
+
+            for (var i = 0; i < ats.length; i++) {
+                hold[i] = ats[i]['values'][0]['price'];
+            }
+            var tmpPrice = computeResultByHold();
+            attrs.$data.row.default_price += tmpPrice;
+        });
+
+
+        // Compute result according hold array.
+        function computeResultByHold() {
+            var tmpPrice = 0;
+            for (var i = 0; i < hold.length; i++) {
+                tmpPrice += hold[i];
+            }
+            return tmpPrice;
+        }
     </script>
 @endsection
