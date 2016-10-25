@@ -13,7 +13,9 @@ class CartController extends FrontController {
         return view('front/cart', ['navHtml' => $this->navHtml]);
     }
 
-    public function postAdd() {
-        die('you add');
+    public function postAdd(Request $request) {
+        $atrgids = $request->atrgids;
+        $number = $request->number;
+        $user_id = $request->user()->id;
     }
 }
