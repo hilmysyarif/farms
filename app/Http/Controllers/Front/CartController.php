@@ -12,4 +12,8 @@ class CartController extends FrontController {
     public function index() {
         return view('front/cart', ['navHtml' => $this->navHtml]);
     }
+
+    public function postAdd() {
+        die('you add');
+    }
 }

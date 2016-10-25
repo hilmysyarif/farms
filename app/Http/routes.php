@@ -24,6 +24,7 @@ Route::group(['middleware' => 'web'], function() {
     Route::get('/detail/{id}', 'Front\GoodsController@index');
 
     Route::get('/cart', 'Front\CartController@index');
+    Route::post('/cart', 'Front\CartController@postAdd');
 
     Route::post('/order', 'Front\OrderController@index');
     Route::get('/order', 'Front\OrderController@index');

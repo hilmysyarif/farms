@@ -21,7 +21,10 @@
         </div><!-- /.col-lg-6 -->
         <div class="col-lg-6" id="ats" v-cloak>
             <h1>@{{ row.name }}</h1>
-            <form action="/cart" method="get">
+            <form action="/cart" method="post">
+
+                {{ csrf_field() }}
+
                 <table class="table"">
                     <tr v-for="(tindex, atr) in row.ats">
                         <td>@{{ atr.name }}</td>
@@ -29,7 +32,7 @@
                             <div v-if="atr.type == 'color'" class="attribute btn-group color-group" data-toggle="buttons">
                                 <label
                                         v-for="val in atr.values"
-                                        v-on:click="cprice(tindex, $index, val.price)"
+                                        v-on:click="cprice(tindex, $index, val.price, val.id)"
                                         class="btn btn-default" style="background-color: @{{ val.value }}">
                                     <input type="radio" name="attr_id[]" id="option@{{ $index }}" autocomplete="off" checked>&nbsp;&nbsp;&nbsp;&nbsp;
                                 </label>
@@ -37,7 +40,7 @@
                             <div v-else class="attribute btn-group" data-toggle="buttons">
                                 <label
                                         v-for="val in atr.values"
-                                        v-on:click="cprice(tindex, $index, val.price)"
+                                        v-on:click="cprice(tindex, $index, val.price, val.id)"
                                         class="btn btn-default">
                                     <input type="radio" name="attr_id[]" id="option@{{ $index }}" autocomplete="off"> @{{ val.value }} @{{ val.suffix }}
                                 </label>
@@ -45,34 +48,10 @@
                         </td>
 
                     </tr>
-
-
-
-                    {{--@foreach($row->ats as $attr)--}}
-                    {{--<tr>--}}
-                    {{--<td>{{ $attr['name'] }}</td>--}}
-                    {{--<td>--}}
-                    {{--@if($attr['type'] == 'color')--}}
-                    {{--<div class="attribute btn-group color-group" data-toggle="buttons">--}}
-                    {{--@foreach($attr['values'] as $key => $val)--}}
-                    {{--<label class="btn btn-default active" style="background-color: {{ $val['value'] }}">--}}
-                    {{--<input type="radio" name="attr_id[]" id="option{{ $key }}" autocomplete="off" checked>&nbsp;&nbsp;&nbsp;&nbsp;--}}
-                    {{--</label>--}}
-                    {{--@endforeach--}}
-                    {{--</div>--}}
-                    {{--@elseif($attr['type'] == 'text' || $attr['type'] == 'number')--}}
-                    {{--<div class="attribute btn-group" data-toggle="buttons">--}}
-                    {{--@foreach($attr['values'] as $key => $val)--}}
-                    {{--<label class="btn btn-default">--}}
-                    {{--<input type="radio" name="attr_id[]" id="option{{ $key }}" autocomplete="off"> {{ $val['value'] }} {{ $attr['suffix'] }}--}}
-                    {{--</label>--}}
-                    {{--@endforeach--}}
-
-                    {{--</div>--}}
-                    {{--@endif--}}
-                    {{--</td>--}}
-                    {{--</tr>--}}
-                    {{--@endforeach--}}
+                    <tr>
+                        <td>数量</td>
+                        <td><input class="form-control" type="text" name="number" v-on:blur="multipleValues" value="1"> </td>
+                    </tr>
                     <tr>
                         <td>{{ trans('goods.price') }}</td>
                         <td>@{{ row.default_price }}</td>
@@ -80,6 +59,8 @@
                     <tr>
                         <td></td>
                         <td>
+                            <input type="hidden" name="goods_id" value="{{ $id }}">
+                            <input type="hidden" name="atrgids" value="@{{ atrgids }}">
                             <button class="btn btn-primary" type="submit">
                                 <i class="fa fa-btn fa-cart-plus">&nbsp;&nbsp;</i>{{ trans('goods.add_to_cart') }}
                             </button>
@@ -125,23 +106,38 @@
         var row = {!! json_encode($row) !!};
         var ats = {!! json_encode($row->ats) !!};
         var default_price = row.default_price;
-        var hold = [];
+        var hold = []; // coordinate
+        var holdIds = [];
         var attrs = new Vue({
             el: '#ats',
             data: function() {
                 return {
-                    row: row
+                    row: row,
+                    atrgids: ''
                 };
             },
             methods: {
-                cprice: function (rindex, cindex, price) {
+                cprice: function (rindex, cindex, price, id) {
                     row.default_price = default_price;
                     // Store price for each attribute.
                     hold[rindex] = price;
+                    holdIds[rindex] = id;
 
                     var tmpPrice = computeResultByHold();
-
                     row.default_price += tmpPrice;
+                    this.$data.atrgids = holdIds.join(',');
+                },
+                multipleValues: function (event) {
+                    var ele = event.target;
+                    var obj = $(ele);
+                    var number = obj.val();
+                    if (isNaN(number)) {
+                        obj.val(1);
+                    }
+
+                    number = obj.val();
+                    number = Math.floor(number);
+                    obj.val(number);
                 }
             }
         });
@@ -154,8 +150,10 @@
 
             for (var i = 0; i < ats.length; i++) {
                 hold[i] = ats[i]['values'][0]['price'];
+                holdIds[i] = ats[i]['values'][0]['id'];
             }
             var tmpPrice = computeResultByHold();
+            attrs.$data.atrgids = holdIds.join(',');
             attrs.$data.row.default_price += tmpPrice;
         });
 
