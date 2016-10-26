@@ -19,36 +19,50 @@
                 <li><a href="#" class="fa fa-chevron-right"></a> </li>
             </ul>
         </div><!-- /.col-lg-6 -->
-        <div class="col-lg-6">
-            <h1>{{ $row->name }}</h1>
-            <form action="/cart" method="get">
-                <table class="table">
-                    @foreach($row->ats as $attr)
-                        <tr>
-                            <td>{{ $attr['name'] }}</td>
-                            <td>
-                                <div class="attribute">
-                                    @foreach($attr['values'] as $val)
-                                        @if($attr['type'] == 'color')
-                                            <button type="button" class="btn btn-default" style="background-color: {{ $val['value'] }}">123 {{ $attr['suffix'] }}</button>
-                                        @elseif($attr['type'] == 'text' || $attr['type'] == 'number')
-                                            <button type="button" class="btn btn-default">{{ $val['value'] }} {{ $attr['suffix'] }}</button>
-                                        @endif
-                                    @endforeach
+        <div class="col-lg-6" id="ats" v-cloak>
+            <h1>@{{ row.name }}</h1>
+            <form action="/cart" method="post">
 
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
+                {{ csrf_field() }}
+
+                <table class="table"">
+                    <tr v-for="(tindex, atr) in row.ats">
+                        <td>@{{ atr.name }}</td>
+                        <td>
+                            <div v-if="atr.type == 'color'" class="attribute btn-group color-group" data-toggle="buttons">
+                                <label
+                                        v-for="val in atr.values"
+                                        v-on:click="cprice(tindex, $index, val.price, val.id)"
+                                        class="btn btn-default" style="background-color: @{{ val.value }}">
+                                    <input type="radio" name="attr_id[]" id="option@{{ $index }}" autocomplete="off" checked>&nbsp;&nbsp;&nbsp;&nbsp;
+                                </label>
+                            </div>
+                            <div v-else class="attribute btn-group" data-toggle="buttons">
+                                <label
+                                        v-for="val in atr.values"
+                                        v-on:click="cprice(tindex, $index, val.price, val.id)"
+                                        class="btn btn-default">
+                                    <input type="radio" name="attr_id[]" id="option@{{ $index }}" autocomplete="off"> @{{ val.value }} @{{ val.suffix }}
+                                </label>
+                            </div>
+                        </td>
+
+                    </tr>
                     <tr>
-                        <td>Price</td>
-                        <td>$43.25</td>
+                        <td>数量</td>
+                        <td><input class="form-control" type="text" name="number" v-on:blur="multipleValues" value="1"> </td>
+                    </tr>
+                    <tr>
+                        <td>{{ trans('goods.price') }}</td>
+                        <td>@{{ row.default_price }}</td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>
+                            <input type="hidden" name="goods_id" value="{{ $id }}">
+                            <input type="hidden" name="atrgids" value="@{{ atrgids }}">
                             <button class="btn btn-primary" type="submit">
-                                <i class="fa fa-btn fa-cart-plus">&nbsp;&nbsp;</i>Add to cart
+                                <i class="fa fa-btn fa-cart-plus">&nbsp;&nbsp;</i>{{ trans('goods.add_to_cart') }}
                             </button>
                         </td>
                     </tr>
@@ -84,4 +98,73 @@
         </div><!-- /.col-lg-6 -->
     </div>
 
+@endsection
+
+@section('js')
+    <script src="{{ URL::asset('js/vue.min.js') }}"></script>
+    <script>
+        var row = {!! json_encode($row) !!};
+        var ats = {!! json_encode($row->ats) !!};
+        var default_price = row.default_price;
+        var hold = []; // coordinate
+        var holdIds = [];
+        var attrs = new Vue({
+            el: '#ats',
+            data: function() {
+                return {
+                    row: row,
+                    atrgids: ''
+                };
+            },
+            methods: {
+                cprice: function (rindex, cindex, price, id) {
+                    row.default_price = default_price;
+                    // Store price for each attribute.
+                    hold[rindex] = price;
+                    holdIds[rindex] = id;
+
+                    var tmpPrice = computeResultByHold();
+                    row.default_price += tmpPrice;
+                    this.$data.atrgids = holdIds.join(',');
+                },
+                multipleValues: function (event) {
+                    var ele = event.target;
+                    var obj = $(ele);
+                    var number = obj.val();
+                    if (isNaN(number)) {
+                        obj.val(1);
+                    }
+
+                    number = obj.val();
+                    number = Math.floor(number);
+                    obj.val(number);
+                }
+            }
+        });
+
+        $(function() {
+            // Choose first value of every attribute when initiate page.
+            $('.btn-group').each(function (index, item) {
+                $(item).children().first().click();
+            });
+
+            for (var i = 0; i < ats.length; i++) {
+                hold[i] = ats[i]['values'][0]['price'];
+                holdIds[i] = ats[i]['values'][0]['id'];
+            }
+            var tmpPrice = computeResultByHold();
+            attrs.$data.atrgids = holdIds.join(',');
+            attrs.$data.row.default_price += tmpPrice;
+        });
+
+
+        // Compute result according hold array.
+        function computeResultByHold() {
+            var tmpPrice = 0;
+            for (var i = 0; i < hold.length; i++) {
+                tmpPrice += hold[i];
+            }
+            return tmpPrice;
+        }
+    </script>
 @endsection

@@ -19,4 +19,6 @@ return [
     'packages' => '包装',
     'introduction' => '产品介绍',
     'itemsList' => '包装清单',
+    'add_to_cart' => '加入购物车',
+    'default_price' => '默认价格'
 ];

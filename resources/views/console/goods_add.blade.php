@@ -38,6 +38,19 @@
         </div><!--COVER-->
 
         <div class="form-group">
+            <label for="default-price" class="col-md-2 control-label">@lang('goods.default_price')</label>
+            <div class="col-md-10">
+                <input id="default-price" type="number" class="form-control" name="default_price" value="{{ old('default-price') }}" />
+
+                @if ($errors->has('default-price'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('default-price') }}</strong>
+                    </span>
+                @endif
+            </div>
+        </div>
+
+        <div class="form-group">
             <label for="sort" class="col-md-2 control-label">@lang('common.sort')</label>
             <div class="col-md-10">
                 <input id="sort" type="number" class="form-control" name="sort" value="{{ old('sort') }}" />

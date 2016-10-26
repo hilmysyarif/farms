@@ -150,8 +150,10 @@ class Goods extends Model
     public function detail($id) {
         $info = $this->find($id);
         $attrs = [];
+        $tmp = [];
         foreach ($info->attrgoods as $atrg) {
-            if (!in_array($atrg->attr_id, $attrs)) {
+            if (!in_array($atrg->attr_id, $tmp)) {
+                $tmp[] = $atrg->attr_id;
                 $attrs[] = [
                     'attr_id' => $atrg->attr_id,
                     'name' => $atrg->attr->name,
@@ -167,7 +169,8 @@ class Goods extends Model
                 if ($atrg->attr_id == $attr['attr_id']) {
                     $values[] = [
                         'id' => $atrg->id,
-                        'value' => $atrg->value
+                        'value' => $atrg->value,
+                        'price' => $atrg->price
                     ];
                 }
             }

@@ -17,7 +17,8 @@ class GoodsController extends FrontController{
         return view('front/detail', [
             'navHtml' => $this->navHtml,
             'row' => $row,
-            'itemsList' => $itemsList
+            'itemsList' => $itemsList,
+            'id' => $id
         ]);
     }
 }

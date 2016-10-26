@@ -5,7 +5,7 @@
     </button>
 </div>
 <div class="items">
-    @if ($items)
+    @if (isset($items) && $items)
         @foreach ($items as $item)
             <div class="form-inline item-group">
                 <div class="input-group">

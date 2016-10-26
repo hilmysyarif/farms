@@ -17,7 +17,7 @@ class Cart extends Model
      */
     public function store(Request $request) {
         $this->user_id = $request->user()->id;
-        $this->goods_attr_id = $request->goods_attr_id;
+        $this->atrgids = $request->atrgids;
         $this->number = $request->number;
 
         return $this->save();

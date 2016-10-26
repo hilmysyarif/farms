@@ -77,7 +77,8 @@ class GoodsController extends ConsoleController
             'cover_url' => $request->cover_url,
             'sort' => $request->sort,
             'article_id' => $request->article_id,
-            'package' => $this->orgPackage($request)
+            'package' => $this->orgPackage($request),
+            'default_price' => $request->default_price
         ];
         $goods->store($data);
         return redirect('/goods');
@@ -125,7 +126,8 @@ class GoodsController extends ConsoleController
             'cover_url' => $request->cover_url,
             'sort' => $request->sort,
             'article_id' => $request->article_id,
-            'package' => $package
+            'package' => $package,
+            'default_price' => $request->default_price
         ];
 
         $good->updateOne($good_id, $data);

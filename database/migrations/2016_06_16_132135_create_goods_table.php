@@ -18,6 +18,8 @@ class CreateGoodsTable extends Migration
             $table->string('cover_url');
             $table->integer('sort');
             $table->integer('article_id')->unsigned()->default(0);
+            $table->double('default_price', 15, 2)->unsigned()
+                ->comment('default price, used for default attributes');
             $table->timestamps();
         });
 
