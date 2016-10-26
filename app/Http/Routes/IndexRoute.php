@@ -3,7 +3,7 @@ namespace App\Http\Routes;
 
 use Illuminate\Contracts\Routing\Registrar;
 
-class AllRoute
+class IndexRoute
 {
     public function map(Registrar $router)
     {
@@ -12,6 +12,9 @@ class AllRoute
 
             $router->get('/', 'Front\IndexController@index');
             $router->get('/list/{id}', 'Front\ListController@index');
+            $router->auth();
+            $router->get('/home', 'HomeController@index');
+            $router->get('/console', 'Console\HomeController@index');
 
 //            $router->auth();
 //            $router->get('/blog', ['as' => 'index.blog', 'uses' => 'BlogController@index']);

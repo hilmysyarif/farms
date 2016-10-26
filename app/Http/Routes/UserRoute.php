@@ -3,13 +3,13 @@ namespace App\Http\Routes;
 
 use Illuminate\Contracts\Routing\Registrar;
 
-class {className}
+class UserRoute
 {
     public function map(Registrar $router)
     {
         $router->group(['middleware' => 'web'], function ($router) {
-            //$router->auth();
-            //$router->get('/blog', ['as' => 'index.blog', 'uses' => 'BlogController@index']);
+            $router->get('/users', 'Console\Users\UsersController@index');
+            $router->get('/admins', 'Console\Users\UsersController@adminList');
         });
     }
 }
