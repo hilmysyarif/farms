@@ -11,9 +11,12 @@ use App\Http\Controllers\Controller;
 class FrontController extends Controller {
 
     protected $navHtml;
-    public function __construct(Category $category) {
+    public function __construct() {
+        $category = new Category();
         $cats = $category->orgCats();
         $this->buildNavs($cats);
+
+        view()->share('navHtml', $this->navHtml);
     }
 
     private function buildNavs($cats) {

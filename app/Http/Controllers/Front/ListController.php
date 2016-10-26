@@ -14,7 +14,6 @@ class ListController extends FrontController {
         $goodsList = $goods->fetchByIds($ids, 0, 10);
 
         return view('front/list', [
-            'navHtml' => $this->navHtml,
             'goodsList' => $goodsList
         ]);
     }

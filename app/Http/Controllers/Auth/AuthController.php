@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Front\FrontController;
 use App\User;
 use Validator;
-use App\Http\Controllers\Controller;
+//use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
-class AuthController extends Controller
+class AuthController extends FrontController
 {
     /*
     |--------------------------------------------------------------------------
@@ -37,6 +38,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
+        parent::__construct();
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
     }
 
