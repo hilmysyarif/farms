@@ -54,4 +54,11 @@ class Cart extends Model
     public function retrieveByUser(Int $uid) {
         return Cart::where('user_id', $uid)->get();
     }
+
+    /**
+     * Get item of current user in cart.
+     */
+    public function items(Request $request) {
+        return $this->where('user_id', $request->user()->id)->get();
+    }
 }
