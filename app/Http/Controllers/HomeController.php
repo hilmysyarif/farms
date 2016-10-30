@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Front\FrontController;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class HomeController extends FrontController
 {
     /**
      * Create a new controller instance.
@@ -14,6 +15,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
+        parent::__construct();
         $this->middleware('auth');
     }
 

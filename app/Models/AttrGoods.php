@@ -38,6 +38,7 @@ class AttrGoods extends Model
             'price' => $row->price,
             'sale' => $row->sale,
             'package' => $row->package,
+            'goods_id' => $row->goods_id,
             'good_name' => $row->goods->name,
             'good_cover' => $row->goods->cover_url,
             'default_price' => $row->goods->default_price
