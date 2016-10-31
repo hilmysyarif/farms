@@ -7,15 +7,16 @@ use App\Models\Cart;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 
 class CartController extends FrontController {
 
     public function index(Cart $cart, Request $request, AttrGoods $attrGoods) {
         $items = $cart->items($request, $attrGoods);
         $goods = $this->extractGoods($items, $attrGoods);
-        dump($goods);
-        return view('front/cart');
+        return view('front/cart',
+            [
+                'goods' => $goods
+            ]);
     }
 
     public function postAdd(Request $request, Cart $cart) {
@@ -48,8 +49,6 @@ class CartController extends FrontController {
                         ]
                     ];
                 }
-
-
             }
             
 
@@ -67,6 +66,7 @@ class CartController extends FrontController {
                     }
                 }
                 $goods[$k]['info']['total_price'] += $tmpPrice;
+                $goods[$k]['info']['single_total_price'] = $goods[$k]['info']['total_price'];
                 $goods[$k]['attrs'] = $tmpAttrs;
             }
         }
