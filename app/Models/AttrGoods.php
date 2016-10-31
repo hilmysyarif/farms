@@ -37,11 +37,19 @@ class AttrGoods extends Model
             'value' => $row->value,
             'price' => $row->price,
             'sale' => $row->sale,
-            'package' => $row->package
+            'package' => $row->package,
+            'goods_id' => $row->goods_id,
+            'good_name' => $row->goods->name,
+            'good_cover' => $row->goods->cover_url,
+            'default_price' => $row->goods->default_price
         ];
         return $res;
     }
 
+    public function goods() {
+        return $this->belongsTo('App\Models\Goods');
+    }
+    
     public function attr() {
         return $this->belongsTo('App\Models\Attr');
     }

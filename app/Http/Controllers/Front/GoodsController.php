@@ -15,7 +15,6 @@ class GoodsController extends FrontController{
         !$itemsList && $itemsList = [];
 
         return view('front/detail', [
-            'navHtml' => $this->navHtml,
             'row' => $row,
             'itemsList' => $itemsList,
             'id' => $id

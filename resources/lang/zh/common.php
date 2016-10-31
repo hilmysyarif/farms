@@ -14,5 +14,9 @@ return [
     'natural_order' => '自然排序',
     'type' => '类型',
     'description' => '描述',
-    'url' => '地址'
+    'url' => '地址',
+    'login' => '登录',
+    'register' => '注册',
+    'remember_me' => '记住我',
+    'forgot_pwd' => '忘记密码？'
 ];

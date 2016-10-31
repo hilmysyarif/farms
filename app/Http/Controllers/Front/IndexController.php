@@ -17,7 +17,7 @@ class IndexController extends FrontController {
         $articles = $article->topArticles();
 
         return view('front/welcome', [
-            'navHtml' => $this->navHtml,
+//            'navHtml' => $this->navHtml,
             'sliders' => $sliders,
             'articles' => $articles
         ]);
