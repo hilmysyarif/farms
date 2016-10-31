@@ -43,7 +43,7 @@
                                 @{{ good.info.single_total_price * good.info.number }}
                             </td>
                             <td>
-                                <button class="btn btn-default">
+                                <button class="btn btn-default" v-on:click="remove($index)" type="button">
                                     <i class="fa fa-btn fa-remove">&nbsp;</i>
                                     {{ trans('common.delete') }}
                                 </button>
@@ -56,7 +56,7 @@
                     {{ trans('cart.total_price') }}: @{{ totalPrice }} &nbsp;
                     <button type="submit" class="btn btn-primary">
                         <i class="fa fa-btn fa-check"></i>
-                        {{ trans('cart.submit_order') }}
+                        {{ trans('cart.checkout') }}
                     </button>
                 </div>
             </form>
@@ -75,7 +75,7 @@
             },
             ready: function () {
                 var data = {!! json_encode($goods) !!};
-                this.$data.goods = data;
+                this.goods = data;
             },
             computed: {
                 totalPrice: function () {
@@ -90,10 +90,13 @@
                 decreaseQuantity: function (index, event) {
                     if (this.$data.goods[index]['info']['number'] == 1)
                         return;
-                    this.$data.goods[index]['info']['number']--;
+                    this.goods[index]['info']['number']--;
                 },
                 increaseQuantity: function (index, event) {
-                    this.$data.goods[index]['info']['number']++;
+                    this.goods[index]['info']['number']++;
+                },
+                remove: function (index) {
+                    this.goods.splice(index, 1);
                 }
             }
         });
