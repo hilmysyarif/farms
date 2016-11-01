@@ -16,7 +16,7 @@ class CreateAddressesTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('zone_id')->unsigned(); // Id of zone, this made up of province, city, district etc.
-            $table->integer('detail');
+            $table->integer('detail')->default(0);
             $table->boolean('default')->default(false);
             $table->timestamps();
         });
