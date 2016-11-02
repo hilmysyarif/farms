@@ -53,8 +53,11 @@ class Address extends Model
      *
      * @param Int $user_id
      */
-    public static function retrieve(Int $user_id) {
-        return Address::where('user_id', $user_id)->get();
+    public function fetchByUser(Int $user_id, $page = 1, $size = 10) {
+        return $this->where('user_id', $user_id)
+            ->skip(($page - 1) * $size)
+            ->take($size)
+            ->get();
     }
 
 
@@ -63,7 +66,7 @@ class Address extends Model
      *
      * @param Int $id
      */
-    public static function retrieveOne(Int $id) {
+    public static function fetchOne(Int $id) {
         return Address::find($id);
     }
 

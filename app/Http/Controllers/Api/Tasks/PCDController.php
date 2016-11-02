@@ -39,13 +39,24 @@ class PCDController extends Controller
         array_splice($tmp, 0, 1);
         $tmp = $this->tidyData($tmp);
 
+        $pcdListJs = public_path().DIRECTORY_SEPARATOR.'js'.DIRECTORY_SEPARATOR.'pcd.list.js';
+        $pcdListContent = 'var pcdList = '.json_encode($tmp);
+
         $result = $this->listToTree($tmp);
         $content = 'var pcd = '.json_encode($result);
-        $pcdJS = dirname(__FILE__).DIRECTORY_SEPARATOR.'pcd.js';
+        $pcdJs = public_path().DIRECTORY_SEPARATOR.'js'.DIRECTORY_SEPARATOR.'pcd.js';
 
-        $fileIO = new FileIO($pcdJS);
+        $fileIO = new FileIO($pcdJs);
         $fileIO->rewrite($content);
-        chmod($pcdJS, 0755);
+        chmod($pcdJs, 0755);
+
+        $fileIO->setFile($pcdListJs);
+        $fileIO->rewrite($pcdListContent);
+        chmod($pcdListJs, 0755);
+
+
+        echo $pcdJs.'<br>';
+        echo $pcdListJs.'<br>';
     }
 
     /**

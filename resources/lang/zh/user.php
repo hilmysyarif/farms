@@ -10,5 +10,11 @@ return [
     'orders' => '订单',
     'addresses' => '收货地址',
     'comments' => '评论',
-    'collection' => '收藏'
+    'collection' => '收藏',
+    'receiver' => '收货人',
+    'contact_phone' => '联系电话',
+    'address' => '地址',
+    'create_address' => '创建收货地址',
+    'address_detail' => '详细地址',
+    'set_default' => '设为默认'
 ];
