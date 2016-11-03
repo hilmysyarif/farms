@@ -3,10 +3,10 @@ namespace App\Http\Routes;
 
 use Illuminate\Contracts\Routing\Registrar;
 
-class ListRoute
+class PCDRoute
 {
     public function map(Registrar $router)
     {
-        $router->get('/detail/{id}', 'Front\GoodsController@index');
+        $router->get('/api/pcs', 'Api\Tasks\PCDController@index');
     }
 }

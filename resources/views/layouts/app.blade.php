@@ -75,28 +75,6 @@
                                 </li>
                             </ul>
                         </li>
-
-                        <!--Used for horizontal navs-->
-                        {{--<li class="dropdown-submenu">--}}
-                            {{--<a tabindex="-1" href="javascript:;">一级菜单</a>--}}
-                            {{--<ul class="dropdown-menu">--}}
-                                {{--<li><a href="javascript:;">二级菜单</a></li>--}}
-                                {{--<li><a tabindex="-1" href="javascript:;">二级菜单</a></li>--}}
-                                {{--<li role="separator" class="divider"></li>--}}
-                                {{--<li class="dropdown-submenu">--}}
-                                    {{--<a href="javascript:;">二级菜单</a>--}}
-                                    {{--<ul class="dropdown-menu">--}}
-                                        {{--<li><a href="javascript:;">三级菜单</a></li>--}}
-                                        {{--<li class="dropdown-submenu">--}}
-                                            {{--<a href="javascript:;">三级菜单</a>--}}
-                                            {{--<ul class="dropdown-menu">--}}
-                                                {{--<li><a href="javascript:;">四级菜单</a></li>--}}
-                                            {{--</ul>--}}
-                                        {{--</li>--}}
-                                    {{--</ul>--}}
-                                {{--</li>--}}
-                            {{--</ul>--}}
-                        {{--</li>--}}
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -112,7 +90,8 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                                <li><a href="{{ url('/home') }}"><i class="fa fa-btn fa-home"></i>{{ trans('user.home') }}</a></li>
+                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>{{ trans('common.logout') }}</a></li>
                             </ul>
                         </li>
                     @endif

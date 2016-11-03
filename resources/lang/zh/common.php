@@ -18,5 +18,7 @@ return [
     'login' => '登录',
     'register' => '注册',
     'remember_me' => '记住我',
-    'forgot_pwd' => '忘记密码？'
+    'forgot_pwd' => '忘记密码？',
+    'logout' => '登出',
+    'please_continue_choose' => '请继续选择'
 ];

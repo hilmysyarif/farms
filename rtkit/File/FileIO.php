@@ -27,4 +27,8 @@ class FileIO {
         fclose($fileHandler);
     }
 
+    public function setFile($fileName) {
+        $this->fileName = $fileName;
+    }
+
 }
