@@ -15,6 +15,9 @@ body {
 .hide {
   display: none; }
 
+.has-error .dropdown button {
+  border-color: #a94442; }
+
 /* CUSTOMIZE PAGINATION
 -------------------------------------------------- */
 .page .pagination {
@@ -150,6 +153,9 @@ body {
 
 .hide {
   display: none; }
+
+.has-error .dropdown button {
+  border-color: #a94442; }
 
 /* CUSTOMIZE PAGINATION
 -------------------------------------------------- */

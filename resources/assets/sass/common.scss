@@ -20,6 +20,9 @@ body {
   display: none;
 }
 
+.has-error .dropdown button {
+  border-color: $color-error;
+}
 
 /* CUSTOMIZE PAGINATION
 -------------------------------------------------- */

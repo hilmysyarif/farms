@@ -12,7 +12,7 @@ return [
     'comments' => '评论',
     'collection' => '收藏',
     'receiver' => '收货人',
-    'contact_phone' => '联系电话',
+    'contact_phone' => '收货人联系电话',
     'address' => '地址',
     'create_address' => '创建收货地址',
     'address_detail' => '详细地址',
@@ -21,5 +21,6 @@ return [
     'detail_required' => '必须提供详细地址',
     'zone_id_between' => '请提供正确的收货地址',
     'receiver_required' => '必须提供收货人',
-    'contact_required' => '必须提供收货人的联系方式'
+    'contact_required' => '必须提供收货人的联系电话',
+    'contact_regex' => '收货人联系电话格式不正确'
 ];

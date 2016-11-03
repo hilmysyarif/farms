@@ -10,8 +10,6 @@
 
         @include('front.shared.home_side')
 
-        {{ var_dump($errors) }}
-
         <div class="col-lg-10 col-sm-10">
             <div class="row">
                 <div class="col-md-12">
@@ -23,7 +21,7 @@
                             <form class="form-horizontal" method="post" action="{{ url('/address/add') }}">
                                 {{ csrf_field() }}
 
-                                <div class="form-group">
+                                <div class="form-group{{ $errors->has('receiver') ? ' has-error' : '' }}">
                                     <label for="receiver" class="col-md-2 control-label">{{ trans('user.receiver') }}</label>
                                     <div class="col-md-10">
                                         <input id="receiver" type="text" class="form-control" name="receiver" value="{{ old('receiver') }}" />
@@ -36,7 +34,7 @@
                                 </div>
 
 
-                                <div class="form-group">
+                                <div class="form-group{{ $errors->has('contact') ? ' has-error' : '' }}">
                                     <label for="contact" class="col-md-2 control-label">{{ trans('user.contact_phone') }}</label>
                                     <div class="col-md-10">
                                         <input id="contact" type="text" class="form-control" name="contact" value="{{ old('contact') }}" />
@@ -49,14 +47,19 @@
                                 </div>
 
 
-                                <div class="form-group">
+                                <div class="form-group{{ $errors->has('zone_id') ? ' has-error' : '' }}">
                                     <label for="zone_id" class="col-md-2 control-label">{{ trans('user.address') }}</label>
                                     <div class="col-md-10">
                                         @include('console.shared.form-multiple-cols-select')
+                                        @if ($errors->has('zone_id'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('zone_id') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group{{ $errors->has('detail') ? ' has-error' : '' }}">
                                     <label for="detail" class="col-md-2 control-label">{{ trans('user.address_detail') }}</label>
                                     <div class="col-md-10">
                                         <input id="detail" type="text" class="form-control" name="detail" value="{{ old('detail') }}" />
@@ -68,7 +71,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group{{ $errors->has('default') ? ' has-error' : '' }}">
                                     <div class="col-md-6 col-md-offset-4">
                                         <div class="checkbox">
                                             <label>
@@ -97,8 +100,8 @@
             el: '#address',
             data: {
                 name: 'zone_id',
-                value: '0',
-                notice: '{{ trans('common.please_choose') }}',
+                value: {{ old('zone_id') ? old('zone_id') : 0 }},
+                notice: '{{ old('option_name') ? old('option_name') : trans('common.please_choose') }}',
                 selects: [],
                 size: 10
             },
@@ -116,7 +119,7 @@
                     } else {
                         // This is the last element.
                         var input = $('#selects').children()[0];
-                        $(input).val(pid);
+                        $(input).val(pid).next().val(name);
                         $('#selects #name').text(name);
                     }
                 }
