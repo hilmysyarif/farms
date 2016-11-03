@@ -6,6 +6,7 @@
             <span id="name">@{{ notice }}</span>
             <span class="caret"></span>
         </button>
+        <span id="full-address"></span>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
             <li>
                 <div class="container-fluid">

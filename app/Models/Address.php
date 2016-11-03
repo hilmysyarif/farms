@@ -39,11 +39,15 @@ class Address extends Model
      * @param Request $request
      * @return bool|int
      */
-    public static function updateOne(Request $request) {
-        return Address::where('id', $request->user()->id)->update([
-            'user_id' => $request->user()->id,
-            'zone_id' => $request->zone_id,
-            'detail' => $request->detail
+    public function updateOne(Request $request) {
+        $this->default = $request->default;
+        return Address::where('id', $request->id)
+            ->update([
+                'zone_id' => $request->zone_id,
+                'detail' => $request->detail,
+                'receiver' => $request->receiver,
+                'contact' => $request->contact,
+                'default' => $this->default
         ]);
     }
 

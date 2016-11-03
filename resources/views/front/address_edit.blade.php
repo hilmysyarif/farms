@@ -18,13 +18,13 @@
 
                         <div class="panel-body" id="address" v-cloak>
 
-                            <form class="form-horizontal" method="post" action="{{ url('/address/add') }}">
+                            <form class="form-horizontal" method="post" action="{{ url('/address/'.$row->id.'/edit') }}">
                                 {{ csrf_field() }}
 
                                 <div class="form-group{{ $errors->has('receiver') ? ' has-error' : '' }}">
                                     <label for="receiver" class="col-md-2 control-label">{{ trans('user.receiver') }}</label>
                                     <div class="col-md-10">
-                                        <input id="receiver" type="text" class="form-control" name="receiver" value="{{ old('receiver') }}" />
+                                        <input id="receiver" type="text" class="form-control" name="receiver" value="{{ $row->receiver }}" />
                                         @if ($errors->has('receiver'))
                                             <span class="help-block">
                                                 <strong>{{ $errors->first('receiver') }}</strong>
@@ -37,7 +37,7 @@
                                 <div class="form-group{{ $errors->has('contact') ? ' has-error' : '' }}">
                                     <label for="contact" class="col-md-2 control-label">{{ trans('user.contact_phone') }}</label>
                                     <div class="col-md-10">
-                                        <input id="contact" type="text" class="form-control" name="contact" value="{{ old('contact') }}" />
+                                        <input id="contact" type="text" class="form-control" name="contact" value="{{ $row->contact }}" />
                                         @if ($errors->has('contact'))
                                             <span class="help-block">
                                                 <strong>{{ $errors->first('contact') }}</strong>
@@ -51,6 +51,7 @@
                                     <label for="zone_id" class="col-md-2 control-label">{{ trans('user.address') }}</label>
                                     <div class="col-md-10">
                                         @include('console.shared.form-multiple-cols-select')
+                                        <div class="full-address"></div>
                                         @if ($errors->has('zone_id'))
                                             <span class="help-block">
                                                 <strong>{{ $errors->first('zone_id') }}</strong>
@@ -62,7 +63,7 @@
                                 <div class="form-group{{ $errors->has('detail') ? ' has-error' : '' }}">
                                     <label for="detail" class="col-md-2 control-label">{{ trans('user.address_detail') }}</label>
                                     <div class="col-md-10">
-                                        <input id="detail" type="text" class="form-control" name="detail" value="{{ old('detail') }}" />
+                                        <input id="detail" type="text" class="form-control" name="detail" value="{{ $row->detail }}" />
                                         @if ($errors->has('detail'))
                                             <span class="help-block">
                                                 <strong>{{ $errors->first('detail') }}</strong>
@@ -75,7 +76,7 @@
                                     <div class="col-md-6 col-md-offset-4">
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" name="default"> {{ trans('user.set_default') }}
+                                                <input type="checkbox" name="default" @if ($row->default) checked @endif > {{ trans('user.set_default') }}
                                             </label>
                                         </div>
                                     </div>
@@ -101,7 +102,7 @@
             el: '#address',
             data: {
                 name: 'zone_id',
-                value: {{ old('zone_id') ? old('zone_id') : 0 }},
+                value: '{{ $row->zone_id }}',
                 notice: '{{ old('option_name') ? old('option_name') : trans('common.please_choose') }}',
                 selects: [],
                 size: 10
@@ -173,6 +174,36 @@
                 }
             }
             return tmp1;
+        }
+
+        // preapre full address
+        var res = [];
+
+        $(function () {
+            var code = {{ $row->zone_id }};
+            getFullAddress(code);
+            $('#full-address').text(res.reverse().join(' '));
+            var currentName = '';
+            for (var i = 0; i < pcdList.length; i++) {
+                if (code == pcdList[i].code) {
+                    currentName = pcdList[i].name;
+                    break;
+                }
+            }
+            $('#name').text(currentName);
+            var optionNameInput = $('#selects').children()[1];
+            $(optionNameInput).val(currentName);
+        });
+
+
+        function getFullAddress (code) {
+            for (var i = 0; i < pcdList.length; i++) {
+                if (pcdList[i].code == code) {
+                    res.push(pcdList[i].name);
+                    getFullAddress(pcdList[i].pcode);
+                    break;
+                }
+            }
         }
     </script>
 

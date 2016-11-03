@@ -16,7 +16,7 @@ class CreateAddressesTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('zone_id')->unsigned()->comment('code of PCD'); // Id of zone, this made up of province, city, district etc.
-            $table->integer('detail')->default(0);
+            $table->string('detail', 128)->default(0);
             $table->string('receiver', 64);
             $table->string('contact', 32)->comment('contact way');
             $table->boolean('default')->default(false);

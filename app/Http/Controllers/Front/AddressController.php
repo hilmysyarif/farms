@@ -49,14 +49,17 @@ class AddressController extends FrontController
     }
 
     public function edit($id) {
-        return view();
+        $row = Address::find($id);
+        return view('front/address_edit', ['row' => $row]);
     }
 
-    public function postEdit(Request $request) {
-        return redirect(url(''));
+    public function postEdit(Request $request, Address $address) {
+        $address->updateOne($request);
+        return redirect(url('/address'));
     }
 
     public function remove($id) {
-        return redirect(url(''));
+        Address::destroy($id);
+        return redirect(url('/address'));
     }
 }
