@@ -10,6 +10,8 @@
 
         @include('front.shared.home_side')
 
+        {{ var_dump($errors) }}
+
         <div class="col-lg-10 col-sm-10">
             <div class="row">
                 <div class="col-md-12">
@@ -105,13 +107,12 @@
             },
             methods: {
                 loadChildren: function (pid, name) {
-                    console.log(pid);
                     // load children
                     var tmp = groupData(pid);
                     if (tmp.length > 0) {
                         // This is not the last element.
                         this.selects = tmp;
-                        $('#selects #name').text('{{ trans('common.please_choose') }}');
+                        $('#selects #name').text('{{ trans('common.please_continue_choose') }}');
                     } else {
                         // This is the last element.
                         var input = $('#selects').children()[0];

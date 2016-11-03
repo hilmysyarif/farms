@@ -7,10 +7,8 @@ class AddressRoute
 {
     public function map(Registrar $router)
     {
-        $router->group(['middleware' => 'web'], function ($router) {
-            $router->get('/address', 'Front\AddressController@index');
-            $router->get('/address/add', 'Front\AddressController@add');
-            $router->post('/address/add', 'Front\AddressController@postAdd');
-        });
+        $router->get('/address', 'Front\AddressController@index');
+        $router->get('/address/add', 'Front\AddressController@add');
+        $router->post('/address/add', 'Front\AddressController@postAdd');
     }
 }

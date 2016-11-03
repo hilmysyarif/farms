@@ -18,6 +18,18 @@
 
                     <div class="panel-body">
                         欢迎！
+
+
+                        <form action="{{ url('/home/testvalidation') }}" method="post">
+                            {{ csrf_field() }}
+                            <input type="text" name="test">
+                            @if ($errors->has('test'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('test') }}</strong>
+                                </span>
+                            @endif
+                            <button type="submit">submit</button>
+                        </form>
                     </div>
                 </div>
             </div>

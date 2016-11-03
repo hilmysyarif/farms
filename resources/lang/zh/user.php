@@ -16,5 +16,10 @@ return [
     'address' => '地址',
     'create_address' => '创建收货地址',
     'address_detail' => '详细地址',
-    'set_default' => '设为默认'
+    'set_default' => '设为默认',
+    'zone_id_required' => '请提供正确的收货地址',
+    'detail_required' => '必须提供详细地址',
+    'zone_id_between' => '请提供正确的收货地址',
+    'receiver_required' => '必须提供收货人',
+    'contact_required' => '必须提供收货人的联系方式'
 ];

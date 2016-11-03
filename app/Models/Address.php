@@ -17,11 +17,20 @@ class Address extends Model
      * @return bool
      */
     public function store(Request $request) {
+        
         $this->user_id = $request->user()->id;
         $this->zone_id = $request->zone_id;
         $this->detail = $request->detail;
+        $this->receiver = $request->receiver;
+        $this->contact = $request->contact;
+        $this->default = $request->default;
 
         return $this->save();
+    }
+
+
+    public function setDefaultAttribute($value) {
+        $this->attributes['default'] = $value ? 1 : 0;
     }
 
     /**

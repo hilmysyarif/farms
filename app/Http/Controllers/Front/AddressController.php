@@ -29,8 +29,28 @@ class AddressController extends FrontController
         return view('front/address_add');
     }
 
-    public function postAdd(Request $request) {
+    public function postAdd(Request $request, Address $address) {
+
+        $this->validate($request, [
+            'zone_id' => 'required|numeric|between:110000,820000',
+            'detail' => 'required',
+            'receiver' => 'required',
+            'contact' => 'required'
+        ]);
+        $address->store($request);
+        
         return redirect(url(''));
+    }
+
+
+    public function messages() {
+        return [
+            'zone_id.required' => trans('user.zone_id_required'),
+            'zone_id.between' => trans('user.zone_id_between'),
+            'detail.required' => trans('user.detail_required'),
+            'receiver.required' => trans('user.receiver_required'),
+            'contact.required' => trans('user.contact_required')
+        ];
     }
 
     public function edit($id) {

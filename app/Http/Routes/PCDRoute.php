@@ -7,8 +7,6 @@ class PCDRoute
 {
     public function map(Registrar $router)
     {
-        $router->group(['middleware' => 'web'], function ($router) {
-            $router->get('/api/pcs', 'Api\Tasks\PCDController@index');
-        });
+        $router->get('/api/pcs', 'Api\Tasks\PCDController@index');
     }
 }

@@ -12,6 +12,9 @@ class FrontController extends Controller {
 
     protected $navHtml;
     public function __construct() {
+
+        $this->middleware('web');
+
         $category = new Category();
         $cats = $category->orgCats();
         $this->buildNavs($cats);

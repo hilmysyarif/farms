@@ -11,7 +11,6 @@ class HomeController extends FrontController
     /**
      * Create a new controller instance.
      *
-     * @return void
      */
     public function __construct()
     {
@@ -27,5 +26,13 @@ class HomeController extends FrontController
     public function index()
     {
         return view('front/home');
+    }
+
+
+    public function testValidation(Request $request) {
+        $this->validate($request, [
+            'test' => 'required|numeric|between:110000,820000'
+        ]);
+        echo 'tested:<br>';
     }
 }
