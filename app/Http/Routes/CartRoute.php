@@ -7,7 +7,9 @@ class CartRoute
 {
     public function map(Registrar $router)
     {
-        $router->post('/order', 'Front\OrderController@index');
-        $router->get('/order', 'Front\OrderController@index');
+        $router->group(['middleware' => 'auth'], function ($router) {
+            $router->post('/order', 'Front\OrderController@index');
+            $router->get('/order', 'Front\OrderController@index');
+        });
     }
 }

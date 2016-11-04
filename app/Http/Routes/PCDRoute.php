@@ -7,6 +7,6 @@ class PCDRoute
 {
     public function map(Registrar $router)
     {
-        $router->get('/api/pcs', 'Api\Tasks\PCDController@index');
+        $router->get('/api/pcd', 'Api\Tasks\PCDController@index');
     }
 }

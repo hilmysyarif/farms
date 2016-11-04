@@ -42,20 +42,20 @@ class PCDController extends Controller
         $pcdListJs = public_path().DIRECTORY_SEPARATOR.'js'.DIRECTORY_SEPARATOR.'pcd.list.js';
         $pcdListContent = 'var pcdList = '.json_encode($tmp);
 
-        $result = $this->listToTree($tmp);
-        $content = 'var pcd = '.json_encode($result);
-        $pcdJs = public_path().DIRECTORY_SEPARATOR.'js'.DIRECTORY_SEPARATOR.'pcd.js';
+//        $result = $this->listToTree($tmp);
+//        $content = 'var pcd = '.json_encode($result);
+//        $pcdJs = public_path().DIRECTORY_SEPARATOR.'js'.DIRECTORY_SEPARATOR.'pcd.js';
 
-        $fileIO = new FileIO($pcdJs);
-        $fileIO->rewrite($content);
-        chmod($pcdJs, 0755);
+//        $fileIO = new FileIO($pcdJs);
+//        $fileIO->rewrite($content);
+//        chmod($pcdJs, 0755);
 
-        $fileIO->setFile($pcdListJs);
+        $fileIO = new FileIO($pcdListJs);
+//        $fileIO->setFile($pcdListJs);
         $fileIO->rewrite($pcdListContent);
-        chmod($pcdListJs, 0755);
+//        chmod($pcdListJs, 0777);
 
-
-        echo $pcdJs.'<br>';
+//        echo $pcdJs.'<br>';
         echo $pcdListJs.'<br>';
     }
 
@@ -100,7 +100,7 @@ class PCDController extends Controller
     private function analyseData($data) {
         $tmp = explode($this->delimiter, $data);
         $res = [
-            'code' => $tmp[0],
+            'id' => $tmp[0],
             'name' => $tmp[1]
         ];
         return $res;
@@ -120,27 +120,27 @@ class PCDController extends Controller
                 $level = strlen($delimiter);
 
                 $value = [
-                    'code' => $tmp[0],
+                    'id' => $tmp[0],
                     'name' => $tmp[1],
                     'level' => $level
                 ];
 
                 if ($level == 1) {
-                    $value['pcode'] = 0;
+                    $value['pid'] = 0;
                 } else {
                     if ($level > $res[count($res) - 1]['level']) {
                         // step into its child
-                        $value['pcode'] = $res[count($res) - 1]['code'];
+                        $value['pid'] = $res[count($res) - 1]['id'];
                     } else if ($level < $res[count($res) - 1]['level']) {
                         // step into its parent level.
-                        $value['pcode'] = $resCopy[$res[count($res) - 1]['pcode']]['pcode'];
+                        $value['pid'] = $resCopy[$res[count($res) - 1]['pid']]['pid'];
                     } else {
                         // the same level.
-                        $value['pcode'] = $res[count($res) - 1]['pcode'];
+                        $value['pid'] = $res[count($res) - 1]['pid'];
                     }
                 }
                 $res[] = $value;
-                $resCopy[$value['code']] = $value;
+                $resCopy[$value['id']] = $value;
             }
         }
 
@@ -154,15 +154,15 @@ class PCDController extends Controller
         if (is_array($list)) {
             $refer = [];
             foreach ($list as $k => $v) {
-                $refer[$v['code']] =& $list[$k];
+                $refer[$v['id']] =& $list[$k];
             }
 
             foreach ($list as $k => $v) {
-                if ($v['pcode'] == 0) {
+                if ($v['pid'] == 0) {
                     $res[] =& $list[$k];
                 } else {
-                    if (isset($v['pcode'])) {
-                        $parent =& $refer[$v['pcode']];
+                    if (isset($v['pid'])) {
+                        $parent =& $refer[$v['pid']];
                         $parent['children'][] =& $list[$k];
                     }
                 }
