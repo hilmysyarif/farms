@@ -110,7 +110,22 @@
                 this.selects = groupData(0);
             },
             methods: {
-                loadChildren: function (pid, name) {
+                loadChildren: function (pid, name, ppid) {
+                    var input = $('#selects').children()[0];
+                    if (ppid != 0 && $(input).val() != 0) {
+                        // This is the last element. When click again, replace the last element.
+                        fullAddress.pop();
+                        fullAddress.push(name);
+                        $('#full-address').text(fullAddress.join(' '));
+
+                        $(input).val(pid).next().val(name);
+                        $('#selects #name').text(name);
+                        return;
+                    }
+
+                    if (ppid == 0)
+                        $(input).val(0).next().val('');
+
                     // load children
                     var tmp = groupData(pid);
                     if (tmp.length > 0) {
@@ -119,7 +134,6 @@
                         $('#selects #name').text('{{ trans('common.please_continue_choose') }}');
                     } else {
                         // This is the last element.
-                        var input = $('#selects').children()[0];
                         $(input).val(pid).next().val(name);
                         $('#selects #name').text(name);
                     }

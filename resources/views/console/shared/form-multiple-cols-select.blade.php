@@ -12,7 +12,7 @@
                 <div class="container-fluid">
                     <ul class="list-unstyled" v-bind:class="groupClass" v-for="(pindex, group) in selects">
                         <li v-for="(cindex, option) in group">
-                            <a href="###" v-on:click="loadChildren(option.id, option.name)">@{{ option.name }}</a>
+                            <a href="###" v-on:click="loadChildren(option.id, option.name, option.pid)">@{{ option.name }}</a>
                         </li>
                     </ul>
                 </div>
