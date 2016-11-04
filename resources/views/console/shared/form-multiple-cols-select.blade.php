@@ -6,8 +6,14 @@
             <span id="name">@{{ notice }}</span>
             <span class="caret"></span>
         </button>
-        <span id="full-address"></span>
+        <span id="full-address">@{{ fullAddress }}</span>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li v-if="!isTopLevel">
+                <a href="###" v-on:click="loadParents()">
+                    <i class="fa fa-reply"></i>
+                    {{ trans('common.return_parent') }}
+                </a>
+            </li>
             <li>
                 <div class="container-fluid">
                     <ul class="list-unstyled" v-bind:class="groupClass" v-for="(pindex, group) in selects">

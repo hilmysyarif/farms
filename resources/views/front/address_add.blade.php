@@ -95,8 +95,8 @@
 @section('js')
     <script src="{{ URL::asset('js/pcd.list.js') }}"></script>
     <script src="{{ URL::asset('js/vue.min.js') }}"></script>
+    <script src="{{ URL::asset('js/snippets/vue.select.js') }}"></script>
     <script>
-        var fullAddress = [];
         new Vue({
             el: '#address',
             data: {
@@ -104,43 +104,64 @@
                 value: {{ old('zone_id') ? old('zone_id') : 0 }},
                 notice: '{{ old('option_name') ? old('option_name') : trans('common.please_choose') }}',
                 selects: [],
-                size: 10
+                size: 10,
+                helper: new selectsHelper(),
+                addressStack: [],
+                reachBottom: false
             },
             ready: function () {
-                this.selects = groupData(0);
+                this.selects = this.helper.groupChildren(0, pcdList);
             },
             methods: {
-                loadChildren: function (pid, name, ppid) {
+                loadChildren: function (id, name, pid) {
                     var input = $('#selects').children()[0];
-                    if (ppid != 0 && $(input).val() != 0) {
+                    if (this.reachBottom) {
                         // This is the last element. When click again, replace the last element.
-                        fullAddress.pop();
-                        fullAddress.push(name);
-                        $('#full-address').text(fullAddress.join(' '));
-
-                        $(input).val(pid).next().val(name);
-                        $('#selects #name').text(name);
+                        this.addressStack.pop();
+                        this.addressStack.push(name);
+                        this.resetChoosenInfo(input, id, name);
                         return;
                     }
+                    if (pid == 0) {
+                        this.resetChoosenInfo(input, 0, this.notice);
+                        this.addressStack = [];
+                    }
 
-                    if (ppid == 0)
-                        $(input).val(0).next().val('');
 
                     // load children
-                    var tmp = groupData(pid);
+                    var tmp = this.helper.groupChildren(id, pcdList);
                     if (tmp.length > 0) {
                         // This is not the last element.
                         this.selects = tmp;
                         $('#selects #name').text('{{ trans('common.please_continue_choose') }}');
                     } else {
                         // This is the last element.
-                        $(input).val(pid).next().val(name);
-                        $('#selects #name').text(name);
+                        this.reachBottom = true;
+                        this.resetChoosenInfo(input, id, name);
                     }
 
                     // update full address.
-                    fullAddress.push(name);
-                    $('#full-address').text(fullAddress.join(' '));
+                    this.addressStack.push(name);
+                },
+                loadParents: function () {
+                    if (this.isTopLevel)
+                        return;
+
+                    if (this.reachBottom) {
+                        this.addressStack.pop();
+                        this.reachBottom = false;
+                    }
+                    this.addressStack.pop();
+
+                    var input = $('#selects').children()[0];
+                    this.resetChoosenInfo(input, 0, '{{ trans('common.please_continue_choose') }}');
+
+                    var tmp = this.helper.groupParents(this.selects[0][0].pid, pcdList);
+                    this.selects = tmp;
+                },
+                resetChoosenInfo: function (ele, id, name) {
+                    $(ele).val(id).next().val(name);
+                    $('#selects #name').text(name);
                 }
             },
             computed: {
@@ -152,42 +173,15 @@
                     } else {
                         return 'container-fluid';
                     }
+                },
+                fullAddress: function() {
+                    return this.addressStack.join(' ');
+                },
+                isTopLevel: function () {
+                    return this.selects[0][0].pid == 0;
                 }
             }
         });
-
-
-        function groupData(pcode) {
-            var tmp = [];
-            for (var i = 0; i < pcdList.length; i++) {
-                if (pcdList[i].pcode == pcode) {
-                    tmp.push({
-                        id: pcdList[i].code,
-                        name: pcdList[i].name,
-                        pid: pcdList[i].pcode
-                    });
-                }
-            }
-            // split tmp to groups. size is 10.
-            var tmp1 = [];
-            var tmp2 = [];
-            var counter = 0;
-            var size = 10;
-            for (var i = 0; i < tmp.length; i++) {
-                if (counter < size) {
-                    tmp2.push(tmp[i]);
-                    counter++;
-                }
-
-                // prepared one group.
-                if (counter >= size || i == tmp.length -1) {
-                    tmp1.push(tmp2);
-                    counter = 0;
-                    tmp2 = [];
-                }
-            }
-            return tmp1;
-        }
     </script>
 
 
