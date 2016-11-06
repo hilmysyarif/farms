@@ -8,5 +8,6 @@ class OrderRoute
     public function map(Registrar $router)
     {
         $router->get('/orders', 'Console\Orders\OrdersController@index');
+        $router->get('/checkout', 'Front\OrderController@checkout');
     }
 }

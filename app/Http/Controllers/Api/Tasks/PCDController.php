@@ -39,6 +39,20 @@ class PCDController extends Controller
         array_splice($tmp, 0, 1);
         $tmp = $this->tidyData($tmp);
 
+
+        $keyTmp = [];
+        foreach ($tmp as $k => $v) {
+            $keyTmp[$v['id']] = $v;
+        }
+
+        $pcdListPhp = public_path().DIRECTORY_SEPARATOR.'js'.DIRECTORY_SEPARATOR.'pcd.php';
+        $pcdPhpContent = var_export($keyTmp, true);
+        $pcdPhpContent = '<?php'.PHP_EOL.'return '.$pcdPhpContent.';';
+        $fileIO = new FileIO($pcdListPhp);
+        $fileIO->rewrite($pcdPhpContent);
+        echo $pcdListPhp.'<br>';
+
+
         $pcdListJs = public_path().DIRECTORY_SEPARATOR.'js'.DIRECTORY_SEPARATOR.'pcd.list.js';
         $pcdListContent = 'var pcdList = '.json_encode($tmp);
 
@@ -50,8 +64,8 @@ class PCDController extends Controller
 //        $fileIO->rewrite($content);
 //        chmod($pcdJs, 0755);
 
-        $fileIO = new FileIO($pcdListJs);
-//        $fileIO->setFile($pcdListJs);
+//        $fileIO = new FileIO($pcdListJs);
+        $fileIO->setFile($pcdListJs);
         $fileIO->rewrite($pcdListContent);
 //        chmod($pcdListJs, 0777);
 

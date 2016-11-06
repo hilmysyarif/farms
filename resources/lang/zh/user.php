@@ -23,5 +23,6 @@ return [
     'receiver_required' => '必须提供收货人',
     'contact_required' => '必须提供收货人的联系电话',
     'contact_regex' => '收货人联系电话格式不正确',
-    'add_address' => '增加收货地址'
+    'add_address' => '增加收货地址',
+    'receive_info' => '收货信息',
 ];

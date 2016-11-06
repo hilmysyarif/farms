@@ -11,12 +11,11 @@ use App\Http\Requests;
 class CartController extends FrontController {
 
     public function index(Cart $cart, Request $request, AttrGoods $attrGoods) {
-        $items = $cart->items($request, $attrGoods);
-        $goods = $this->extractGoods($items, $attrGoods);
-        return view('front/cart',
-            [
-                'goods' => $goods
-            ]);
+        $items = $cart->items($request);
+        $goods = self::extractGoods($items, $attrGoods);
+        return view('front/cart', [
+            'goods' => $goods
+        ]);
     }
 
     public function postAdd(Request $request, Cart $cart) {
@@ -24,15 +23,14 @@ class CartController extends FrontController {
         return redirect('/cart');
     }
 
-    // TODO: here is not ready. You should organize data by goods.
-    private function extractGoods($items, $attrGoods) {
+    public static function extractGoods($items, $attrGoods) {
         $goods = [];
         $info = [];
         $tmp = [];
         foreach ($items as $k => $v) {
             $number = $v['number'];
             $atrgs = explode(',', $v['atrgids']);
-
+            $cart_id = $v->id;
             foreach ($atrgs as $v) {
                 $atrInfo = $attrGoods->fetchOne($v);
                 $info[] = $atrInfo;
@@ -40,6 +38,7 @@ class CartController extends FrontController {
                     $tmp[] = $atrInfo['goods_id'];
                     $goods[] = [
                         'info' => [
+                            'cart_id' => $cart_id,
                             'goods_id' => $atrInfo['goods_id'],
                             'name' => $atrInfo['good_name'],
                             'cover' => $atrInfo['good_cover'],

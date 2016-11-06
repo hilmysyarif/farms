@@ -61,4 +61,20 @@ class Cart extends Model
     public function items(Request $request) {
         return $this->where('user_id', $request->user()->id)->get();
     }
+
+    /**
+     * Update number in cart according by id.
+     *
+     * @param $ids
+     * @param $numbers
+     * @return int
+     */
+    public static function updateQuantity($ids, $numbers) {
+        $affected = 0;
+        foreach ($ids as $k => $v) {
+            if (Cart::where('id', $v)->update(['number' => $numbers[$k]]))
+                $affected++;
+        }
+        return $affected;
+    }
 }
