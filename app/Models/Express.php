@@ -53,4 +53,16 @@ class Express extends Model
     public function removeOne(Int $id) {
         return Express::destroy($id);
     }
+
+
+    /**
+     * Retrieve default express information.
+     *
+     * @return \stdClass
+     */
+    public static function default() {
+        $tmp = new \stdClass();
+        $tmp->shippingFee = 10;
+        return $tmp;
+    }
 }

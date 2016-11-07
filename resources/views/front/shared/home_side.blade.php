@@ -11,9 +11,9 @@
                 </a>
             </li>
             <li class="list-group-item">
-                <a href="{{ url('/orders') }}">
+                <a href="{{ url('/myorders') }}">
                     <i class="fa fa-list-alt"></i>
-                    {{ trans('user.orders') }}
+                    {{ trans('user.my_orders') }}
                 </a>
             </li>
             <li class="list-group-item">

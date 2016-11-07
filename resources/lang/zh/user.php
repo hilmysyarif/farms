@@ -7,7 +7,7 @@ return [
     'confirm_password' => '确认密码',
     'home' => '个人中心',
     'dashboard' => '总览',
-    'orders' => '订单',
+    'my_orders' => '我的订单',
     'addresses' => '收货地址',
     'comments' => '评论',
     'collection' => '收藏',
@@ -23,5 +23,6 @@ return [
     'receiver_required' => '必须提供收货人',
     'contact_required' => '必须提供收货人的联系电话',
     'contact_regex' => '收货人联系电话格式不正确',
-    'add_address' => '增加收货地址'
+    'add_address' => '增加收货地址',
+    'receive_info' => '收货信息',
 ];

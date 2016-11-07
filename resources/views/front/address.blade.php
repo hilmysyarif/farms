@@ -70,11 +70,11 @@
         });
 
 
-        function fullAddress (code) {
+        function fullAddress (id) {
             for (var i = 0; i < pcdList.length; i++) {
-                if (pcdList[i].code == code) {
+                if (pcdList[i].id == id) {
                     res.push(pcdList[i].name);
-                    fullAddress(pcdList[i].pcode);
+                    fullAddress(pcdList[i].pid);
                     break;
                 }
             }

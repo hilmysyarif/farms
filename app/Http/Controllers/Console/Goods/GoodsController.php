@@ -272,8 +272,8 @@ class GoodsController extends ConsoleController
     }
 
 
-    public function attrGoodsEdit($id, $goods_id, AttrGoods $attrGoods) {
-        $row = $attrGoods->fetchOne($id);
+    public function attrGoodsEdit($id, $goods_id) {
+        $row = AttrGoods::fetchOne($id);
 
         return display('console/goods_attributes_edit', [
             'tabs' => $this->tabs,

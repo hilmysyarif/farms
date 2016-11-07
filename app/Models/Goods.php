@@ -62,8 +62,8 @@ class Goods extends Model
      * @param int $size
      * @return mixed
      */
-    public function fetchByIds(Array $ids, $page = 0, $size = 10) {
-        return $this->whereIn('id', $ids)->skip($page * $size)->take($size)->get()->toArray();
+    public function fetchByIds(Array $ids, $page = 1, $size = 10) {
+        return $this->whereIn('id', $ids)->skip(($page - 1) * $size)->take($size)->get()->toArray();
     }
 
     /**

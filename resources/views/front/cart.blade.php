@@ -24,6 +24,7 @@
                     <tbody>
                         <tr v-for="good in goods">
                             <td>
+                                <input type="hidden" name="cart_id[]" value="@{{ good.info.cart_id }}">
                                 @{{ good.info.name }}
                                 <img v-bind:src="good.info.cover" width="50">
                             </td>

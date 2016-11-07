@@ -105,4 +105,10 @@ class Address extends Model
         }
         return $res;
     }
+
+
+    public static function fetchDefault($user_id) {
+        return Address::where('user_id', $user_id)
+            ->where('default', 1)->first();
+    }
 }
