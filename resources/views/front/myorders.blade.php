@@ -56,7 +56,7 @@
                                         </a>
 
                                         <a class="btn btn-primary"
-                                                href="/pay/@{{ good.info.no }}"
+                                                href="/cashier/@{{ good.info.no }}"
                                                 v-if="good.info.status == 0"
                                                 type="button">
                                             <i class="fa fa-btn fa-cashier"></i>
