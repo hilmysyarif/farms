@@ -23,22 +23,22 @@ class CartController extends FrontController {
         return redirect('/cart');
     }
 
-    public static function extractGoods($items, $attrGoods) {
+    public static function extractGoods($items) {
         $goods = [];
         $info = [];
         $tmp = [];
         foreach ($items as $k => $v) {
             $number = $v['number'];
             $atrgs = explode(',', $v['atrgids']);
-            $cart_id = $v->id;
+            $id = $v->id;
             foreach ($atrgs as $v) {
-                $atrInfo = $attrGoods->fetchOne($v);
+                $atrInfo = AttrGoods::fetchOne($v);
                 $info[] = $atrInfo;
                 if (!in_array($atrInfo['goods_id'], $tmp)) {
                     $tmp[] = $atrInfo['goods_id'];
                     $goods[] = [
                         'info' => [
-                            'cart_id' => $cart_id,
+                            'row_id' => $id,
                             'goods_id' => $atrInfo['goods_id'],
                             'name' => $atrInfo['good_name'],
                             'cover' => $atrInfo['good_cover'],

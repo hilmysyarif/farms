@@ -8,7 +8,7 @@
             <li><a href="#">Library</a></li>
             <li class="active">Data</li>
         </ol>
-        <form action="/cashier" method="post">
+        <form action="/confirm" method="post">
             {{ csrf_field() }}
             <div class="row">
                 <div class="col-sm-12">
@@ -42,6 +42,20 @@
                 <div class="col-sm-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
+                            <h3 class="panel-title">{{ trans('order.delivery_info') }}</h3>
+                        </div>
+                        <div class="panel-body">
+                            {{ trans('order.default_express') }} <br>
+                            {{ trans('order.shipping_fee') }}: <span id="shipping-fee">{{ $express->shippingFee }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
                             <h3 class="panel-title">{{ trans('order.goods_info') }}</h3>
                         </div>
                         <div class="panel-body">
@@ -58,7 +72,7 @@
                                     <tbody>
                                     <tr v-for="good in goods">
                                         <td>
-                                            <input type="hidden" name="cart_id[]" value="@{{ good.info.cart_id }}">
+                                            <input type="hidden" name="cart_id[]" value="@{{ good.info.row_id }}">
                                             @{{ good.info.name }}
                                             <img v-bind:src="good.info.cover" width="50">
                                         </td>
@@ -84,6 +98,7 @@
 
             <div class="col-lg-12 text-right" id="total-amount" v-cloak>
                 {{ trans('cart.total_price') }}: @{{ totalPrice }} &nbsp;
+                <input type="hidden" name="address_id" value="{{ $address->id }}">
                 <button type="submit" class="btn btn-primary">
                     <i class="fa fa-btn fa-check"></i>
                     {{ trans('order.submit_order') }}
@@ -134,7 +149,8 @@
             el: '#total-amount',
             computed: {
                 totalPrice: function () {
-                    return cartForm.totalPrice;
+                    var shippingFee = {{ $express->shippingFee }};
+                    return cartForm.totalPrice + shippingFee;
                 }
             }
         });

@@ -19,7 +19,6 @@ class AddressController extends FrontController
      */
     public function index(Request $request, Address $address) {
         $list = $address->fetchByUser($request->user()->id);
-        dump($list);
         return view('front/address', [
             'list' => $list
         ]);

@@ -29,7 +29,7 @@ class Cart extends Model
      * @param Int $uid
      * @return mixed
      */
-    public function clear(Int $uid) {
+    public static function clear(Int $uid) {
         return Cart::where('user_id', $uid)->delete();
     }
 

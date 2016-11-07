@@ -7,7 +7,7 @@ return [
     'confirm_password' => '确认密码',
     'home' => '个人中心',
     'dashboard' => '总览',
-    'orders' => '订单',
+    'my_orders' => '我的订单',
     'addresses' => '收货地址',
     'comments' => '评论',
     'collection' => '收藏',

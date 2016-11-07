@@ -28,8 +28,25 @@ class AttrGoods extends Model
         return $res;
     }
 
-    public function fetchOne($id) {
-        $row = $this->find($id);
+//    public function fetchOne($id) {
+//        $row = $this->find($id);
+//        $res = [
+//            'name' => $row->attr->name,
+//            'type' => $row->attr->type,
+//            'suffix' => $row->attr->suffix,
+//            'value' => $row->value,
+//            'price' => $row->price,
+//            'sale' => $row->sale,
+//            'package' => $row->package,
+//            'goods_id' => $row->goods_id,
+//            'good_name' => $row->goods->name,
+//            'good_cover' => $row->goods->cover_url,
+//            'default_price' => $row->goods->default_price
+//        ];
+//        return $res;
+//    }
+    public static function fetchOne($id) {
+        $row = AttrGoods::find($id);
         $res = [
             'name' => $row->attr->name,
             'type' => $row->attr->type,
