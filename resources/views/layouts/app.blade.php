@@ -29,64 +29,59 @@
     @yield('css')
 
 </head>
-<body id="app-layout">
+<body style="opacity: 0; transition: opacity 2s ease 0s;">
 
-    <div id="navigation">
-        <nav class="navbar navbar-static-top navbar-july">
-            <div class="container">
-                <div class="navbar-header">
+    <nav class="navbar navbar-default navbar-july">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#links" aria-expanded="false">
+                    <span class="sr-only">{{ trans('toggle_navigation') }}</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ url('/') }}">July</a>
+            </div>
 
-                    <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="links">
+                <!-- Left Side Of Navbar -->
+                <ul class="nav navbar-nav">
+                    <li><a href="/">Home</a></li>
 
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="/">
-                        July
-                    </a>
-                </div>
+                    {!! $navHtml !!}
 
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        <li><a href="/">Home</a></li>
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" href="#">123<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <li class="dropdown-submenu">
+                                <a tabindex="-1" href="#">apples</a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">apple1</a></li>
+                                    <li class="dropdown-submenu">
+                                        <a tabindex="-1" href="#">apple2</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">apple21</a></li>
+                                            <li><a href="#">apple22</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
 
-                        {!! $navHtml !!}
-
-                        <li class="dropdown">
-                            <a data-toggle="dropdown" href="#">123<span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                <li class="dropdown-submenu">
-                                    <a tabindex="-1" href="#">apples</a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">apple1</a></li>
-                                        <li class="dropdown-submenu">
-                                            <a tabindex="-1" href="#">apple2</a>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="#">apple21</a></li>
-                                                <li><a href="#">apple22</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
+                <!-- Right Side Of Navbar -->
+                <ul class="nav navbar-nav navbar-right">
+                    <!-- Authentication Links -->
                     @if (Auth::guest())
                         <li><a href="{{ url('/login') }}">{{ trans('common.login') }}</a></li>
                         <li><a href="{{ url('/register') }}">{{ trans('common.register') }}</a></li>
                     @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                            {{ Auth::user()->name }} <span class="caret"></span>
+                                {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
@@ -95,13 +90,11 @@
                             </ul>
                         </li>
                     @endif
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <div class="container-fluid color-line"></div>
-    </div>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+        {{--<div class="container-fluid color-line"></div>--}}
+    </nav>
 
     @yield('content')
 
@@ -120,11 +113,11 @@
     <script src="{{ URL::asset('js/ie10-viewport-bug-workaround.js') }}"></script>
     <!-- color line -->
     <script>
-
-        // For v2 [data-toggle="dropdown"] is required for [data-submenu].
-        // For v2 .dropdown-submenu > [data-toggle="dropdown"] is forbidden.
-//        $('[data-submenu]').submenupicker();
-
+        $(function() {
+            $('body').css({
+                opacity: '1'
+            });
+        });
     </script>
 
     @yield('js')

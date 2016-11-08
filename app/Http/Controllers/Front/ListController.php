@@ -9,6 +9,7 @@ use App\Http\Requests;
 
 class ListController extends FrontController {
 
+
     public function index($categoryId, CatsGoods $catsGoods, Goods $goods) {
         $ids = $catsGoods->goodsIds($categoryId);
         $goodsList = $goods->fetchByIds($ids, 0, 10);

@@ -8,10 +8,9 @@
             <div class="col-lg-3">
                 <a href="{{ url('/detail/'.$goods['id']) }}"><img class="img-circle" src="{{ $goods['cover_url'] }}" alt="Generic placeholder image" width="140" height="140"></a>
                 <h2>{{ $goods['name'] }}</h2>
-                <p><a class="btn btn-default" href="{{ url('/detail/'.$goods['id']) }}" role="button">View details &raquo;</a></p>
+                <p><a class="btn btn-default" href="{{ url('/detail/'.$goods['id']) }}" role="button">{{ trans('list.view_detail') }} &raquo;</a></p>
             </div><!-- /.col-lg-3 -->
         @endforeach
-
     </div>
 
     <!-- PAGINATION

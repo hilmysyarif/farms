@@ -21,5 +21,6 @@ return [
     'forgot_pwd' => '忘记密码？',
     'logout' => '登出',
     'please_continue_choose' => '请继续选择',
-    'return_parent' => '返回上级'
+    'return_parent' => '返回上级',
+    'toggle_navigation' => '切换导航'
 ];
