@@ -10,14 +10,13 @@ use App\Http\Requests;
 
 class IndexController extends FrontController {
 
-    public function index(Slider $slider, Article $article) {
-        $sliders = $slider->fetchAll();
+    public function index() {
+        $sliders = Slider::fetchAll();
 
         // Top four articles.
-        $articles = $article->topArticles();
+        $articles = Article::topArticles();
 
         return view('front/welcome', [
-//            'navHtml' => $this->navHtml,
             'sliders' => $sliders,
             'articles' => $articles
         ]);

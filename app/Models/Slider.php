@@ -17,8 +17,8 @@ class Slider extends Model
         return Slider::find($id)->toArray();
     }
 
-    public function fetchAll() {
-        return $this->get()->toArray();
+    public static function fetchAll() {
+        return Slider::get();
     }
 
     public function updateOne($id, $data) {

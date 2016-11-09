@@ -13,12 +13,12 @@
         <form class="form-horizontal" method="post" action="{{ url('/articles/edit') }}">
 
             {{ csrf_field() }}
-            <input type="hidden" name="id" value="{{ $row['id'] }}">
+            <input type="hidden" name="id" value="{{ $row->id }}">
 
             <div class="form-group">
                 <label for="name" class="col-md-2 control-label">标题</label>
                 <div class="col-md-10">
-                    <input id="title" type="text" class="form-control" name="title" value="{{ $row['title'] }}" />
+                    <input id="title" type="text" class="form-control" name="title" value="{{ $row->title }}" />
                     @if ($errors->has('title'))
                         <span class="help-block">
                             <strong>{{ $errors->first('title') }}</strong>
@@ -30,7 +30,7 @@
             <div class="form-group">
                 <label for="name" class="col-md-2 control-label">作者</label>
                 <div class="col-md-10">
-                    <input id="author" type="text" class="form-control" name="author" value="{{ $row['author'] }}" />
+                    <input id="author" type="text" class="form-control" name="author" value="{{ $row->author }}" />
                     @if ($errors->has('author'))
                         <span class="help-block">
                             <strong>{{ $errors->first('author') }}</strong>
@@ -42,7 +42,7 @@
             <div class="form-group">
                 <label for="name" class="col-md-2 control-label">@lang('articles.icon')</label>
                 <div class="col-md-10">
-                    <input id="img" type="hidden" name="icon" value="{{ $row['icon'] }}" />
+                    <input id="img" type="hidden" name="icon" value="{{ $row->icon }}" />
                     <button type="button" class="btn btn-default" id="ckfinder-icon">
                         <i class="fa fa-image">&nbsp;</i>
                         选择图片
@@ -50,7 +50,7 @@
                     <div id="cover-output" class="row gap-top">
                         @if($row['icon'])
                             <p>
-                                <img width="15%" class="img-thumbnail img-responsive inline" src="{{ env('APP_URL') }}/{{ $row['icon'] }}">&nbsp;
+                                <img width="15%" class="img-thumbnail img-responsive inline" src="{{ env('APP_URL') }}/{{ $row->icon }}">&nbsp;
                             </p>
                         @endif
                     </div>
@@ -79,7 +79,7 @@
                         <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 <span id="name">
-                                    @if ($row['status'] == 0)
+                                    @if ($row->status == 0)
                                         草稿
                                         @else
                                         发布
@@ -101,7 +101,7 @@
                 <label for="content" class="col-md-2 control-label">正文</label>
                 <div class="col-md-10">
                     <textarea id="editor" name="body">
-                        {{ $row['content'] }}
+                        {{ $row->content }}
                     </textarea>
                 </div>
             </div>
@@ -134,30 +134,30 @@
                     selects: [
 
                     ],
-                    notice: '{{ $row['category_name'] }}',
+                    notice: '{{ $row->category->name }}',
                     name: 'category_id',
-                    value: '{{ $row['category_id'] }}'
+                    value: '{{ $row->category_id }}'
                 }
             },
             methods: {
                 loadSubs: function(parent_id, parent_name, index) {
-                    this.$http.get('/categories/subs/' + parent_id).then((response) => {
+                    this.$http.get('/categories/subs/' + parent_id).then(function (response) {
                         var jsonData = JSON && JSON.parse(response.data);
 
-                    if (jsonData.categories.length != 0) {
-                        // it means that it has children.
-                        $('#selects #name').text('请继续选择');
+                        if (jsonData.categories.length != 0) {
+                            // it means that it has children.
+                            $('#selects #name').text('请继续选择');
 
-                        // update current selects for choosing.
-                        this.$set('selects', jsonData.categories);
-                    } else {
-                        // this is the final category
-                        var input = $(this.$el).children()[0];
-                        $(input).val(parent_id);
+                            // update current selects for choosing.
+                            this.$set('selects', jsonData.categories);
+                        } else {
+                            // this is the final category
+                            var input = $(this.$el).children()[0];
+                            $(input).val(parent_id);
 
-                        $('#selects #name').text(parent_name);
-                    }
-                }, (response) => {
+                            $('#selects #name').text(parent_name);
+                        }
+                    }, function (response) {
                         console.error(response);
                     });
                 }

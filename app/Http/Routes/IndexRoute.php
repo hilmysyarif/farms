@@ -8,7 +8,7 @@ class IndexRoute
     public function map(Registrar $router)
     {
         $router->get('/', 'Front\IndexController@index');
-        $router->get('/list/{id}', 'Front\ListController@index');
+        $router->get('/list/{id}/{page?}', 'Front\ListController@index');
         $router->auth();
         $router->get('/home', 'HomeController@index');
         $router->post('/home/testvalidation', 'HomeController@testValidation');

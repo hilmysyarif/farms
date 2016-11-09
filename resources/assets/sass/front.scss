@@ -76,7 +76,7 @@
 
     .carousel-caption {
 
-      h1 {
+      h2 {
         font-size: 6vmin;
         padding: 0;
         margin: 0;
@@ -159,9 +159,11 @@
 }
 
 .articles-recommended {
-  .article-area {
-    //height: 80px;
-    //overflow-y: hidden;
+  .row {
+    > div {
+      height: 40vh;
+      overflow-y: hidden;
+    }
   }
 }
 

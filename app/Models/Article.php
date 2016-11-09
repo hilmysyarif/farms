@@ -26,10 +26,8 @@ class Article extends Model
         return $this->belongsTo('App\Models\Category');
     }
 
-    public function fetchOne($id) {
-        $row = Article::find($id);
-        $row->category_name = $row->category->name;
-        return $row->toArray();
+    public static function fetchOne($id) {
+        return $row = Article::find($id);
     }
 
     public function updateOne($id, $data) {
@@ -40,8 +38,8 @@ class Article extends Model
         return Article::destroy($id);
     }
 
-    public function topArticles() {
-        return $this->orderBy('id', 'desc')->skip(0)->take(4)->get();
+    public static function topArticles() {
+        return Article::orderBy('id', 'desc')->skip(0)->take(4)->get();
     }
 
     public function goodsArticles() {
