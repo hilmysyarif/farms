@@ -2,8 +2,6 @@
 
 
 @section('content')
-
-
 <!-- Carousel
 ================================================== -->
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -23,23 +21,23 @@
         @foreach($sliders as $k => $slider)
             @if ($k == 0)
                 <div class="item active">
-                    <img class="first-slide" src="{{ $slider['img'] }}" alt="{{ $slider['description'] }}">
+                    <img class="first-slide" src="{{ $slider->img }}" alt="{{ $slider->description }}">
                     <div class="container">
                         <div class="carousel-caption">
-                            <h1>{{ $slider['name'] }}</h1>
-                            <p>{{ $slider['description'] }}</p>
-                            <p><a class="btn btn-lg btn-primary" href="#" role="button">查看</a></p>
+                            <h2>{{ $slider->name }}</h2>
+                            <p>{{ $slider->description }}</p>
+                            <p><a class="btn btn-primary" href="#" role="button">查看</a></p>
                         </div>
                     </div>
                 </div>
             @else
                 <div class="item">
-                    <img class="first-slide" src="{{ $slider['img'] }}" alt="{{ $slider['description'] }}">
+                    <img class="first-slide" src="{{ $slider->img }}" alt="{{ $slider->description }}">
                     <div class="container">
                         <div class="carousel-caption">
-                            <h1>{{ $slider['name'] }}</h1>
-                            <p>{{ $slider['description'] }}</p>
-                            <p><a class="btn btn-lg btn-primary" href="#" role="button">查看</a></p>
+                            <h2>{{ $slider->name }}</h2>
+                            <p>{{ $slider->description }}</p>
+                            <p><a class="btn btn-primary" href="#" role="button">查看</a></p>
                         </div>
                     </div>
                 </div>
@@ -59,14 +57,16 @@
     
 <!-- Galleries
 ============================================================ -->
-<div class="container">
+<div class="container articles-recommended">
     <!-- Three columns of text below the carousel -->
     <div class="row">
         @foreach($articles as $article)
-            <div class="col-lg-3">
-                <a href="{{ url('/list') }}"><img class="img-circle" src="{{ $article->icon }}" alt="Generic placeholder image" width="140" height="140"></a>
-                <h2>{{ $article->title }}</h2>
-                <p>{!! $article->content !!}</p>
+            <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
+                <a href="{{ url('/article/'.$article->id) }}"><img class="img-responsive" src="{{ $article->icon }}" alt="Generic placeholder image" width="140" height="140"></a>
+                <h3>{{ $article->title }}</h3>
+                <div class="container-fluid article-area gap-bottom">
+                    {!! $article->content !!}
+                </div>
             </div><!-- /.col-lg-3 -->
         @endforeach
     </div><!-- /.row -->

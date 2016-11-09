@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'home_page' => '首页',
     'edit' => '编辑',
     'add' => '添加',
     'delete' => '删除',
@@ -21,5 +22,6 @@ return [
     'forgot_pwd' => '忘记密码？',
     'logout' => '登出',
     'please_continue_choose' => '请继续选择',
-    'return_parent' => '返回上级'
+    'return_parent' => '返回上级',
+    'toggle_navigation' => '切换导航'
 ];

@@ -90,14 +90,14 @@ class GoodsController extends ConsoleController
 
         $articles = $article->goodsArticles();
 
-        $notice = '请选择';
+        $notice = trans('common.please_choose');
         if ($row['article_id']) {
             $info = new \stdClass();
             $info->id = $row['article_id'];
 
-            $articleInfo = $article->fetchOne($row['article_id']);
-            $info->name = $articleInfo['title'];
-            $notice = $articleInfo['title'];
+            $articleInfo = Article::fetchOne($row['article_id']);
+            $info->name = $articleInfo->title;
+            $notice = $articleInfo->title;
 
             $articles[] = $info;
         }

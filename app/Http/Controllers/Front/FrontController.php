@@ -11,9 +11,15 @@ use App\Http\Controllers\Controller;
 class FrontController extends Controller {
 
     protected $navHtml;
+    protected $breadcrumbs;
     public function __construct() {
 
         $this->middleware('web');
+
+        $this->breadcrumbs[] = [
+            'url' => url('/'),
+            'name' => trans('common.home_page')
+        ];
 
         $category = new Category();
         $cats = $category->orgCats();
@@ -33,9 +39,9 @@ class FrontController extends Controller {
     /**
      * Organize html for navs.
      *
-     * @param $items. Should not pass the first level of items.
-     * @param $html
+     * @param $items . Should not pass the first level of items.
      * @return mixed
+     * @internal param $html
      */
     private function itemsHtml($items) {
         $recursive = function($item, $key, $mixedData) {
@@ -116,5 +122,61 @@ class FrontController extends Controller {
             }
         }
         return $res;
+    }
+
+
+    /**
+     * Get pages array of specific data.
+     *
+     * @param $urlPrefix
+     * @param $pagesCount
+     * @param int $currentPage
+     * @param int $pageSize
+     * @return array
+     */
+    public static function pages($urlPrefix, $pagesCount, $currentPage = 1, $pageSize = 5) {
+
+        if ($pagesCount <= 1)
+            return [];
+
+        // group by size.
+        $tmp = array_chunk(range(1, $pagesCount), $pageSize);
+
+        // get the group which current page belongs.
+        $group = [];
+        foreach ($tmp as $v) {
+            if (in_array($currentPage, $v)) {
+                $group = $v;
+                break;
+            }
+        }
+
+        $callback = function (&$item, $key, $mixedData) {
+            $item = [
+                'url' => url($mixedData['urlPrefix'].'/'.$item),
+                'liClass' => $item == $mixedData['currentPage'] ? 'active' : '',
+                'aClass' => '',
+                'text' => $item
+            ];
+        };
+
+        array_walk($group, $callback, ['urlPrefix' => $urlPrefix, 'currentPage' => $currentPage]);
+
+        // attach forward and backward.
+        if ($currentPage > 1)
+            array_unshift($group, [
+                'url' => url($urlPrefix.'/'.$currentPage - 1),
+                'liClass' => '',
+                'aclass' => 'fa fa-chevron-left',
+                'text' => ''
+            ]);
+        if ($pagesCount > $currentPage)
+            $group[] = [
+                'url' => url($urlPrefix.'/'.$currentPage + 1),
+                'liClass' => '',
+                'aclass' => 'fa fa-chevron-right',
+                'text' => ''
+            ];
+        return $group;
     }
 }

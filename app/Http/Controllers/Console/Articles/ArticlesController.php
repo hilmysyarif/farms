@@ -72,8 +72,8 @@ class ArticlesController extends ConsoleController
         return redirect(url('/articles'));
     }
 
-    public function edit($id, Article $article, Category $category) {
-        $row = $article->fetchOne($id);
+    public function edit($id, Category $category) {
+        $row = Article::fetchOne($id);
         $this->tabs = [
             [
                 'url' => url('/articles'),

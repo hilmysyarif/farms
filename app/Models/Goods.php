@@ -62,8 +62,8 @@ class Goods extends Model
      * @param int $size
      * @return mixed
      */
-    public function fetchByIds(Array $ids, $page = 1, $size = 10) {
-        return $this->whereIn('id', $ids)->skip(($page - 1) * $size)->take($size)->get()->toArray();
+    public static function fetchByIds(Array $ids, $page = 1, $size = 10) {
+        return Goods::whereIn('id', $ids)->skip(($page - 1) * $size)->take($size)->get()->toArray();
     }
 
     /**
@@ -145,6 +145,10 @@ class Goods extends Model
 
     public function article() {
         return $this->belongsTo('App\Models\Article');
+    }
+
+    public function categoryGoods() {
+        return $this->hasOne('App\Models\CatsGoods');
     }
 
     public function detail($id) {
