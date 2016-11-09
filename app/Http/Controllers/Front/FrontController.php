@@ -11,9 +11,15 @@ use App\Http\Controllers\Controller;
 class FrontController extends Controller {
 
     protected $navHtml;
+    protected $breadcrumbs;
     public function __construct() {
 
         $this->middleware('web');
+
+        $this->breadcrumbs[] = [
+            'url' => url('/'),
+            'name' => trans('common.home_page')
+        ];
 
         $category = new Category();
         $cats = $category->orgCats();
@@ -33,9 +39,9 @@ class FrontController extends Controller {
     /**
      * Organize html for navs.
      *
-     * @param $items. Should not pass the first level of items.
-     * @param $html
+     * @param $items . Should not pass the first level of items.
      * @return mixed
+     * @internal param $html
      */
     private function itemsHtml($items) {
         $recursive = function($item, $key, $mixedData) {

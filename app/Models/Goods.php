@@ -147,6 +147,10 @@ class Goods extends Model
         return $this->belongsTo('App\Models\Article');
     }
 
+    public function categoryGoods() {
+        return $this->hasOne('App\Models\CatsGoods');
+    }
+
     public function detail($id) {
         $info = $this->find($id);
         $attrs = [];

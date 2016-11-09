@@ -4,6 +4,7 @@
     <!-- Galleries
 ============================================================ -->
     <div class="container gap-top">
+        @include('front.shared.breadcrumbs')
         @foreach($goodsList as $goods)
             <div class="col-lg-3 col-md-3 col-xs-6 col-sm-6">
                 <a href="{{ url('/detail/'.$goods['id']) }}">
@@ -14,17 +15,6 @@
             </div>
         @endforeach
     </div>
-
-    <!-- PAGINATION
-============================================================ -->
-    <div class="container page">
-        <ul class="pagination">
-            @foreach ($pages as $page)
-                <li class="{{ $page['liClass'] }}">
-                    <a href="{{ $page['url'] }}" class="{{ $page['aClass'] }}">{{ $page['text'] }}</a>
-                </li>
-            @endforeach
-        </ul>
-    </div>
+    @include('front.shared.pages')
 @endsection
 

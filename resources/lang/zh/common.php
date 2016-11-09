@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'home_page' => '首页',
     'edit' => '编辑',
     'add' => '添加',
     'delete' => '删除',
