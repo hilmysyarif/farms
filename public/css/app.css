@@ -141,6 +141,9 @@ body {
   height: 40vh;
   overflow-y: hidden; }
 
+.articles-recommended .row h3 {
+  margin: 0; }
+
 /* DETAIL
 -------------------------------------------------- */
 .detail .col-lg-6 {

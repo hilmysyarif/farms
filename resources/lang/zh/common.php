@@ -24,5 +24,6 @@ return [
     'please_continue_choose' => '请继续选择',
     'return_parent' => '返回上级',
     'toggle_navigation' => '切换导航',
-    'cart' => '购物车'
+    'cart' => '购物车',
+    'confirm_order' => '确认订单'
 ];

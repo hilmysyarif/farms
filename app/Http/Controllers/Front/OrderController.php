@@ -21,6 +21,16 @@ class OrderController extends FrontController {
     static $ORDER_FINISHED = 3;
     static $ORDER_REPAIRED = 4;
 
+
+    public function __construct() {
+        parent::__construct();
+
+        $this->breadcrumbs[] = [
+            'url' => url('/checkout'),
+            'name' => trans('common.confirm_order')
+        ];
+    }
+
     public function index(Request $request) {
         // update cart first.
         $cart_ids = $request->cart_id;
@@ -49,7 +59,8 @@ class OrderController extends FrontController {
             'navHtml' => $this->navHtml,
             'address' => $address,
             'goods' => $goods,
-            'express' => $express
+            'express' => $express,
+            'breadcrumbs' => $this->breadcrumbs
         ]);
     }
 

@@ -3,11 +3,7 @@
 @section('content')
 
     <div class="container order gap-top">
-        <ol class="breadcrumb">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Library</a></li>
-            <li class="active">Data</li>
-        </ol>
+        @include('front.shared.breadcrumbs')
         <form action="/confirm" method="post">
             {{ csrf_field() }}
             <div class="row">
@@ -61,20 +57,12 @@
                         <div class="panel-body">
                             <div id="cart-form" v-cloak>
                                 <table class="table table-responsive table-bordered gap-top">
-                                    <thead>
-                                    <tr>
-                                        <th>{{ trans('cart.items') }}</th>
-                                        <th>{{ trans('cart.attributes') }}</th>
-                                        <th>{{ trans('cart.quantity') }}</th>
-                                        <th>{{ trans('cart.amount') }}</th>
-                                    </tr>
-                                    </thead>
                                     <tbody>
                                     <tr v-for="good in goods">
                                         <td>
                                             <input type="hidden" name="cart_id[]" value="@{{ good.info.row_id }}">
                                             @{{ good.info.name }}
-                                            <img v-bind:src="good.info.cover" width="50">
+                                            <img class="img-responsive" v-bind:src="good.info.cover">
                                         </td>
                                         <td>
                                             <span v-for="attr in good.attrs">
@@ -85,7 +73,7 @@
                                             @{{ good.info.number }}
                                         </td>
                                         <td>
-                                            @{{ good.info.single_total_price * good.info.number }}
+                                            @{{ good.info.total_price }}
                                         </td>
                                     </tr>
                                     </tbody>
@@ -128,19 +116,6 @@
                         total += this.$data.goods[i]['info']['single_total_price'] * this.$data.goods[i]['info']['number'];
                     }
                     return total;
-                }
-            },
-            methods: {
-                decreaseQuantity: function (index, event) {
-                    if (this.$data.goods[index]['info']['number'] == 1)
-                        return;
-                    this.goods[index]['info']['number']--;
-                },
-                increaseQuantity: function (index, event) {
-                    this.goods[index]['info']['number']++;
-                },
-                remove: function (index) {
-                    this.goods.splice(index, 1);
                 }
             }
         });
