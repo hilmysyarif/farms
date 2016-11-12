@@ -64,9 +64,6 @@
             <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6">
                 <a href="{{ url('/article/'.$article->id) }}"><img class="img-responsive" src="{{ $article->icon }}" alt="Generic placeholder image" width="140" height="140"></a>
                 <h3>{{ $article->title }}</h3>
-                <div class="container-fluid article-area gap-bottom">
-                    {!! $article->content !!}
-                </div>
             </div><!-- /.col-lg-3 -->
         @endforeach
     </div><!-- /.row -->
