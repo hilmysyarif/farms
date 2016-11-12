@@ -18,6 +18,20 @@ body {
 .has-error .dropdown button {
   border-color: #a94442; }
 
+.no-padding-left {
+  padding-left: 0; }
+
+.no-padding-right {
+  padding-right: 0; }
+
+/* LIGHT FORM
+-------------------------------------------------- */
+.light-form-control {
+  padding: 2px 4px; }
+
+.light-input-group-addon {
+  padding: 4px 4px; }
+
 /* CUSTOMIZE PAGINATION
 -------------------------------------------------- */
 /* ARTICLE AREA
@@ -131,19 +145,36 @@ body {
 -------------------------------------------------- */
 .detail .col-lg-6 {
   text-align: center; }
-  .detail .col-lg-6 .swiper-container {
-    position: relative;
-    overflow: hidden;
-    height: 200px;
-    max-height: 300px; }
-    .detail .col-lg-6 .swiper-container > .pane {
-      width: 100%;
+  .detail .col-lg-6 > .container-fluid {
+    height: 240px; }
+    .detail .col-lg-6 > .container-fluid .op {
       height: 100%;
-      position: absolute;
-      left: 0;
-      top: 0; }
-  .detail .col-lg-6 img {
-    margin: 0 auto; }
+      position: relative;
+      font-size: 20pt; }
+      .detail .col-lg-6 > .container-fluid .op > a {
+        position: absolute;
+        top: calc(50% - 0.5em);
+        left: calc(50% - 0.5em); }
+      .detail .col-lg-6 > .container-fluid .op > a:hover {
+        text-decoration: none; }
+      .detail .col-lg-6 > .container-fluid .op > a:focus {
+        text-decoration: none; }
+    .detail .col-lg-6 > .container-fluid > .swiper-container {
+      position: relative;
+      overflow: hidden;
+      height: 240px; }
+      .detail .col-lg-6 > .container-fluid > .swiper-container.animate > .pane {
+        transition: all .3s;
+        -webkit-transition: all .3s;
+        -moz-transition: all .3s; }
+      .detail .col-lg-6 > .container-fluid > .swiper-container > .pane {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0; }
+      .detail .col-lg-6 > .container-fluid > .swiper-container img {
+        margin: 0 auto; }
   .detail .col-lg-6 .gallery {
     padding-left: 0;
     margin-top: 20px;
@@ -184,6 +215,20 @@ body {
 
 .has-error .dropdown button {
   border-color: #a94442; }
+
+.no-padding-left {
+  padding-left: 0; }
+
+.no-padding-right {
+  padding-right: 0; }
+
+/* LIGHT FORM
+-------------------------------------------------- */
+.light-form-control {
+  padding: 2px 4px; }
+
+.light-input-group-addon {
+  padding: 4px 4px; }
 
 /* CUSTOMIZE PAGINATION
 -------------------------------------------------- */

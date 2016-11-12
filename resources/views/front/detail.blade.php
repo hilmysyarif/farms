@@ -4,23 +4,21 @@
     <div class="container detail gap-top">
         @include('front.shared.breadcrumbs')
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-            <div class="container-fluid swiper-container">
-                @foreach($row->galleries as $gallery)
-                    <div class="pane">
-                        <img class="img-responsive" src="{{ $gallery->url }}">
-                    </div>
-                @endforeach
+            <div class="container-fluid">
+                <div class="col-md-2 col-lg-2 hidden-xs hidden-sm op">
+                    <a href="###" class="fa fa-chevron-left"></a>
+                </div>
+                <div class="swiper-container col-md-8 col-lg-8 col-sm-12 col-xs-12">
+                    @foreach($row->galleries as $gallery)
+                        <div class="pane">
+                            <img class="" src="{{ $gallery->url }}" width="100%" height="100%">
+                        </div>
+                    @endforeach
+                </div>
+                <div class="col-md-2 col-lg-2 hidden-xs hidden-sm op">
+                    <a href="###" class="fa fa-chevron-right"></a>
+                </div>
             </div>
-
-            <ul class="gallery col-lg-12 col-md-12 hidden-xs hidden-sm">
-                <li><a href="#" class="fa fa-chevron-left"></a> </li>
-                @foreach($row->galleries as $gallery)
-                    <li>
-                        <img class="img-thumbnail img-responsive" src="{{ $gallery->url }}" width="100" height="100">
-                    </li>
-                @endforeach
-                <li><a href="#" class="fa fa-chevron-right"></a> </li>
-            </ul>
         </div><!-- /.col-lg-6 -->
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" id="ats" v-cloak>
             <h1>@{{ row.name }}</h1>
@@ -271,13 +269,28 @@
         var outer = new HammerCarousel(document.querySelector(".swiper-container"), Hammer.DIRECTION_HORIZONTAL);
 
         // each pane should contain a vertical pane scroller
-        Hammer.each(document.querySelectorAll(".swiper-container .pane"), function(container) {
-            // setup the inner scroller
-            var inner = new HammerCarousel(container, Hammer.DIRECTION_VERTICAL);
+//        Hammer.each(document.querySelectorAll(".swiper-container"), function(container) {
+//            // setup the inner scroller
+//            var inner = new HammerCarousel(container, Hammer.DIRECTION_VERTICAL);
+//
+//            // only recognize the inner pan when the outer is failing.
+//            // they both have a threshold of some px
+//            outer.hammer.get('pan').requireFailure(inner.hammer.get('pan'));
+//        });
 
-            // only recognize the inner pan when the outer is failing.
-            // they both have a threshold of some px
-            outer.hammer.get('pan').requireFailure(inner.hammer.get('pan'));
+
+        // click action of arrow
+        $(function () {
+            $('.op').click(function () {
+                var opIndex = $(this).index();
+                if (opIndex == 0) {
+                    outer.currentIndex += -1;
+                } else {
+                    outer.currentIndex += 1;
+                }
+
+                outer.show(outer.currentIndex, 0, true);
+            });
         });
     </script>
 @endsection

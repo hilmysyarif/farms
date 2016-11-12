@@ -11,10 +11,16 @@ use App\Http\Requests;
 class CartController extends FrontController {
 
     public function index(Cart $cart, Request $request, AttrGoods $attrGoods) {
+        $this->breadcrumbs[] = [
+            'url' => url('/cart'),
+            'name' => trans('common.cart')
+        ];
+
         $items = $cart->items($request);
         $goods = self::extractGoods($items, $attrGoods);
         return view('front/cart', [
-            'goods' => $goods
+            'goods' => $goods,
+            'breadcrumbs' => $this->breadcrumbs
         ]);
     }
 
@@ -67,6 +73,7 @@ class CartController extends FrontController {
                 $goods[$k]['info']['total_price'] += $tmpPrice;
                 $goods[$k]['info']['single_total_price'] = $goods[$k]['info']['total_price'];
                 $goods[$k]['attrs'] = $tmpAttrs;
+                $goods[$k]['info']['total_price'] = $goods[$k]['info']['total_price'] * $number;
             }
         }
         return $goods;

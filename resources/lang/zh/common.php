@@ -23,5 +23,6 @@ return [
     'logout' => '登出',
     'please_continue_choose' => '请继续选择',
     'return_parent' => '返回上级',
-    'toggle_navigation' => '切换导航'
+    'toggle_navigation' => '切换导航',
+    'cart' => '购物车'
 ];
