@@ -3,11 +3,7 @@
 @section('content')
 
     <div class="container order gap-top">
-        <ol class="breadcrumb">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Library</a></li>
-            <li class="active">Data</li>
-        </ol>
+        @include('front.shared.breadcrumbs')
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
@@ -24,10 +20,6 @@
                     <div class="row text-center gap-top">{{ trans('cashier.scan_with_wechat') }}</div>
                 </div>
             </div>
-            {{--<button class="btn btn-primary">--}}
-                {{--<i class="fa fa-cashier"></i>--}}
-                {{--{{ trans('cashier.go_to_pay') }}--}}
-            {{--</button>--}}
         </div>
     </div>
 

@@ -93,7 +93,7 @@ class OrderController extends FrontController {
         // get amount.
         $amount = 0;
         foreach ($goods as $v) {
-            $amount += $v['info']['single_total_price'] * $v['number'];
+            $amount += $v['info']['single_total_price'] * $v['info']['number'];
         }
         $amount += $express->shippingFee;
 
