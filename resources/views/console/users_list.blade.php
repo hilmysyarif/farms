@@ -12,56 +12,23 @@
         </tr>
         </thead>
         <tbody>
+
+        @foreach ($list as $user)
         <tr>
-            <td>1</td>
-            <td>Red jk</td>
-            <td>$54.20</td>
+            <td>{{ $user->id }}</td>
+            <td>{{ $user->name }}</td>
+            <td>{{ $user->email }}</td>
             <td>
-                <a class="btn btn-primary"><i class="fa fa-edit">&nbsp;</i>Edit</a>
-                <a class="btn btn-danger"><i class="fa fa-remove">&nbsp;</i>Remove</a>
+                <a class="btn btn-primary"><i class="fa fa-edit">&nbsp;</i>{{ trans('common.edit') }}</a>
+                <a class="btn btn-danger"><i class="fa fa-remove">&nbsp;</i>{{ trans('common.delete') }}</a>
             </td>
         </tr>
-        <tr>
-            <td>2</td>
-            <td>Yellow jk</td>
-            <td>$54.20</td>
-            <td>
-                <a class="btn btn-primary"><i class="fa fa-edit">&nbsp;</i>Edit</a>
-                <a class="btn btn-danger"><i class="fa fa-remove">&nbsp;</i>Remove</a>
-            </td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>Round walnut</td>
-            <td>$54.20</td>
-            <td>
-                <a class="btn btn-primary"><i class="fa fa-edit">&nbsp;</i>Edit</a>
-                <a class="btn btn-danger"><i class="fa fa-remove">&nbsp;</i>Remove</a>
-            </td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>Clear pepper</td>
-            <td>$54.20</td>
-            <td>
-                <a class="btn btn-primary"><i class="fa fa-edit">&nbsp;</i>Edit</a>
-                <a class="btn btn-danger"><i class="fa fa-remove">&nbsp;</i>Remove</a>
-            </td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td>Round persimmon</td>
-            <td>$54.20</td>
-            <td>
-                <a class="btn btn-primary"><i class="fa fa-edit">&nbsp;</i>Edit</a>
-                <a class="btn btn-danger"><i class="fa fa-remove">&nbsp;</i>Remove</a>
-            </td>
-        </tr>
+        @endforeach
         </tbody>
     </table>
 
     <!-- PAGINATION
 ============================================================ -->
-    @include('console.shared.form-pagination')
+    @include('front.shared.pages')
 
 @endsection

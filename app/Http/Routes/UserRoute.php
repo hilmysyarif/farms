@@ -7,7 +7,7 @@ class UserRoute
 {
     public function map(Registrar $router)
     {
-        $router->get('/users', 'Console\Users\UsersController@index');
+        $router->get('/users/{page?}', 'Console\Users\UsersController@index');
         $router->get('/admins', 'Console\Users\UsersController@adminList');
     }
 }

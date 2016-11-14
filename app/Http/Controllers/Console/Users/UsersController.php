@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Console\Users;
 
 use App\Http\Controllers\Console\ConsoleController;
+use App\Http\Controllers\Front\FrontController;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -24,8 +26,20 @@ class UsersController extends ConsoleController
         ];
     }
 
-    public function index() {
-        return display('console/users_list', ['tabs' => $this->tabs, 'active' => 0]);
+    public function index($currentPage = 1) {
+        $list = User::fetchBlock();
+        $usersCount = User::count();
+
+
+        $pages = FrontController::pages('/users/', $usersCount, $currentPage);
+
+        return display('console/users_list',
+            [
+                'tabs' => $this->tabs,
+                'active' => 0,
+                'list' => $list,
+                'pages' => $pages
+            ]);
     }
 
     public function adminList() {

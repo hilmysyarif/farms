@@ -23,4 +23,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+    public static function fetchBlock($page = 1, $size = 10) {
+        return self::select('id', 'name', 'email')
+            ->skip(($page - 1) * $size)
+            ->take($size)
+            ->get();
+    }
 }
