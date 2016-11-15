@@ -31,7 +31,7 @@ class UsersController extends ConsoleController
         $usersCount = User::count();
 
 
-        $pages = FrontController::pages('/users/', $usersCount, $currentPage);
+        $pages = FrontController::pages('/users', $usersCount, $currentPage);
 
         return display('console/users_list',
             [

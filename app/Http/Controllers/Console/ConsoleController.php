@@ -17,5 +17,9 @@ class ConsoleController extends Controller
         $tmp = explode('/', $_SERVER['REQUEST_URI']);
         $this->current_nav = $tmp[1];
         $this->uri = $_SERVER['REQUEST_URI'];
+        view()->share([
+            'current_nav' => $this->current_nav,
+            'uri' => $this->uri
+        ]);
     }
 }

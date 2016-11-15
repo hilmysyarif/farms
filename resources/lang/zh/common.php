@@ -26,5 +26,6 @@ return [
     'toggle_navigation' => '切换导航',
     'cart' => '购物车',
     'confirm_order' => '确认订单',
-    'cashier' => '收银台'
+    'cashier' => '收银台',
+    'no_data' => '暂无数据'
 ];

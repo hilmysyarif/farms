@@ -140,6 +140,7 @@
                 <li>
                     <ul id="settings-manager" @if($current_nav == 'sliders') class="nav collapse in" @else class="collapse nav" @endif>
                         <li @if($uri == '/sliders')class="active"@endif><a href="{{ url('/sliders') }}">幻灯片</a></li>
+                        <li @if($uri == '/roles')class="active"@endif><a href="{{ url('/roles') }}">{{ trans('console_menu.roles_manage') }}</a></li>
                     </ul>
                 </li>
             </ul>

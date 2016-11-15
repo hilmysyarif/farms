@@ -166,6 +166,11 @@ return [
          */
         // TODO: It seems that register generator providers here will not work properly.
 //        RTKit\Generator\Controller::class,
+
+        /*
+         * zizaco/entrust
+         */
+        \Zizaco\Entrust\EntrustServiceProvider::class,
     ],
 
     /*
@@ -211,6 +216,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Entrust' => \Zizaco\Entrust\EntrustFacade::class,
 
     ],
 
