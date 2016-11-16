@@ -3,10 +3,9 @@ namespace App\Http\Routes;
 
 use Illuminate\Contracts\Routing\Registrar;
 
-class GoodRoute
-{
-    public function map(Registrar $router)
-    {
+class GoodRoute {
+
+    public function map(Registrar $router) {
         $router->get('/goods', 'Console\Goods\GoodsController@index');
         $router->get('/goods/add', 'Console\Goods\GoodsController@add');
         $router->post('/goods/add', 'Console\Goods\GoodsController@postAdd');

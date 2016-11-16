@@ -3,10 +3,9 @@ namespace App\Http\Routes;
 
 use Illuminate\Contracts\Routing\Registrar;
 
-class AtrcatRoute
-{
-    public function map(Registrar $router)
-    {
+class AtrcatRoute {
+    
+    public function map(Registrar $router) {
         $router->get('/atrcat', 'Console\Attributes\AtrcatController@index');
         $router->get('/atrcat/add', 'Console\Attributes\AtrcatController@add');
         $router->post('/atrcat/add', 'Console\Attributes\AtrcatController@postAdd');

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Http\Request;
 use Zizaco\Entrust\EntrustRole;
 
 class Role extends EntrustRole
@@ -12,5 +13,14 @@ class Role extends EntrustRole
             ->get();
     }
 
-    
+    public function store(Request $request) {
+        $this->name = $request->name;
+        $this->display_name = $request->display_name;
+        $this->description = $request->description;
+        return $this->save();
+    }
+
+    public static function updateOne($id, $data) {
+        return self::where('id', $id)->update($data);
+    }
 }

@@ -28,34 +28,56 @@ class RolesController extends ConsoleController
     }
 
     public function index($currentPage = 1) {
-        $rolesCount = Role::count();
-        $pages = FrontController::pages('/roles', $rolesCount, $currentPage);
+        $pagesCount = ceil(Role::count() / 10);
+        $pages = FrontController::pages('/roles', $pagesCount, $currentPage);
+        $list = Role::fetchBlock($currentPage);
 
         return view('console.roles_list', [
-            'list' => [],
+            'list' => $list,
             'tabs' => $this->tabs,
             'pages' => $pages,
             'active' => 0
         ]);
     }
 
-    public function add() {
-        return view();
+    public function add(Request $request) {
+
+        if ($request->isMethod('post')) {
+            $role = new Role();
+            $role->store($request);
+            return redirect('/roles');
+        }
+
+        return view('console.roles_add', [
+            'tabs' => $this->tabs,
+            'active' => 1
+        ]);
     }
 
-    public function postAdd(Request $request) {
-        return redirect(url(''));
+    public function edit(Request $request, $id) {
+
+        if ($request->isMethod('post')) {
+            $data = [
+                'name' => $request->name,
+                'display_name' => $request->display_name,
+                'description' => $request->description
+            ];
+            Role::updateOne($id, $data);
+            return redirect('/roles');
+        }
+        
+        $row = Role::find($id);
+
+        return view('console.roles_edit', [
+            'tabs' => $this->tabs,
+            'active' => 1,
+            'row' => $row
+        ]);
     }
 
-    public function edit($id) {
-        return view();
-    }
-
-    public function postEdit(Request $request) {
-        return redirect(url(''));
-    }
 
     public function remove($id) {
-        return redirect(url(''));
+        Role::destroy($id);
+        return redirect(url('/roles'));
     }
 }

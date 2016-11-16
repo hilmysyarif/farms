@@ -3,10 +3,10 @@ namespace App\Http\Routes;
 
 use Illuminate\Contracts\Routing\Registrar;
 
-class SliderRoute
-{
-    public function map(Registrar $router)
-    {
+class SliderRoute {
+
+    public function map(Registrar $router) {
+
         $router->get('/sliders', 'Console\Settings\SlidersController@index');
         $router->get('/sliders/add', 'Console\Settings\SlidersController@add');
         $router->post('/sliders/add', 'Console\Settings\SlidersController@postAdd');

@@ -14,7 +14,7 @@ class Route {
     public function generate($routeName) {
         $rootPath = getcwd();
         $slashPosition = strpos($routeName, '/');
-        $template = file_get_contents($rootPath.'/rtkit/Templates/route');
+        $template = file_get_contents($rootPath.'/rtkit/Templates/route.php');
         $fileName = $rootPath.'/app/Http/Routes/';
         $currentDir = $rootPath.'/app/Http/Routes';
 
@@ -38,7 +38,7 @@ class Route {
 
         }
 
-        $template = str_replace('{className}', $className, $template);
+        $template = str_replace('_className_', $className, $template);
 
         $fileIO = new FileIO($fileName);
         $fileIO->rewrite($template);

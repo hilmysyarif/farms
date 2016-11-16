@@ -28,10 +28,8 @@ class UsersController extends ConsoleController
 
     public function index($currentPage = 1) {
         $list = User::fetchBlock();
-        $usersCount = User::count();
-
-
-        $pages = FrontController::pages('/users', $usersCount, $currentPage);
+        $pagesCount = ceil(User::count() / 10);
+        $pages = FrontController::pages('/users', $pagesCount, $currentPage);
 
         return display('console/users_list',
             [

@@ -3,10 +3,10 @@ namespace App\Http\Routes;
 
 use Illuminate\Contracts\Routing\Registrar;
 
-class CategoryRoute
-{
-    public function map(Registrar $router)
-    {
+class CategoryRoute {
+
+    public function map(Registrar $router) {
+        
         $router->get('/categories', 'Console\Categories\CategoriesController@index');
         $router->get('/categories/subcateslist/{pid}', 'Console\Categories\CategoriesController@subCatesList');
 

@@ -3,10 +3,10 @@ namespace App\Http\Routes;
 
 use Illuminate\Contracts\Routing\Registrar;
 
-class OrderRoute
-{
-    public function map(Registrar $router)
-    {
+class OrderRoute {
+
+    public function map(Registrar $router) {
+
         $router->group(['middleware' => 'auth'], function ($router) {
             $router->get('/orders', 'Console\Orders\OrdersController@index');
             $router->get('/checkout', 'Front\OrderController@checkout');

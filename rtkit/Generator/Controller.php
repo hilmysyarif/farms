@@ -16,7 +16,7 @@ class Controller {
 
         $rootPath = getcwd();
         $slashPosition = strpos($controllerName, '/');
-        $template = file_get_contents($rootPath.'/rtkit/Templates/controller');
+        $template = file_get_contents($rootPath.'/rtkit/Templates/controller.php');
         $fileName = $rootPath.'/app/Http/Controllers/';
         $currentDir = $rootPath.'/app/Http/Controllers';
 
@@ -43,9 +43,9 @@ class Controller {
 //        echo $namePath."\n";
 //        echo $fileName."\n";
         
-        $template = str_replace('{namePath}', $namePath, $template);
-        $template = str_replace('{className}', $className, $template);
-        $template = str_replace('{parentClassName}', $parentClassName, $template);
+        $template = str_replace('_namePath_', $namePath, $template);
+        $template = str_replace('_className_', $className, $template);
+        $template = str_replace('_parentClassName_', $parentClassName, $template);
 
         $fileIO = new FileIO($fileName);
         $fileIO->rewrite($template);

@@ -13,7 +13,7 @@
         </tr>
         </thead>
         <tbody>
-            <template v-if="list.length > 0">
+        <template v-if="list.length > 0">
             <tr v-for="lst in list">
                 <td>@{{ lst.id }}</td>
                 <td>@{{ lst.name }}</td>
@@ -22,12 +22,12 @@
                     <a class="btn btn-danger" href="/role/delete/@{{ lst.id }}"><i class="fa fa-remove">&nbsp;</i>@lang('common.delete')</a>
                 </td>
             </tr>
-            </template>
-            <template v-else>
+        </template>
+        <template v-else>
             <tr>
                 <td colspan="3">{{ trans('common.no_data') }}</td>
             </tr>
-            </template>
+        </template>
         </tbody>
     </table>
 

@@ -135,7 +135,6 @@ class FrontController extends Controller {
      * @return array
      */
     public static function pages($urlPrefix, $pagesCount, $currentPage = 1, $pageSize = 5) {
-
         if ($pagesCount <= 1)
             return [];
 
@@ -150,6 +149,7 @@ class FrontController extends Controller {
                 break;
             }
         }
+        dump($group);
 
         $callback = function (&$item, $key, $mixedData) {
             $item = [
@@ -167,14 +167,14 @@ class FrontController extends Controller {
             array_unshift($group, [
                 'url' => url($urlPrefix.'/'.$currentPage - 1),
                 'liClass' => '',
-                'aclass' => 'fa fa-chevron-left',
+                'aClass' => 'fa fa-chevron-left',
                 'text' => ''
             ]);
         if ($pagesCount > $currentPage)
             $group[] = [
                 'url' => url($urlPrefix.'/'.$currentPage + 1),
                 'liClass' => '',
-                'aclass' => 'fa fa-chevron-right',
+                'aClass' => 'fa fa-chevron-right',
                 'text' => ''
             ];
         return $group;
