@@ -7,6 +7,8 @@ namespace App\Http\Controllers\Console\Settings;
  */
 
 use App\Http\Controllers\Console\ConsoleController;
+use App\Http\Controllers\Front\FrontController;
+use App\Models\Permission;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 
@@ -26,22 +28,26 @@ class PermissionController extends ConsoleController {
         ];
     }
 
-    public function index() {
+    public function index($page = 1) {
+
+        $list = Permission::fetchBlock();
+        $permissionsCount = Permission::count();
+        $pages = FrontController::pages('/permissions', $permissionsCount, $page);
 
         return view('console.permissions_list', [
             'tabs' => $this->tabs,
-            'list' => [],
+            'list' => $list,
             'active' => 0,
-            'pages' => []
+            'pages' => $pages
         ]);
     }
 
     public function add(Request $request) {
-
         if ($request->isMethod('post')) {
-            return redirect();
+            $permission = new Permission();
+            $permission->store($request);
+            return redirect('/permissions');
         }
-
 
         return view('console.permissions_add', [
             'tabs' => $this->tabs,
@@ -51,12 +57,25 @@ class PermissionController extends ConsoleController {
 
     public function edit(Request $request, $id) {
         if ($request->isMethod('post')) {
-            return redirect();
+            $data = [
+                'name' => $request->name,
+                'display_name' => $request->display_name,
+                'description' => $request->description
+            ];
+            Permission::updateOne($id, $data);
+            return redirect('/permissions');
         }
-        return view();
+
+        $row = Permission::find($id);
+        return view('console.permissions_edit', [
+            'row' => $row,
+            'tabs' => $this->tabs,
+            'active' => 0,
+        ]);
     }
 
     public function remove($id) {
-        return redirect(url());
+        Permission::destroy($id);
+        return redirect(url('/permissions'));
     }
 }

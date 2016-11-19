@@ -21,13 +21,13 @@
                 <td>@{{ lst.description }}</td>
                 <td>
                     <a class="btn btn-primary" href="/permission/edit/@{{ lst.id }}"><i class="fa fa-edit">&nbsp;</i>@lang('common.edit')</a>
-                    <a class="btn btn-danger" href="/permisssion/delete/@{{ lst.id }}"><i class="fa fa-remove">&nbsp;</i>@lang('common.delete')</a>
+                    <a class="btn btn-danger" href="/permission/delete/@{{ lst.id }}"><i class="fa fa-remove">&nbsp;</i>@lang('common.delete')</a>
                 </td>
             </tr>
         </template>
         <template v-else>
             <tr>
-                <td colspan="3">{{ trans('common.no_data') }}</td>
+                <td colspan="4">{{ trans('common.no_data') }}</td>
             </tr>
         </template>
         </tbody>

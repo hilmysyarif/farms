@@ -140,16 +140,23 @@ class FrontController extends Controller {
 
         // group by size.
         $tmp = array_chunk(range(1, $pagesCount), $pageSize);
-
         // get the group which current page belongs.
         $group = [];
-        foreach ($tmp as $v) {
+        foreach ($tmp as $k => $v) {
             if (in_array($currentPage, $v)) {
-                $group = $v;
+                if ($k != 0 && $k == count($tmp) - 1) {
+                    $group = $v;
+                } else {
+                    if (count($v) == 5)
+                        $group = $v;
+                }
                 break;
             }
         }
-        dump($group);
+
+        // If there is no pages, do not attach arrows below.
+        if (empty($group))
+            return $group;
 
         $callback = function (&$item, $key, $mixedData) {
             $item = [

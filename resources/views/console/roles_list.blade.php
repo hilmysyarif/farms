@@ -27,7 +27,7 @@
             </template>
             <template v-else>
             <tr>
-                <td colspan="3">{{ trans('common.no_data') }}</td>
+                <td colspan="4">{{ trans('common.no_data') }}</td>
             </tr>
             </template>
         </tbody>
