@@ -34,4 +34,9 @@ class User extends Authenticatable
             ->take($size)
             ->get();
     }
+
+
+    public function roles() {
+        return $this->belongsToMany('App\Models\Role');
+    }
 }

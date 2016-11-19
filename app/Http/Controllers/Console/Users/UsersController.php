@@ -4,11 +4,9 @@ namespace App\Http\Controllers\Console\Users;
 
 use App\Http\Controllers\Console\ConsoleController;
 use App\Http\Controllers\Front\FrontController;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
 
 class UsersController extends ConsoleController
 {
@@ -42,5 +40,24 @@ class UsersController extends ConsoleController
 
     public function adminList() {
         return display('console/users_list', ['tabs' => $this->tabs, 'active' => 1]);
+    }
+
+    public function edit(Request $request, $id) {
+        $row = User::find($id);
+        // all roes.
+        $roles = Role::get();
+        $newRoles = [];
+        foreach ($roles as $v) {
+            $newRoles[] = [
+                'id' => $v->id,
+                'name' => $v->display_name
+            ];
+        }
+        return view('console/users_edit',[
+            'tabs' => $this->tabs,
+            'active' => 0,
+            'selects' => $newRoles,
+            'row' => $row
+        ]);
     }
 }
