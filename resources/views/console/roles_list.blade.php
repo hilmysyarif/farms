@@ -8,15 +8,17 @@
         <thead>
         <tr>
             <th>#</th>
-            <th>@lang('common.name')</th>
-            <th>@lang('common.operation')</th>
+            <th>{{ trans('roles.display_name') }}</th>
+            <th>{{ trans('roles.description') }}</th>
+            <th>{{ trans('common.operation') }}</th>
         </tr>
         </thead>
         <tbody>
             <template v-if="list.length > 0">
             <tr v-for="lst in list">
                 <td>@{{ lst.id }}</td>
-                <td>@{{ lst.name }}</td>
+                <td>@{{ lst.display_name }}</td>
+                <td>@{{ lst.description }}</td>
                 <td>
                     <a class="btn btn-primary" href="/role/edit/@{{ lst.id }}"><i class="fa fa-edit">&nbsp;</i>@lang('common.edit')</a>
                     <a class="btn btn-danger" href="/role/delete/@{{ lst.id }}"><i class="fa fa-remove">&nbsp;</i>@lang('common.delete')</a>

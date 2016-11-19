@@ -28,8 +28,6 @@ class PermissionController extends ConsoleController {
 
     public function index() {
 
-
-
         return view('console.permissions_list', [
             'tabs' => $this->tabs,
             'list' => [],
@@ -43,7 +41,12 @@ class PermissionController extends ConsoleController {
         if ($request->isMethod('post')) {
             return redirect();
         }
-        return view();
+
+
+        return view('console.permissions_add', [
+            'tabs' => $this->tabs,
+            'active' => 0,
+        ]);
     }
 
     public function edit(Request $request, $id) {
