@@ -39,6 +39,20 @@
                 @endif
             </div>
         </div>
+        <div class="form-group">
+            <label for="description" class="col-md-2 control-label">{{ trans('roles.assign_permissions') }}</label>
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @foreach ($permissions as $permission)
+
+                        <label>
+                            {{ $permission->checked }}
+                            <input type="checkbox" name="permissions[]" value="{{ $permission->id }}" @if ($permission->checked) checked @endif>{{ $permission->display_name }}
+                        </label>
+                    @endforeach
+                </div>
+            </div>
+        </div>
         @include('console.shared.form-button')
     </form>
 @endsection

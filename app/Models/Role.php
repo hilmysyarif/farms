@@ -23,4 +23,12 @@ class Role extends EntrustRole
     public static function updateOne($id, $data) {
         return self::where('id', $id)->update($data);
     }
+    
+    public function permissions() {
+        return $this->belongsToMany('App\Models\Permission');
+    }
+
+    public function permissionRole() {
+        return $this->hasMany('App\Models\PermissionRole');
+    }
 }

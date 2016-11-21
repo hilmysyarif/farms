@@ -8,6 +8,7 @@ namespace App\Http\Controllers\Console\Settings;
 
 use App\Http\Controllers\Console\ConsoleController;
 use App\Http\Controllers\Front\FrontController;
+use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
 
@@ -45,12 +46,22 @@ class RolesController extends ConsoleController
         if ($request->isMethod('post')) {
             $role = new Role();
             $role->store($request);
+
+            $permissions = $request->permissions;
+            foreach ($permissions as $k => $v) {
+                $permissions[$k] = [
+                    'id' => $v
+                ];
+            }
+            $role->attachPermissions($permissions);
             return redirect('/roles');
         }
 
+        $permissions = Permission::get();
         return view('console.roles_add', [
             'tabs' => $this->tabs,
-            'active' => 1
+            'active' => 1,
+            'permissions' => $permissions
         ]);
     }
 
@@ -68,10 +79,27 @@ class RolesController extends ConsoleController
         
         $row = Role::find($id);
 
+        $assignedPermissions = $row->permissionRole();
+        foreach ($assignedPermissions as $assigned) {
+            dump($assigned->permission_id);
+        }
+        dump($assignedPermissions);
+        $permissions = Permission::get();
+        foreach ($permissions as $key => $permission) {
+            $permissions[$key]->checked = false;
+            foreach ($assignedPermissions as $assigned) {
+                if ($permission->id == $assigned->id) {
+                    $permissions[$key]->checked = true;
+                    break;
+                }
+            }
+        }
+        dump($permissions);
         return view('console.roles_edit', [
             'tabs' => $this->tabs,
             'active' => 1,
-            'row' => $row
+            'row' => $row,
+            'permissions' => $permissions
         ]);
     }
 

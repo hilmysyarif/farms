@@ -1,5 +1,5 @@
 
-<div id="selects">
+<div id="selects" v-cloak>
     <input type="hidden" name="@{{ name }}" value="@{{ value }}">
     <div class="dropdown">
         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
