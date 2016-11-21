@@ -47,7 +47,7 @@
 
                         <label>
                             {{ $permission->checked }}
-                            <input type="checkbox" name="permissions[]" value="{{ $permission->id }}" @if ($permission->checked) checked @endif>{{ $permission->display_name }}
+                            <input type="checkbox" name="permissions[]" value="{{ $permission->id }}" @if ($permission->checked) checked @endif> {{ $permission->display_name }}
                         </label>
                     @endforeach
                 </div>

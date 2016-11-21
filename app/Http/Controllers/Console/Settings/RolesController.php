@@ -9,8 +9,10 @@ namespace App\Http\Controllers\Console\Settings;
 use App\Http\Controllers\Console\ConsoleController;
 use App\Http\Controllers\Front\FrontController;
 use App\Models\Permission;
+use App\Models\PermissionRole;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use DB;
 
 class RolesController extends ConsoleController
 {
@@ -73,28 +75,40 @@ class RolesController extends ConsoleController
                 'display_name' => $request->display_name,
                 'description' => $request->description
             ];
-            Role::updateOne($id, $data);
+
+            DB::beginTransaction();
+            $affectedOne = Role::updateOne($id, $data);
+
+
+            $role = Role::find($id);
+            $affected = PermissionRole::where('role_id', $id)->delete();
+            $permissions = $request->permissions;
+            foreach ($permissions as $k => $v) {
+                $permissions[$k] = [
+                    'id' => $v
+                ];
+            }
+            $role->attachPermissions($permissions);
+
+            if ($affectedOne !== false && $affected)
+                DB::commit();
+            else
+                DB::rollBack();
+
             return redirect('/roles');
         }
         
         $row = Role::find($id);
-
-        $assignedPermissions = $row->permissionRole();
-        foreach ($assignedPermissions as $assigned) {
-            dump($assigned->permission_id);
-        }
-        dump($assignedPermissions);
         $permissions = Permission::get();
         foreach ($permissions as $key => $permission) {
             $permissions[$key]->checked = false;
-            foreach ($assignedPermissions as $assigned) {
+            foreach ($row->permissions as $assigned) {
                 if ($permission->id == $assigned->id) {
                     $permissions[$key]->checked = true;
                     break;
                 }
             }
         }
-        dump($permissions);
         return view('console.roles_edit', [
             'tabs' => $this->tabs,
             'active' => 1,
