@@ -21,7 +21,8 @@
                 <td>@{{ lst.description }}</td>
                 <td>
                     <a class="btn btn-primary" href="/role/edit/@{{ lst.id }}"><i class="fa fa-edit">&nbsp;</i>@lang('common.edit')</a>
-                    <a class="btn btn-danger" href="/role/delete/@{{ lst.id }}"><i class="fa fa-remove">&nbsp;</i>@lang('common.delete')</a>
+
+                    <a v-if="lst.id != 1" class="btn btn-danger" href="/role/delete/@{{ lst.id }}"><i class="fa fa-remove">&nbsp;</i>@lang('common.delete')</a>
                 </td>
             </tr>
             </template>

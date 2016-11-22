@@ -46,7 +46,6 @@
                     @foreach ($permissions as $permission)
 
                         <label>
-                            {{ $permission->checked }}
                             <input type="checkbox" name="permissions[]" value="{{ $permission->id }}" @if ($permission->checked) checked @endif> {{ $permission->display_name }}
                         </label>
                     @endforeach

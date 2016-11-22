@@ -85,8 +85,9 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/home') }}"><i class="fa fa-btn fa-home"></i>{{ trans('user.home') }}</a></li>
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>{{ trans('common.logout') }}</a></li>
+                                <li><a href="{{ url('/home') }}"><i class="fa fa-btn fa-home"></i>&nbsp;{{ trans('user.home') }}</a></li>
+                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>&nbsp;{{ trans('common.logout') }}</a></li>
+                                <li><a href="{{ url('/cart') }}"><i class="fa fa-btn fa-shopping-cart"></i>&nbsp;{{ trans('common.cart') }}</a></li>
                             </ul>
                         </li>
                     @endif

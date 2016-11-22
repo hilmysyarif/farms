@@ -80,21 +80,25 @@ class RolesController extends ConsoleController
             $affectedOne = Role::updateOne($id, $data);
 
 
-            $role = Role::find($id);
+            $role = new Role();
+            $role->id = $id;
             $affected = PermissionRole::where('role_id', $id)->delete();
             $permissions = $request->permissions;
-            foreach ($permissions as $k => $v) {
-                $permissions[$k] = [
-                    'id' => $v
-                ];
-            }
-            $role->attachPermissions($permissions);
 
-            if ($affectedOne !== false && $affected)
+            if (count($permissions) > 0) {
+                foreach ($permissions as $k => $v) {
+                    $permissions[$k] = [
+                        'id' => $v
+                    ];
+                }
+                $role->attachPermissions($permissions);
+            }
+
+            if ($affectedOne !== false && $affected !== false)
                 DB::commit();
             else
                 DB::rollBack();
-
+            
             return redirect('/roles');
         }
         
