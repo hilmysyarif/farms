@@ -11,6 +11,7 @@ class IndexRoute {
         $router->auth();
         $router->get('/home', 'HomeController@index');
         $router->post('/home/testvalidation', 'HomeController@testValidation');
-        $router->get('/console', 'Console\HomeController@index');
+//        $router->get('/console', ['middleware' => 'permission:enter_console', 'uses' => 'Console\HomeController@index']);
+        $router->get('/console', ['middleware' => 'guardian.console', 'uses' => 'Console\HomeController@index']);
     }
 }

@@ -46,7 +46,7 @@ class UsersController extends ConsoleController
     public function edit(Request $request, $id) {
         $row = User::find($id);
         // all roes.
-        $roles = Role::get();
+        $roles = Role::where('id', '<>', 1)->get();
         $newRoles = [];
         foreach ($roles as $v) {
             $newRoles[] = [

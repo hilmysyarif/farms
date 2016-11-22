@@ -14,50 +14,37 @@
         </tr>
         </thead>
         <tbody>
-            <template v-if="list.length > 0">
-            <tr v-for="lst in list">
-                <td>@{{ lst.id }}</td>
-                <td>@{{ lst.display_name }}</td>
-                <td>@{{ lst.description }}</td>
-                <td>
-                    <a class="btn btn-primary" href="/role/edit/@{{ lst.id }}"><i class="fa fa-edit">&nbsp;</i>@lang('common.edit')</a>
+        @if (count($list) > 0)
+            @foreach ($list as $lst)
+                <tr>
+                    <td>{{ $lst->id }}</td>
+                    <td>{{ $lst->display_name }}</td>
+                    <td>{{ $lst->description }}</td>
+                    <td>
+                        @if ($lst->id == 1)
+                            @role('admin')
+                            <a class="btn btn-primary" href="/role/edit/@{{ lst.id }}"><i class="fa fa-edit">&nbsp;</i>@lang('common.edit')</a>
+                            @endrole
+                        @else
+                            <a class="btn btn-primary" href="/role/edit/@{{ lst.id }}"><i class="fa fa-edit">&nbsp;</i>@lang('common.edit')</a>
+                        @endif
 
-                    <a v-if="lst.id != 1" class="btn btn-danger" href="/role/delete/@{{ lst.id }}"><i class="fa fa-remove">&nbsp;</i>@lang('common.delete')</a>
-                </td>
-            </tr>
-            </template>
-            <template v-else>
+                        @if ($lst->id != 1)
+                            <a  class="btn btn-danger" href="/role/delete/@{{ lst.id }}"><i class="fa fa-remove">&nbsp;</i>@lang('common.delete')</a>
+                        @endif
+                    </td>
+                </tr>
+            @endforeach
+        @else
             <tr>
                 <td colspan="4">{{ trans('common.no_data') }}</td>
             </tr>
-            </template>
+        @endif
         </tbody>
     </table>
 
     <!-- PAGINATION
 ============================================================ -->
     @include('front.shared.pages')
-@endsection
-
-@section('js')
-    <script src="{{ URL::asset('js/vue.js') }}"></script>
-    <script src="{{ URL::asset('js/vue-resource.min.js') }}"></script>
-    <script>
-
-        var attributes = new Vue({
-            el: '#list',
-            data() {
-                return {
-                    list: [
-                    ]
-                }
-            },
-            ready() {
-                var list = '{!! json_encode($list) !!}';
-                var dataJson = JSON && JSON.parse(list);
-                this.$set('list', dataJson);
-            }
-        });
-    </script>
 @endsection
 
