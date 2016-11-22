@@ -30,7 +30,7 @@ class PermissionController extends ConsoleController {
 
     public function index($page = 1) {
 
-        $list = Permission::fetchBlock();
+        $list = Permission::fetchBlock($page);
         $permissionsCount = Permission::count();
         $pages = FrontController::pages('/permissions', $permissionsCount, $page);
 

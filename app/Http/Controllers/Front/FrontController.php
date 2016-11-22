@@ -129,34 +129,28 @@ class FrontController extends Controller {
      * Get pages array of specific data.
      *
      * @param $urlPrefix
-     * @param $pagesCount
+     * @param $recordsCount
      * @param int $currentPage
      * @param int $pageSize
+     * @param int $pagesCount
      * @return array
      */
-    public static function pages($urlPrefix, $pagesCount, $currentPage = 1, $pageSize = 5) {
-        if ($pagesCount <= 1)
+    public static function pages($urlPrefix, $recordsCount, $currentPage = 1, $pageSize = 10, $pagesCount = 5) {
+        if ($recordsCount <= $pageSize)
             return [];
 
-        // group by size.
-        $tmp = array_chunk(range(1, $pagesCount), $pageSize);
-        // get the group which current page belongs.
-        $group = [];
+        // group by pagesCount.
+
+        $totalPagesCount = intval(ceil($recordsCount / $pageSize));
+
+        $tmp = array_chunk(range(1, $totalPagesCount), $pagesCount);
         foreach ($tmp as $k => $v) {
             if (in_array($currentPage, $v)) {
-                if ($k != 0 && $k == count($tmp) - 1) {
-                    $group = $v;
-                } else {
-                    if (count($v) == 5)
-                        $group = $v;
-                }
+                $group = $v;
                 break;
             }
         }
 
-        // If there is no pages, do not attach arrows below.
-        if (empty($group))
-            return $group;
 
         $callback = function (&$item, $key, $mixedData) {
             $item = [
@@ -172,14 +166,16 @@ class FrontController extends Controller {
         // attach forward and backward.
         if ($currentPage > 1)
             array_unshift($group, [
-                'url' => url($urlPrefix.'/'.$currentPage - 1),
+                'url' => url($urlPrefix.'/'.($currentPage - 1)),
                 'liClass' => '',
                 'aClass' => 'fa fa-chevron-left',
                 'text' => ''
             ]);
-        if ($pagesCount > $currentPage)
+
+
+        if ($group[count($group) - 1]['text'] > $currentPage)
             $group[] = [
-                'url' => url($urlPrefix.'/'.$currentPage + 1),
+                'url' => url($urlPrefix.'/'.($currentPage + 1)),
                 'liClass' => '',
                 'aClass' => 'fa fa-chevron-right',
                 'text' => ''
