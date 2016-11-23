@@ -67,13 +67,13 @@ class Goods extends Model
     }
 
     /**
-     * @param $page
+     * @param int $page
+     * @param int $size
      * @return mixed
      */
-    public function fetchBlock($page = 0) {
-        return $this->select('id', 'name', 'cover_url', 'sort', 'article_id', 'created_at', 'updated_at')
-            ->skip($page * 10)->take(10)->get()->toArray();;
-//        return Goods::skip($page * 10)->take(10)->get()->toArray();
+    public static function fetchBlock($page = 1, $size = 10) {
+        return self::select('id', 'name', 'cover_url', 'sort')
+            ->skip(($page - 1) * $size)->take($size)->get();
     }
 
     public function galleriesList($goods_id) {

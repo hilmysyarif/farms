@@ -33,15 +33,16 @@ class GoodsController extends ConsoleController
         ];
     }
 
-    public function index(Goods $goods, $page = 1) {
+    public function index($page = 1) {
         $recordsTotal = Goods::count();
         $pages = FrontController::pages('/goods', $recordsTotal, $page);
 
-        $list = $goods->fetchBlock($page);
+        $list = Goods::fetchBlock($page);
+
         return display('console/goods_list', [
             'tabs' => $this->tabs,
             'active' => 0,
-            'list' => json_encode($list),
+            'list' => $list,
             'pages' => $pages
         ]);
     }

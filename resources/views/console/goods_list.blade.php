@@ -78,9 +78,9 @@
                 }
             },
             ready() {
-                var list = '{!! $list !!}';
+                var list = '{!! json_encode($list) !!}';
                 var dataJson = JSON && JSON.parse(list);
-                this.$set('list', dataJson);
+                this.list = dataJson;
             }
         });
     </script>
