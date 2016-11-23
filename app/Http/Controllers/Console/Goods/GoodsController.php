@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Console\Goods;
 
 use App\Http\Controllers\Console\ConsoleController;
+use App\Http\Controllers\Front\FrontController;
 use App\Models\Article;
 use App\Models\Atrcat;
 use App\Models\Attr;
@@ -32,12 +33,16 @@ class GoodsController extends ConsoleController
         ];
     }
 
-    public function index(Goods $goods) {
-        $list = $goods->fetchBlock();
+    public function index(Goods $goods, $page = 1) {
+        $recordsTotal = Goods::count();
+        $pages = FrontController::pages('/goods', $recordsTotal, $page);
+
+        $list = $goods->fetchBlock($page);
         return display('console/goods_list', [
             'tabs' => $this->tabs,
             'active' => 0,
-            'list' => json_encode($list)
+            'list' => json_encode($list),
+            'pages' => $pages
         ]);
     }
 

@@ -23,14 +23,14 @@
                     <td>
                         @if ($lst->id == 1)
                             @role('admin')
-                            <a class="btn btn-primary" href="/role/edit/@{{ lst.id }}"><i class="fa fa-edit">&nbsp;</i>@lang('common.edit')</a>
+                            <a class="btn btn-primary" href="/role/edit/{{ $lst->id }}"><i class="fa fa-edit">&nbsp;</i>@lang('common.edit')</a>
                             @endrole
                         @else
-                            <a class="btn btn-primary" href="/role/edit/@{{ lst.id }}"><i class="fa fa-edit">&nbsp;</i>@lang('common.edit')</a>
+                            <a class="btn btn-primary" href="/role/edit/{{ $lst->id }}"><i class="fa fa-edit">&nbsp;</i>@lang('common.edit')</a>
                         @endif
 
                         @if ($lst->id != 1)
-                            <a  class="btn btn-danger" href="/role/delete/@{{ lst.id }}"><i class="fa fa-remove">&nbsp;</i>@lang('common.delete')</a>
+                            <a  class="btn btn-danger" href="/role/delete/{{ $lst->id }}"><i class="fa fa-remove">&nbsp;</i>@lang('common.delete')</a>
                         @endif
                     </td>
                 </tr>

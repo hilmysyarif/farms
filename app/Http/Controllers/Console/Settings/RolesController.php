@@ -104,6 +104,7 @@ class RolesController extends ConsoleController
         
         $row = Role::find($id);
         $permissions = Permission::get();
+
         foreach ($permissions as $key => $permission) {
             $permissions[$key]->checked = false;
             foreach ($row->permissions as $assigned) {

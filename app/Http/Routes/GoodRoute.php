@@ -6,7 +6,8 @@ use Illuminate\Contracts\Routing\Registrar;
 class GoodRoute {
 
     public function map(Registrar $router) {
-        $router->get('/goods', 'Console\Goods\GoodsController@index');
+        $router->get('/goods/{id?}', ['middleware' => 'permission:view_goods', 'uses' => 'Console\Goods\GoodsController@index'])
+            ->where('id', '\d+');
         $router->get('/goods/add', 'Console\Goods\GoodsController@add');
         $router->post('/goods/add', 'Console\Goods\GoodsController@postAdd');
         $router->get('/goods/edit/{good_id}', 'Console\Goods\GoodsController@edit');

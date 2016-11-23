@@ -61,7 +61,7 @@
 
     <!-- PAGINATION
 ============================================================ -->
-    @include('console.shared.form-pagination')
+    @include('front.shared.pages')
 @endsection
 
 @section('js')
