@@ -12,61 +12,25 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>1</td>
-            <td>Red jk</td>
-            <td>$54.20</td>
-            <td>
-                <a class="btn btn-default"><i class="fa fa-info-circle">&nbsp;</i>详情</a>
-                <a class="btn btn-primary"><i class="fa fa-edit">&nbsp;</i>Edit</a>
-                <a class="btn btn-danger"><i class="fa fa-remove">&nbsp;</i>Remove</a>
-            </td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Yellow jk</td>
-            <td>$54.20</td>
-            <td>
-                <a class="btn btn-default"><i class="fa fa-info-circle">&nbsp;</i>详情</a>
-                <a class="btn btn-primary"><i class="fa fa-edit">&nbsp;</i>Edit</a>
-                <a class="btn btn-danger"><i class="fa fa-remove">&nbsp;</i>Remove</a>
-            </td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>Round walnut</td>
-            <td>$54.20</td>
-            <td>
-                <a class="btn btn-default"><i class="fa fa-info-circle">&nbsp;</i>详情</a>
-                <a class="btn btn-primary"><i class="fa fa-edit">&nbsp;</i>Edit</a>
-                <a class="btn btn-danger"><i class="fa fa-remove">&nbsp;</i>Remove</a>
-            </td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>Clear pepper</td>
-            <td>$54.20</td>
-            <td>
-                <a class="btn btn-default"><i class="fa fa-info-circle">&nbsp;</i>详情</a>
-                <a class="btn btn-primary"><i class="fa fa-edit">&nbsp;</i>Edit</a>
-                <a class="btn btn-danger"><i class="fa fa-remove">&nbsp;</i>Remove</a>
-            </td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td>Round persimmon</td>
-            <td>$54.20</td>
-            <td>
-                <a class="btn btn-default"><i class="fa fa-info-circle">&nbsp;</i>详情</a>
-                <a class="btn btn-primary"><i class="fa fa-edit">&nbsp;</i>Edit</a>
-                <a class="btn btn-danger"><i class="fa fa-remove">&nbsp;</i>Remove</a>
-            </td>
-        </tr>
+
+        @foreach ($list as $lst)
+            <tr>
+                <td>{{ $lst->id }}</td>
+                <td>{{ $lst->no }}</td>
+                <td>{{ $lst->status }}</td>
+                <td>
+                    <a href="{{ url('/order/view/'.$lst->id) }}" class="btn btn-default"><i class="fa fa-info-circle">&nbsp;</i>{{ trans('common.detail') }}</a>
+                    <a href="{{ url('/order/edit/'.$lst->id) }}" class="btn btn-primary"><i class="fa fa-edit">&nbsp;</i>{{ trans('common.edit') }}</a>
+                    <a href="{{ url('/order/delete'.$lst->id) }}" class="btn btn-danger"><i class="fa fa-remove">&nbsp;</i>{{ trans('common.delete') }}</a>
+                </td>
+            </tr>
+        @endforeach
+
         </tbody>
     </table>
 
     <!-- PAGINATION
 ============================================================ -->
-    @include('console.shared.form-pagination')
+    @include('front.shared.pages')
 
 @endsection

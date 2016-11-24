@@ -14,14 +14,6 @@ use Illuminate\Support\Facades\DB;
 
 class OrderController extends FrontController {
 
-    static $ORDER_SUBMITTED = 0;
-    static $ORDER_PAIED = 1;
-    static $ORDER_CANCELLED = -1;
-    static $ORDER_SHIPPING = 2;
-    static $ORDER_FINISHED = 3;
-    static $ORDER_REPAIRED = 4;
-
-
     public function __construct() {
         parent::__construct();
 
@@ -44,7 +36,7 @@ class OrderController extends FrontController {
     public function checkout(Request $request, Cart $cart, AttrGoods $attrGoods) {
         $pcd = include('js/pcd.php');
         $address = Address::fetchDefault($request->user()->id);
-        $fullAddresses = $this->fullAddress($address->zone_id, $pcd);
+        $fullAddresses = self::fullAddress($address->zone_id, $pcd);
         $fullAddresses = array_reverse($fullAddresses);
         $address->pcd = implode(' ', $fullAddresses);
 
@@ -65,10 +57,10 @@ class OrderController extends FrontController {
     }
 
 
-    private function fullAddress($id, $pcd, $res = []) {
+    public static function fullAddress($id, $pcd, $res = []) {
         $res[] = $pcd[$id]['name'];
         if ($pcd[$id]['pid'] != 0) {
-            return $this->fullAddress($pcd[$id]['pid'], $pcd, $res);
+            return self::fullAddress($pcd[$id]['pid'], $pcd, $res);
         }
         return $res;
     }
@@ -102,27 +94,39 @@ class OrderController extends FrontController {
 
         // write into orders.
         $carItems = $items->toArray();
-        $data = [];
         $time = date('Y-m-d');
+
+        // data for order.
+        $data = [
+            'no' => $no,
+            'user_id' => $request->user()->id,
+//            'atrgids' => $v['atrgids'],
+//            'number' => $v['number'],
+            'address_id' => $request->address_id,
+            'express_id' => 1, // This is the default express.
+            'amount' => $amount,
+            'created_at' => $time,
+            'updated_at' => $time
+        ];
+
+        DB::beginTransaction();
+        $order_id = DB::table('orders')->insertGetId($data);
+        $cartAffected = Cart::clear($request->user()->id);
+
+        $dataOrderItems = [];
         foreach ($carItems as $v) {
-            $data[] = [
-                'no' => $no,
-                'user_id' => $request->user()->id,
+            $dataOrderItems[] = [
+                'order_id' => $order_id,
+                'order_no' => $no,
                 'atrgids' => $v['atrgids'],
                 'number' => $v['number'],
-                'address_id' => $request->address_id,
-                'express_id' => 1, // This is the default express.
-                'amount' => $amount,
                 'created_at' => $time,
                 'updated_at' => $time
             ];
         }
+        $orderItemsAffcted = DB::table('orders_items')->insert($dataOrderItems);
 
-        DB::beginTransaction();
-        $orderAffected = DB::table('orders')->insert($data);
-        $cartAffected = Cart::clear($request->user()->id);
-
-        if ($orderAffected && $cartAffected)
+        if ($order_id && $cartAffected && $orderItemsAffcted)
             DB::commit();
         else
             DB::rollBack();

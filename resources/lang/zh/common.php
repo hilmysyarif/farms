@@ -27,5 +27,6 @@ return [
     'cart' => '购物车',
     'confirm_order' => '确认订单',
     'cashier' => '收银台',
-    'no_data' => '暂无数据'
+    'no_data' => '暂无数据',
+    'detail' => '详情'
 ];

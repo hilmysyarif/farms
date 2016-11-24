@@ -16,8 +16,8 @@ class CreateTableOrder extends Migration
             $table->increments('id');
             $table->string('no', 64);
             $table->integer('user_id')->unsigned();
-            $table->string('atrgids', 64);
-            $table->tinyInteger('number');
+//            $table->string('atrgids', 64);
+//            $table->tinyInteger('number');
             $table->integer('address_id')->unsigned();
             $table->integer('express_id')->unsigned();
             $table->decimal('amount', 10, 2)->unsigned();
