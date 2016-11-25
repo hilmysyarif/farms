@@ -13,7 +13,10 @@ return [
     'shipping' => '运送中',
     'finished' => '已完成',
     'exchanging' => '换货中',
-    'returnning' => '退货中',
+    'returning' => '退货中',
     'deleted' => '已删除',
-    'view_order' => '查看订单'
+    'view_order' => '查看订单',
+    'order_status' => '订单状态',
+    'edit_order' => '编辑订单',
+    'update_status' => '更改状态'
 ];

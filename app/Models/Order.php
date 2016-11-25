@@ -41,7 +41,18 @@ class Order extends Model {
     }
 
     public static function fetchBlock($page = 1, $size = 10) {
-        return self::skip(($page - 1 * $size))->take($size)->get();
+        return self::where('status', '<>', self::$DELETED)->skip(($page - 1 * $size))->take($size)->get();
     }
 
+    public function ordersItems() {
+        return $this->hasMany('App\Models\OrdersItems');
+    }
+
+    public static function updateOne($id, $data) {
+        return self::where('id', $id)->update($data);
+    }
+
+    public static function deleteOne($id) {
+        return self::updateOne($id, ['status' => self::$DELETED]);
+    }
 }

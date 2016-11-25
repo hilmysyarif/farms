@@ -21,7 +21,7 @@
                 <td>
                     <a href="{{ url('/order/view/'.$lst->id) }}" class="btn btn-default"><i class="fa fa-info-circle">&nbsp;</i>{{ trans('common.detail') }}</a>
                     <a href="{{ url('/order/edit/'.$lst->id) }}" class="btn btn-primary"><i class="fa fa-edit">&nbsp;</i>{{ trans('common.edit') }}</a>
-                    <a href="{{ url('/order/delete'.$lst->id) }}" class="btn btn-danger"><i class="fa fa-remove">&nbsp;</i>{{ trans('common.delete') }}</a>
+                    <a href="{{ url('/order/delete/'.$lst->id) }}" class="btn btn-danger"><i class="fa fa-remove">&nbsp;</i>{{ trans('common.delete') }}</a>
                 </td>
             </tr>
         @endforeach

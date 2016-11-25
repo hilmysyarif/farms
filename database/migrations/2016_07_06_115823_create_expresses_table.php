@@ -15,6 +15,7 @@ class CreateExpressesTable extends Migration
         Schema::create('expresses', function(Blueprint $table) {
             $table->increments('id');
             $table->string('name', 64);
+            $table->string('domain', 64);
             $table->text('config');
             $table->timestamps();
         });

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Console\Orders;
 
 use App\Http\Controllers\Console\ConsoleController;
+use App\Http\Controllers\Front\CartController;
 use App\Http\Controllers\Front\FrontController;
 use App\Http\Controllers\Front\OrderController;
 use App\Models\Address;
@@ -26,7 +27,7 @@ class OrdersController extends ConsoleController
     }
 
     public function index($page = 1) {
-        $recordsCount = Order::count();
+        $recordsCount = Order::where('status', '<>', Order::$DELETED)->count();
         $pages = FrontController::pages('/orders', $recordsCount, $page);
 
         $list = Order::fetchBlock($page);
@@ -43,9 +44,15 @@ class OrdersController extends ConsoleController
     }
 
     public function view($id) {
-        $this->tabs[] = [
-            'url' => url('/order/view/'.$id),
-            'name' => trans('order.view_order')
+        $this->tabs = [
+            [
+                'url' => url('/order/view/'.$id),
+                'name' => trans('order.view_order')
+            ],
+            [
+                'url' => url('/order/edit/'.$id),
+                'name' => trans('order.edit_order')
+            ]
         ];
 
         $row = Order::find($id);
@@ -61,43 +68,56 @@ class OrdersController extends ConsoleController
         $express = Express::default();
 
         // prepare goodsInfo.
-        // TODO: need update logic of checkout order.
-
-
-//        $test =  function (Request $request, Cart $cart, AttrGoods $attrGoods) {
-//            $pcd = include('js/pcd.php');
-//            $address = Address::fetchDefault($request->user()->id);
-//            $fullAddresses = $this->fullAddress($address->zone_id, $pcd);
-//            $fullAddresses = array_reverse($fullAddresses);
-//            $address->pcd = implode(' ', $fullAddresses);
-//
-//            // prepare express info.
-//            $express = Express::default();
-//
-//            // prepare goods info.
-//            $items = $cart->items($request);
-//            $goods = CartController::extractGoods($items);
-//
-//            return view('front/order', [
-//                'navHtml' => $this->navHtml,
-//                'address' => $address,
-//                'goods' => $goods,
-//                'express' => $express,
-//                'breadcrumbs' => $this->breadcrumbs
-//            ]);
-//        };
-
+        $items = $row->ordersItems;
+        $goods = CartController::extractGoods($items, true);
 
         return view('console/order_view', [
             'tabs' => $this->tabs,
-            'active' => 1,
+            'active' => 0,
+            'address' => $address,
+            'goods' => $goods,
+            'express' => $express,
+            'order_status' => Order::status()[$row->status]
         ]);
     }
 
-    public function edit() {
+    public function edit(Request $request, $id) {
+
+        if ($request->isMethod('post')) {
+            $data['status'] = $request->status;
+            Order::updateOne($id, $data);
+            return redirect('/orders');
+        }
+
+
+        $this->tabs = [
+            [
+                'url' => url('/order/view/'.$id),
+                'name' => trans('order.view_order')
+            ],
+            [
+                'url' => url('/order/edit/'.$id),
+                'name' => trans('order.edit_order')
+            ]
+        ];
+        $statusList = Order::status();
+        $selects = [];
+        foreach ($statusList as $k => $v) {
+            $selects[] = [
+                'id' => $k,
+                'name' => $v
+            ];
+        }
         return view('console/order_edit',[
+            'selects' => $selects,
             'tabs' => $this->tabs,
-            'active' => 0
+            'active' => 1
         ]);
+    }
+
+
+    public function delete($id) {
+        Order::deleteOne($id);
+        return redirect('/orders');
     }
 }
